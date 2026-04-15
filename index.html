@@ -935,7 +935,7 @@ function renderExecutionTab(p,canEdit){
   </div>
   <div class="card" style="margin-bottom:16px">
   <div class="section-header"><h3>📅 2-Week Lookahead Plan</h3></div>
-  ${lookahead.map((w,i)=>'<div style="margin-bottom:10px"><label class="form-label">'+w.week+'</label><textarea class="form-control" rows="2" placeholder="Planned work for '+w.week+'" ${canEdit?\'\':'disabled\'} onchange="saveLookahead(\''+p.id+'\','+i+',this.value)">'+w.plan+'</textarea></div>').join('')}
+  ${lookahead.map((w,i)=>`<div style="margin-bottom:10px"><label class="form-label">${w.week}</label><textarea class="form-control" rows="2" placeholder="Planned work for ${w.week}" ${canEdit?'':"disabled"} onchange="saveLookahead('${p.id}',${i},this.value)">${w.plan}</textarea></div>`).join('')}
   </div>
   <div class="card">
   <div class="section-header"><h3>📝 Daily Progress Log</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addLog('${p.id}')">＋ Add Entry</button>`:''}</div>
