@@ -166,6 +166,8 @@ tr:hover td{background:var(--bg)}
 .fin-entry .fin-amount{font-size:14px;font-weight:700;color:var(--danger)}
 .fin-entry .fin-cat{font-size:11px;color:var(--text3)}
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 <div id="app">
@@ -1595,9 +1597,141 @@ function clearAllData(){
 // ========================================
 // INIT
 // ========================================
-DB.init();
-const session=Auth.current();
-if(session){Router.go('dashboard')}else{renderLogin()}
+
+// ========================================
+// FIREBASE REALTIME DATABASE INTEGRATION
+// ========================================
+let _fbApp = null, _fbDB = null, _fbReady = false;
+
+function getFbCfg(){try{return JSON.parse(localStorage.getItem('_fb_cfg')||'null')}catch{return null}}
+
+function initFB(cfg){
+  try{
+    if(_fbApp) try{_fbApp.delete()}catch(e){}
+    _fbApp = firebase.initializeApp(cfg,'pms');
+    _fbDB = _fbApp.database();
+    _fbReady = true;
+    localStorage.setItem('_fb_cfg',JSON.stringify(cfg));
+    return true;
+  }catch(e){console.error(e);return false}
+}
+
+function syncToFirebase(){
+  if(!_fbDB) return;
+  _fbDB.ref('pms').set({
+    projects: DB.get('projects',[]),
+    materials: DB.get('materials',[]),
+    ts: Date.now()
+  }).catch(console.error);
+}
+
+function listenFirebase(){
+  if(!_fbDB) return;
+  _fbDB.ref('pms').on('value', snap=>{
+    const d = snap.val();
+    if(!d) return;
+    if(d.projects) DB.set('projects',d.projects);
+    if(d.materials) DB.set('materials',d.materials);
+    if(typeof Router !== 'undefined' && Router.page && Router.page !== 'login') Router.render();
+  });
+}
+
+// Patch DB.set to auto-sync to Firebase
+const _origSet = DB.set.bind(DB);
+DB.set = function(key, val){
+  _origSet(key, val);
+  if(_fbReady && (key==='projects'||key==='materials')) syncToFirebase();
+};
+
+// Firebase setup UI
+function showFirebaseSetup(){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e3a5f)">
+    <div style="background:#1e293b;border-radius:16px;padding:40px;width:560px;max-width:95%;box-shadow:0 25px 50px rgba(0,0,0,.4)">
+      <div style="text-align:center;margin-bottom:28px">
+        <div style="font-size:48px">🔥</div>
+        <h1 style="color:#fff;font-size:22px;font-weight:800;margin-top:10px">Connect Firebase</h1>
+        <p style="color:#94a3b8;font-size:13px;margin-top:6px">Free shared database — all managers see live updates</p>
+      </div>
+      <div style="background:#0f172a;border-radius:10px;padding:16px;margin-bottom:20px;font-size:13px;color:#94a3b8">
+        <b style="color:#fff">Setup (5 min, free forever):</b><br><br>
+        1️⃣ Go to <a href="https://console.firebase.google.com" target="_blank" style="color:#f97316">console.firebase.google.com</a> → Create project<br><br>
+        2️⃣ Build → <b>Realtime Database</b> → Create Database → <b>Start in test mode</b><br><br>
+        3️⃣ Project Settings ⚙️ → General → <b>Add app → Web</b> → Copy config<br><br>
+        4️⃣ In Realtime Database → Rules → change both <code style="background:#1e293b;padding:2px 5px;border-radius:3px">false</code> to <code style="background:#1e293b;padding:2px 5px;border-radius:3px">true</code> → Publish
+      </div>
+      <div id="fb-err"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label style="display:block;font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:5px;text-transform:uppercase">API Key *</label><input style="width:100%;padding:9px 12px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#f1f5f9;font-size:13px;outline:none" id="fb-key" placeholder="AIzaSy..."></div>
+        <div><label style="display:block;font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:5px;text-transform:uppercase">Project ID *</label><input style="width:100%;padding:9px 12px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#f1f5f9;font-size:13px;outline:none" id="fb-pid" placeholder="my-project-abc"></div>
+      </div>
+      <div style="margin-bottom:16px"><label style="display:block;font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:5px;text-transform:uppercase">Database URL *</label><input style="width:100%;padding:9px 12px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#f1f5f9;font-size:13px;outline:none" id="fb-url" placeholder="https://my-project-default-rtdb.firebaseio.com"></div>
+      <button onclick="connectFB()" style="width:100%;padding:12px;background:#f97316;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;cursor:pointer">🔥 Connect Firebase</button>
+      <div style="text-align:center;margin-top:12px"><button onclick="skipFB()" style="background:none;border:1px solid #334155;color:#94a3b8;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px">Skip — local storage only</button></div>
+    </div>
+  </div>`;
+}
+
+function connectFB(){
+  const apiKey=document.getElementById('fb-key').value.trim();
+  const projectId=document.getElementById('fb-pid').value.trim();
+  const databaseURL=document.getElementById('fb-url').value.trim();
+  if(!apiKey||!projectId||!databaseURL){document.getElementById('fb-err').innerHTML='<div style="background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);color:#fca5a5;padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:13px">API Key, Project ID, and Database URL are required</div>';return;}
+  const cfg={apiKey,authDomain:projectId+'.firebaseapp.com',databaseURL,projectId,storageBucket:projectId+'.appspot.com',appId:'1:0:web:0'};
+  if(!initFB(cfg)){document.getElementById('fb-err').innerHTML='<div style="background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);color:#fca5a5;padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:13px">Connection failed. Check your config values.</div>';return;}
+  _fbDB.ref('pms').once('value').then(snap=>{
+    const d=snap.val();
+    if(d && d.projects) DB.set('projects',d.projects);
+    if(d && d.materials) DB.set('materials',d.materials);
+    if(!d || !d.projects || !d.projects.length) DB.init();
+    listenFirebase();
+    const session=Auth.current();
+    if(session){Router.go('dashboard')}else{renderLogin();}
+  }).catch(e=>{document.getElementById('fb-err').innerHTML='<div style="background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);color:#fca5a5;padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:13px">Error: '+e.message+'<br>Check database URL and rules.</div>';});
+}
+
+function skipFB(){
+  localStorage.setItem('_fb_skip','1');
+  DB.init();
+  const session=Auth.current();
+  if(session){Router.go('dashboard')}else{renderLogin();}
+}
+
+
+// Auto-start with Firebase if config exists
+(function(){
+  const fbCfg = getFbCfg();
+  const skipped = localStorage.getItem('_fb_skip');
+  if(fbCfg && fbCfg.apiKey){
+    if(initFB(fbCfg)){
+      _fbDB.ref('pms').once('value').then(snap=>{
+        const d=snap.val();
+        if(d && d.projects) DB.set('projects',d.projects);
+        if(d && d.materials) DB.set('materials',d.materials);
+        DB.init();
+        listenFirebase();
+        const session=Auth.current();
+        if(session){Router.go('dashboard')}else{renderLogin();}
+      }).catch(()=>{
+        DB.init();
+        const session=Auth.current();
+        if(session){Router.go('dashboard')}else{renderLogin();}
+      });
+    } else {
+      DB.init();
+      const session=Auth.current();
+      if(session){Router.go('dashboard')}else{renderLogin();}
+    }
+  } else if(skipped){
+    DB.init();
+    const session=Auth.current();
+    if(session){Router.go('dashboard')}else{renderLogin();}
+  } else {
+    showFirebaseSetup();
+  }
+})();
+
 </script>
 
 
