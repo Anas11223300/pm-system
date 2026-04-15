@@ -1601,7 +1601,7 @@ function clearAllData(){
 // ========================================
 // FIREBASE REALTIME DATABASE INTEGRATION
 // ========================================
-let _fbApp = null, _fbDB = null, _fbReady = false;
+let _fbApp = null, _fbDB = null, _fbReady = false, _fbSyncing = false;
 
 function getFbCfg(){return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2","measurementId":"G-0N25G6M5E7"}}
 
@@ -1640,7 +1640,7 @@ function listenFirebase(){
 const _origSet = DB.set.bind(DB);
 DB.set = function(key, val){
   _origSet(key, val);
-  if(_fbReady && (key==='projects'||key==='materials')) syncToFirebase();
+  if(_fbReady && !_fbSyncing && (key==='projects'||key==='materials')) syncToFirebase();
 };
 
 // Firebase setup UI
