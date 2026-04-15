@@ -1603,7 +1603,7 @@ function clearAllData(){
 // ========================================
 let _fbApp = null, _fbDB = null, _fbReady = false;
 
-function getFbCfg(){try{return JSON.parse(localStorage.getItem('_fb_cfg')||'null')}catch{return null}}
+function getFbCfg(){return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2","measurementId":"G-0N25G6M5E7"}}
 
 function initFB(cfg){
   try{
