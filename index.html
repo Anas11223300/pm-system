@@ -279,11 +279,11 @@ const REGION_COLORS = ['#2563eb','#16a34a','#d97706','#dc2626','#8b5cf6'];
 
 const DEFAULT_USERS = [
   {id:'gpm',username:'admin',password:'1234',role:'gpm',name:'Global Project Manager',region:null},
-  {id:'r1',username:'north_pm',password:'1111',role:'pm',name:'North Region PM',region:0},
-  {id:'r2',username:'south_pm',password:'2222',role:'pm',name:'South Region PM',region:1},
-  {id:'r3',username:'east_pm',password:'3333',role:'pm',name:'East Region PM',region:2},
-  {id:'r4',username:'west_pm',password:'4444',role:'pm',name:'West Region PM',region:3},
-  {id:'r5',username:'central_pm',password:'5555',role:'pm',name:'Central Region PM',region:4}
+  {id:'r1',username:'1111',password:'1111',role:'pm',name:'North Region PM',region:0},
+  {id:'r2',username:'2222',password:'2222',role:'pm',name:'South Region PM',region:1},
+  {id:'r3',username:'3333',password:'3333',role:'pm',name:'East Region PM',region:2},
+  {id:'r4',username:'4444',password:'4444',role:'pm',name:'West Region PM',region:3},
+  {id:'r5',username:'5555',password:'5555',role:'pm',name:'Central Region PM',region:4}
 ];
 
 // ========================================
@@ -554,9 +554,13 @@ function renderLogin(){
   <div class="login-wrap" style="width:100%">
     <div class="login-card">
       <div class="login-logo">
-        <div class="icon">PM</div>
+        <svg width="180" height="64" viewBox="0 0 180 64" xmlns="http://www.w3.org/2000/svg" style="border-radius:10px">
+  <rect width="180" height="64" rx="10" fill="#0a1f5c"/>
+  <text x="90" y="26" text-anchor="middle" fill="#ffffff" font-size="15" font-family="Arial,sans-serif" direction="rtl">صناعات</text>
+  <text x="90" y="50" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold" font-family="Arial,sans-serif" letter-spacing="3">SENAAT</text>
+</svg>
         <h1>Project Management System</h1>
-        <p>Multi-Region Company Portal</p>
+        
       </div>
       <div id="login-err"></div>
       <div class="form-group"><label class="form-label">Username</label>
@@ -564,12 +568,7 @@ function renderLogin(){
       <div class="form-group"><label class="form-label">Password</label>
         <input class="form-control" type="password" id="l-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"></div>
       <button class="btn btn-primary" style="width:100%;padding:11px;font-size:14px" onclick="doLogin()">🔐 Sign In</button>
-      <div style="margin-top:20px;padding:12px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text3)">
-        <strong>Demo Credentials:</strong><br>
-        GPM: admin / 1234 &nbsp;|&nbsp; North: north_pm / 1111<br>
-        South: south_pm / 2222 &nbsp;|&nbsp; East: east_pm / 3333<br>
-        West: west_pm / 4444 &nbsp;|&nbsp; Central: central_pm / 5555
-      </div>
+      
     </div>
   </div>`;
 }
@@ -1803,6 +1802,7 @@ function toggleLegalDoc(pid,docId,val){
   const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
   const doc=(p.legal.documents||[]).find(d=>d.id===docId);if(!doc)return;
   doc.done=val;DB.set('projects',projects);auditLog('Updated legal doc on '+p.name);
+  renderLegalTab(p, Auth.canEdit && Auth.canEdit());
 }
 function removeLegalDoc(pid,docId){
   if(!confirm('Remove?'))return;
