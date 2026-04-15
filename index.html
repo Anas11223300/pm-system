@@ -376,7 +376,7 @@ function calcLegalProgress(legal){
   return Math.round(items.filter(Boolean).length/items.length*100);
 }
 function calcCloseoutProgress(closeout){
-  const items=[closeout.coc,...(closeout.documents||[]).map(d=>d.done),...(closeout.customFields||[]).filter(f=>f.type==='checkbox').map(f=>!!f.value)];
+  const items=[(closeout.coc===true||closeout.coc==='signed'),...(closeout.documents||[]).map(d=>d.done),...(closeout.customFields||[]).filter(f=>f.type==='checkbox').map(f=>!!f.value)];
   if(!items.length)return 0;
   return Math.round(items.filter(Boolean).length/items.length*100);
 }
@@ -387,7 +387,7 @@ function calcOverallProgress(p){
   return e;
 }
 function statusBadge(s){
-  const map={active:'badge-success',delayed:'badge-warning',pending:'badge-secondary',completed:'badge-primary',open:'badge-warning','in_progress':'badge-info',closed:'badge-success',arrived:'badge-success',not_arrived:'badge-danger',partial:'badge-warning'};
+  const map={active:'badge-success',delayed:'badge-warning',completed:'badge-primary',open:'badge-warning','in_progress':'badge-info',closed:'badge-success',arrived:'badge-success',not_arrived:'badge-danger',partial:'badge-warning'};
   return `<span class="badge ${map[s]||'badge-gray'}">${s.replace(/_/g,' ')}</span>`;
 }
 function auditLog(action){
@@ -684,7 +684,7 @@ function renderProjects(){
   <div class="search-bar">
     <input class="search-input" id="proj-search" placeholder="🔍 Search projects..." oninput="filterProjects()">
     <select class="form-control" id="proj-status-filter" style="width:auto" onchange="filterProjects()">
-      <option value="">All Status</option><option value="active">Active</option><option value="delayed">Delayed</option><option value="pending">Pending</option><option value="completed">Completed</option>
+      <option value="">All Status</option><option value="active">Active</option><option value="delayed">Delayed</option><option value="completed">Completed</option>
     </select>
     ${isGPM?`<select class="form-control" id="proj-region-filter" style="width:auto" onchange="filterProjects()">
       <option value="">All Regions</option>${REGIONS.map((r,i)=>`<option value="${i}">${r}</option>`).join('')}
@@ -743,7 +743,7 @@ function showAddProject(){
     <div class="form-group"><label class="form-label">Project Name</label><input class="form-control" id="np-name" placeholder="Enter project name"></div>
     <div class="form-row">
       <div class="form-group"><label class="form-label">Region</label><select class="form-control" id="np-region">${regionOpts}</select></div>
-      <div class="form-group"><label class="form-label">Status</label><select class="form-control" id="np-status"><option value="active">Active</option><option value="delayed">Delayed</option><option value="pending">Pending</option></select></div>
+      <div class="form-group"><label class="form-label">Status</label><select class="form-control" id="np-status"><option value="active">Active</option><option value="delayed">Delayed</option></select></div>
     </div>
     <div class="form-group"><label class="form-label">Budget (SAR)</label><input class="form-control" type="number" id="np-budget" placeholder="0"></div>
   `,()=>{
@@ -797,7 +797,6 @@ function renderProjectDetail(){
         ${canEdit?`<select class="form-control" style="margin-top:6px;width:auto" onchange="updateProjectStatus('${p.id}',this.value)">
           <option value="active" ${p.status==='active'?'selected':''}>Active</option>
           <option value="delayed" ${p.status==='delayed'?'selected':''}>Delayed</option>
-          <option value="pending" ${p.status==='pending'?'selected':''}>Pending</option>
           <option value="completed" ${p.status==='completed'?'selected':''}>Completed</option>
         </select>`:''}
       </div>
@@ -924,10 +923,13 @@ function renderCloseoutTab(p,canEdit){
   let html=`<div class="card">
   <div class="section-header"><h3>✅ Closeout Checklist</h3><span class="badge badge-${cp===100?'success':'warning'}">${cp}% Complete</span></div>
   <div class="progress-wrap" style="margin-bottom:16px"><div class="progress-bar" style="width:${cp}%"></div></div>
-  <div class="check-item ${p.closeout.coc?'done':''}">
-    <input type="checkbox" id="coc" ${p.closeout.coc?'checked':''} ${canEdit?'':'disabled'} onchange="saveCloseout('${p.id}','coc',this.checked)">
-    <label for="coc"><strong>COC Signed</strong> — Certificate of Completion</label>
-    ${p.closeout.coc?'<span class="badge badge-success">✓ Signed</span>':'<span class="badge badge-danger">Not Signed</span>'}
+  <div class="check-item ${(p.closeout.coc===true||p.closeout.coc==='signed')?'done':''}">
+    <span><strong>COC Signed</strong> — Certificate of Completion</span>
+    ${canEdit?`<select style="margin-left:auto;border-radius:6px;border:1px solid #cbd5e1;padding:3px 10px;font-size:12px;cursor:pointer;background:#fff" onchange="saveCloseout('${p.id}','coc',this.value)">
+      <option value="" ${(!p.closeout.coc||p.closeout.coc===false||p.closeout.coc==='')?'selected':''}>Not Signed</option>
+      <option value="pending" ${p.closeout.coc==='pending'?'selected':''}>⏳ Pending</option>
+      <option value="signed" ${(p.closeout.coc===true||p.closeout.coc==='signed')?'selected':''}>✓ Signed</option>
+    </select>`:(p.closeout.coc===true||p.closeout.coc==='signed')?'<span class="badge badge-success">✓ Signed</span>':p.closeout.coc==='pending'?'<span class="badge badge-warning">⏳ Pending</span>':'<span class="badge badge-danger">Not Signed</span>'}
   </div>
   <hr class="divider">
   <div class="section-header"><h3>Documentation Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addDocument('${p.id}')">＋ Add Document</button>`:''}</div>`;
