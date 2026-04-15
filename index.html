@@ -1632,7 +1632,7 @@ function listenFirebase(){
     if(!d) return;
     if(d.projects) DB.set('projects',d.projects);
     if(d.materials) DB.set('materials',d.materials);
-    if(typeof Router !== 'undefined' && Router.page && Router.page !== 'login') Router.render();
+    if(typeof Router !== 'undefined' && Router.page && Router.page !== 'login') _fbSyncing=true; Router.render(); setTimeout(function(){_fbSyncing=false;},500);
   });
 }
 
