@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project Management System</title>
-<script src="./Project Management System_files/chart.umd.min.js.تنزيل"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 <style>
 :root{--primary:#2563eb;--primary-dark:#1d4ed8;--success:#16a34a;--warning:#d97706;--danger:#dc2626;--info:#0891b2;--bg:#f1f5f9;--bg2:#e2e8f0;--surface:#ffffff;--surface2:#f8fafc;--sidebar:#1e293b;--sidebar-text:#94a3b8;--sidebar-active:#ffffff;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--border:#e2e8f0;--shadow:0 1px 3px rgba(0,0,0,.12);--shadow-lg:0 10px 25px rgba(0,0,0,.15);--radius:10px;--radius-sm:6px;--transition:.2s ease}
 [data-theme="dark"]{--bg:#0f172a;--bg2:#1e293b;--surface:#1e293b;--surface2:#0f172a;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--border:#334155;--shadow:0 1px 3px rgba(0,0,0,.4);--shadow-lg:0 10px 25px rgba(0,0,0,.5)}
@@ -278,12 +278,12 @@ const REGIONS = ['North','South','East','West','Central'];
 const REGION_COLORS = ['#2563eb','#16a34a','#d97706','#dc2626','#8b5cf6'];
 
 const DEFAULT_USERS = [
-  {id:'gpm',username:'admin',password:'Admin@2024#',role:'gpm',name:'Global Project Manager',region:null},
-  {id:'r1',username:'north_pm',password:'North@2024',role:'pm',name:'North Region PM',region:0},
-  {id:'r2',username:'south_pm',password:'South@2024',role:'pm',name:'South Region PM',region:1},
-  {id:'r3',username:'east_pm',password:'East@2024',role:'pm',name:'East Region PM',region:2},
-  {id:'r4',username:'west_pm',password:'West@2024',role:'pm',name:'West Region PM',region:3},
-  {id:'r5',username:'central_pm',password:'Central@2024',role:'pm',name:'Central Region PM',region:4}
+  {id:'gpm',username:'admin',password:'1234',role:'gpm',name:'Global Project Manager',region:null},
+  {id:'r1',username:'north_pm',password:'1111',role:'pm',name:'North Region PM',region:0},
+  {id:'r2',username:'south_pm',password:'2222',role:'pm',name:'South Region PM',region:1},
+  {id:'r3',username:'east_pm',password:'3333',role:'pm',name:'East Region PM',region:2},
+  {id:'r4',username:'west_pm',password:'4444',role:'pm',name:'West Region PM',region:3},
+  {id:'r5',username:'central_pm',password:'5555',role:'pm',name:'Central Region PM',region:4}
 ];
 
 // ========================================
@@ -337,12 +337,12 @@ function makeProject(name,region,idx){
     status:statuses[Math.floor(Math.random()*statuses.length)],
     createdAt:pastDate(30),updatedAt:pastDate(2),
     legal:{
-      lpo:Math.random()>0.3,po:Math.random()>0.4,
+      documents:[{id:uid(),label:'LPO Received',done:Math.random()>0.3},{id:uid(),label:'PO Received',done:Math.random()>0.4}],
       customFields:[{id:uid(),label:'Site Survey Approval',type:'checkbox',value:false},{id:uid(),label:'Municipality Permit',type:'checkbox',value:Math.random()>0.5}]
     },
     execution:{
       materialStatus:['arrived','not_arrived','partial'][Math.floor(Math.random()*3)],
-      logs:[{id:uid(),timestamp:pastDate(5)+'T09:00',user:'System',text:'Project initiated and kick-off meeting completed.'}],
+      logs:[{id:uid(),timestamp:pastDate(5)+'T09:00',user:'System',text:'Project initiated and kick-off meeting completed.'}],dailyProgress:[],plannedEnd:futureDate(60),lookahead:[{week:'Week 1',plan:''},{week:'Week 2',plan:''}],
       customFields:[{id:uid(),label:'Contractor Mobilized',type:'checkbox',value:Math.random()>0.5}]
     },
     closeout:{
@@ -353,12 +353,14 @@ function makeProject(name,region,idx){
         {id:uid(),name:'Final Inspection Report',done:Math.random()>0.5},
         {id:uid(),name:'Warranty Documents',done:false}
       ],
+      customChecklist:[],
       customFields:[]
     },
     snagList:[],
     invoices:[],
     budget:Math.floor(Math.random()*500000+100000),
-    expenses:[]
+    expenses:[],
+    tasks:[]
   };
 }
 
@@ -564,9 +566,9 @@ function renderLogin(){
       <button class="btn btn-primary" style="width:100%;padding:11px;font-size:14px" onclick="doLogin()">🔐 Sign In</button>
       <div style="margin-top:20px;padding:12px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text3)">
         <strong>Demo Credentials:</strong><br>
-        GPM: admin / Admin@2024# &nbsp;|&nbsp; North: north_pm / North@2024<br>
-        South: south_pm / South@2024 &nbsp;|&nbsp; East: east_pm / East@2024<br>
-        West: west_pm / West@2024 &nbsp;|&nbsp; Central: central_pm / Central@2024
+        GPM: admin / 1234 &nbsp;|&nbsp; North: north_pm / 1111<br>
+        South: south_pm / 2222 &nbsp;|&nbsp; East: east_pm / 3333<br>
+        West: west_pm / 4444 &nbsp;|&nbsp; Central: central_pm / 5555
       </div>
     </div>
   </div>`;
@@ -595,10 +597,19 @@ function renderDashboard(){
 
   // Alerts
   const alerts=[];
+  const today=new Date().toISOString().split('T')[0];
   myProjects.forEach(p=>{
-    if(!p.legal.lpo)alerts.push({type:'warning',msg:`<b>${p.name}</b>: LPO not received`});
-    if(!p.legal.po)alerts.push({type:'warning',msg:`<b>${p.name}</b>: PO not received`});
-    p.snagList&&p.snagList.filter(s=>s.status==='open'&&s.dueDate&&s.dueDate<new Date().toISOString().split('T')[0]).forEach(s=>{
+    if(p.legal?.documents){
+      p.legal.documents.forEach(doc=>{if(!doc.done)alerts.push({type:'warning',msg:`<b>${p.name}</b>: ${doc.label} not received`})});
+    } else {
+      if(!p.legal?.lpo)alerts.push({type:'warning',msg:`<b>${p.name}</b>: LPO not received`});
+      if(!p.legal?.po)alerts.push({type:'warning',msg:`<b>${p.name}</b>: PO not received`});
+    }
+    if(p.status==='delayed')alerts.push({type:'danger',msg:`<b>${p.name}</b>: Project is delayed`});
+    p.tasks&&p.tasks.filter(t=>t.status!=='done'&&t.due&&t.due<today).forEach(t=>{
+      alerts.push({type:'danger',msg:`<b>${p.name}</b>: Overdue task — ${t.title}`});
+    });
+    p.snagList&&p.snagList.filter(s=>s.status==='open'&&s.dueDate&&s.dueDate<today).forEach(s=>{
       alerts.push({type:'danger',msg:`<b>${p.name}</b>: Overdue snag — ${s.title}`});
     });
   });
@@ -658,10 +669,10 @@ function renderDashboard(){
   if(isGPM){
     setTimeout(()=>{
       try{
-        const regionCounts=REGIONS.map((r,ri)=>projects.filter(p=>p.region===ri).length);
-        new Chart(document.getElementById('chart-region'),{type:'bar',data:{labels:REGIONS,datasets:[{label:'Projects',data:regionCounts,backgroundColor:REGION_COLORS}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
-        new Chart(document.getElementById('chart-status'),{type:'doughnut',data:{labels:['Active','Delayed','Completed'],datasets:[{data:[active,delayed,completed],backgroundColor:['#16a34a','#d97706','#2563eb']}]},options:{responsive:true,maintainAspectRatio:false}});
-      }catch(e){}
+        const cr=document.getElementById('chart-region'),cs=document.getElementById('chart-status');
+        if(window.Chart&&cr){const regionCounts=REGIONS.map((r,ri)=>projects.filter(p=>p.region===ri).length);new Chart(cr,{type:'bar',data:{labels:REGIONS,datasets:[{label:'Projects',data:regionCounts,backgroundColor:REGION_COLORS}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});}
+        if(window.Chart&&cs){new Chart(cs,{type:'doughnut',data:{labels:['Active','Delayed','Completed'],datasets:[{data:[active,delayed,completed],backgroundColor:['#16a34a','#d97706','#2563eb']}]},options:{responsive:true,maintainAspectRatio:false}});}
+      }catch(e){console.error('Chart:',e)}
     },100);
   }
 }
@@ -804,15 +815,18 @@ function renderProjectDetail(){
     </div>
     <div style="margin-top:12px"><div class="progress-wrap"><div class="progress-bar" style="width:${prog}%"></div></div></div>
   </div>
+  <div class="card" style="margin-bottom:16px"><div class="section-header"><h3>📈 S-Curve Progress</h3></div><div class="chart-container"><canvas id="chart-scurve"></canvas></div></div>
   <div class="tabs">
     <button class="tab ${currentTab==='legal'?'active':''}" onclick="switchTab('legal','${id}')">📋 Legal</button>
     <button class="tab ${currentTab==='execution'?'active':''}" onclick="switchTab('execution','${id}')">🔧 Execution</button>
     <button class="tab ${currentTab==='closeout'?'active':''}" onclick="switchTab('closeout','${id}')">✅ Closeout</button>
+    <button class="tab ${currentTab==='tasks'?'active':''}" onclick="switchTab('tasks','${id}')">📋 Tasks</button>
     <button class="tab ${currentTab==='snag'?'active':''}" onclick="switchTab('snag','${id}')">🔍 Snag & Invoices</button>
   </div>
   <div id="tab-content"></div>`;
   setContent(html);
   renderTab(p,canEdit);
+  renderSCurve(p);
 }
 
 function switchTab(tab,id){currentTab=tab;Router.go('project',{id});}
@@ -822,6 +836,7 @@ function renderTab(p,canEdit){
   if(currentTab==='legal')tc.innerHTML=renderLegalTab(p,canEdit);
   else if(currentTab==='execution')tc.innerHTML=renderExecutionTab(p,canEdit);
   else if(currentTab==='closeout')tc.innerHTML=renderCloseoutTab(p,canEdit);
+  else if(currentTab==='tasks')tc.innerHTML=renderTasksTab(p,canEdit);
   else if(currentTab==='snag')tc.innerHTML=renderSnagTab(p,canEdit);
 }
 
@@ -838,17 +853,33 @@ function renderLegalTab(p,canEdit){
   let html=`<div class="card">
   <div class="section-header"><h3>📋 Legal Documents</h3><span class="badge badge-${lp===100?'success':'warning'}">${lp}% Complete</span></div>
   <div class="progress-wrap" style="margin-bottom:16px"><div class="progress-bar" style="width:${lp}%"></div></div>
-  <div class="check-item ${p.legal.lpo?'done':''}">
-    <input type="checkbox" id="lpo" ${p.legal.lpo?'checked':''} ${canEdit?'':'disabled'} onchange="saveLegal('${p.id}','lpo',this.checked)">
-    <label for="lpo"><strong>LPO Received</strong> — Local Purchase Order</label>
-    ${p.legal.lpo?'<span class="badge badge-success">✓ Done</span>':'<span class="badge badge-warning">Pending</span>'}
-  </div>
-  <div class="check-item ${p.legal.po?'done':''}" style="margin-top:6px">
-    <input type="checkbox" id="po" ${p.legal.po?'checked':''} ${canEdit?'':'disabled'} onchange="saveLegal('${p.id}','po',this.checked)">
-    <label for="po"><strong>PO Received</strong> — Purchase Order</label>
-    ${p.legal.po?'<span class="badge badge-success">✓ Done</span>':'<span class="badge badge-warning">Pending</span>'}
-  </div>
-  <hr class="divider">
+<div class="section-header"><h3>Legal Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addLegalDoc('${p.id}')">＋ Add Document</button>`:''}</div>`;
+  (p.legal.documents||[]).forEach(doc=>{
+    html+=`<div class="check-item ${doc.done?'done':''}" id="leg-${doc.id}">
+      <input type="checkbox" ${doc.done?'checked':''} ${canEdit?'':'disabled'} onchange="toggleLegalDoc('${p.id}','${doc.id}',this.checked)">
+      <label>${doc.label}</label>
+      ${doc.done?'<span class="badge badge-success">✓</span>':'<span class="badge badge-warning">Pending</span>'}
+      ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeLegalDoc('${p.id}','${doc.id}')">✕</button>`:''}
+    </div>`;
+  });
+    var _ccl = (p.closeout && p.closeout.customChecklist) ? p.closeout.customChecklist : [];
+  html += '<hr class="divider">';
+  html += '<div class="section-header"><h3>Closeout Items</h3>' + (canEdit ? '<button class="btn btn-outline btn-xs" onclick="addCloseoutItem(\'' + p.id + '\')">+ Add Item</button>' : '') + '</div>';
+  if(_ccl.length === 0){
+    html += '<p style="color:#888;font-size:13px;padding:8px 0;">No custom items yet. Click + Add Item to add.</p>';
+  }
+  _ccl.forEach(function(_ci){
+    html += '<div class="check-item ' + (_ci.done ? 'done' : '') + '">' +
+      '<span>' + (_ci.name || 'Item') + '</span>' +
+      (canEdit ?
+        '<button class="btn btn-xs" style="margin-left:auto;background:' + (_ci.done ? '#27ae60' : '#95a5a6') + ';color:#fff;border:none;border-radius:4px;padding:2px 10px;cursor:pointer;" onclick="toggleCloseoutItem(\'' + p.id + '\',\'' + _ci.id + '\')">' + (_ci.done ? '&#10003; Done' : 'Mark Done') + '</button>' +
+        '<button class="btn btn-xs" style="background:#e74c3c;color:#fff;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;margin-left:4px;" onclick="removeCloseoutItem(\'' + p.id + '\',\'' + _ci.id + '\')">&#10005;</button>'
+        :
+        '<span class="badge ' + (_ci.done ? 'badge-success' : 'badge-secondary') + '">' + (_ci.done ? 'Done' : 'Pending') + '</span>'
+      ) +
+    '</div>';
+  });
+  html+=`<hr class="divider">
   <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','legal')">＋ Add Field</button>`:''}</div>`;
   (p.legal.customFields||[]).forEach(f=>{
     html+=renderCustomField(f,p.id,'legal',canEdit);
@@ -870,6 +901,8 @@ function saveLegal(id,field,val){
 // EXECUTION TAB
 function renderExecutionTab(p,canEdit){
   const logs=p.execution.logs||[];
+  const dailyProgress=p.execution.dailyProgress||[];
+  const lookahead=p.execution.lookahead||[{week:'Week 1',plan:''},{week:'Week 2',plan:''}];
   let html=`<div class="card" style="margin-bottom:16px">
   <div class="section-header"><h3>🔧 Execution Status</h3></div>
   <div class="form-row">
@@ -884,6 +917,25 @@ function renderExecutionTab(p,canEdit){
   <hr class="divider">
   <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','execution')">＋ Add Field</button>`:''}</div>
   ${(p.execution.customFields||[]).map(f=>renderCustomField(f,p.id,'execution',canEdit)).join('')}
+  </div>
+  <div class="card" style="margin-bottom:16px">
+  <div class="section-header"><h3>📊 Daily Progress Entry</h3>${canEdit?'<button class="btn btn-primary btn-sm" onclick="saveDailyProgress(\''+p.id+'\')">💾 Save Today\'s Progress</button>':''}</div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">Today\'s Progress (%)</label><input class="form-control" type="number" min="0" max="100" id="daily-pct" placeholder="0-100"></div>
+    <div class="form-group"><label class="form-label">Notes</label><input class="form-control" id="daily-notes" placeholder="What was done today?"></div>
+  </div>
+  ${dailyProgress.length>0?'<div style="margin-top:8px;background:var(--bg);border-radius:6px;padding:10px"><strong style="font-size:12px">History:</strong><div style="max-height:130px;overflow-y:auto;margin-top:4px">'+dailyProgress.map(d=>'<div style="font-size:12px;color:var(--text2);margin-bottom:3px">📅 '+fmtDate(d.date)+': <strong>'+d.pct+'%</strong> - '+d.notes+'</div>').join('')+'</div></div>':'<p style="font-size:12px;color:var(--text3);margin-top:6px">No entries yet</p>'}
+  </div>
+  <div class="card" style="margin-bottom:16px">
+  <div class="section-header"><h3>🎯 Completion Plan</h3></div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">Expected Completion Date</label><input class="form-control" type="date" id="planned-end" value="${p.execution.plannedEnd||''}" ${canEdit?'':'disabled'} onchange="saveExecution('${p.id}','plannedEnd',this.value)"></div>
+    <div class="form-group"><label class="form-label">Plan Notes</label><input class="form-control" id="plan-notes" placeholder="Overall plan notes" value="${p.execution.planNotes||''}" ${canEdit?'':'disabled'} onchange="saveExecution('${p.id}','planNotes',this.value)"></div>
+  </div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+  <div class="section-header"><h3>📅 2-Week Lookahead Plan</h3></div>
+  ${lookahead.map((w,i)=>'<div style="margin-bottom:10px"><label class="form-label">'+w.week+'</label><textarea class="form-control" rows="2" placeholder="Planned work for '+w.week+'" ${canEdit?\'\':'disabled\'} onchange="saveLookahead(\''+p.id+'\','+i+',this.value)">'+w.plan+'</textarea></div>').join('')}
   </div>
   <div class="card">
   <div class="section-header"><h3>📝 Daily Progress Log</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addLog('${p.id}')">＋ Add Entry</button>`:''}</div>
@@ -1430,8 +1482,8 @@ function renderFinancial(){
       const labels=REGIONS;
       const budgets=REGIONS.map((_,ri)=>projects.filter(p=>p.region===ri).reduce((s,p)=>s+Number(p.budget||0),0));
       const spents=REGIONS.map((_,ri)=>projects.filter(p=>p.region===ri).reduce((s,p)=>s+(p.expenses||[]).reduce((es,e)=>es+Number(e.amount||0),0),0));
-      new Chart(document.getElementById('fin-chart'),{type:'bar',data:{labels,datasets:[{label:'Budget',data:budgets,backgroundColor:'rgba(37,99,235,.6)'},{label:'Spent',data:spents,backgroundColor:'rgba(220,38,38,.6)'}]},options:{responsive:true,maintainAspectRatio:false}});
-      new Chart(document.getElementById('fin-pie'),{type:'doughnut',data:{labels:['Spent','Remaining'],datasets:[{data:[totalExpenses,Math.max(0,remaining)],backgroundColor:['#dc2626','#16a34a']}]},options:{responsive:true,maintainAspectRatio:false}});
+      var _fch=document.getElementById('fin-chart');if(window.Chart&&_fch)new Chart(_fch,{type:'bar',data:{labels,datasets:[{label:'Budget',data:budgets,backgroundColor:'rgba(37,99,235,.6)'},{label:'Spent',data:spents,backgroundColor:'rgba(220,38,38,.6)'}]},options:{responsive:true,maintainAspectRatio:false}});
+      var _fpi=document.getElementById('fin-pie');if(window.Chart&&_fpi)new Chart(_fpi,{type:'doughnut',data:{labels:['Spent','Remaining'],datasets:[{data:[totalExpenses,Math.max(0,remaining)],backgroundColor:['#dc2626','#16a34a']}]},options:{responsive:true,maintainAspectRatio:false}});
     }catch(e){}
   },100);
 }
@@ -1706,6 +1758,142 @@ function startPeriodicSync(){
     showFirebaseSetup();
   }
 })();
+
+function renderSCurve(p){
+  setTimeout(()=>{
+    try{
+      const canvas=document.getElementById('chart-scurve');
+      if(!canvas||!window.Chart)return;
+      const createdDate=new Date(p.createdAt||Date.now());
+      const plannedEnd=new Date(p.execution?.plannedEnd||futureDate(60));
+      const today=new Date();
+      const weekDiff=Math.max(1,Math.ceil((today-createdDate)/(7*24*60*60*1000)));
+      const totalWeeks=Math.max(weekDiff,Math.ceil((plannedEnd-createdDate)/(7*24*60*60*1000)));
+      const plannedData=[];
+      for(let w=0;w<=totalWeeks;w++){plannedData.push(Math.round(w/totalWeeks*100));}
+      const actualData=[];
+      const dp=p.execution?.dailyProgress||[];
+      let lastPct=0;
+      for(let w=0;w<=weekDiff;w++){
+        const wStart=new Date(createdDate);wStart.setDate(wStart.getDate()+w*7);
+        const wEnd=new Date(wStart);wEnd.setDate(wEnd.getDate()+7);
+        const entries=dp.filter(d=>{const dd=new Date(d.date);return dd>=wStart&&dd<wEnd;});
+        if(entries.length>0)lastPct=Math.max(...entries.map(e=>e.pct));
+        actualData.push(lastPct||0);
+      }
+      while(actualData.length<plannedData.length)actualData.push(lastPct||calcOverallProgress(p));
+      const labels=Array.from({length:plannedData.length},(_,i)=>'W'+i);
+      if(canvas._chart)canvas._chart.destroy();
+      canvas._chart=new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'Planned %',data:plannedData,borderColor:'#9ca3af',borderWidth:2,backgroundColor:'rgba(156,163,175,.1)',fill:true,tension:0.4},{label:'Actual %',data:actualData,borderColor:'#2563eb',borderWidth:2,backgroundColor:'rgba(37,99,235,.1)',fill:true,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true}},scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+    }catch(e){console.error('S-Curve:',e);}
+  },200);
+}
+
+function addLegalDoc(pid){
+  showModal('Add Legal Document','<div class="form-group"><label class="form-label">Document Name</label><input class="form-control" id="leg-name" placeholder="e.g. LPO, PO, Site Approval..."></div>',()=>{
+    const name=document.getElementById('leg-name').value.trim();
+    if(!name){toast('Name required','error');return;}
+    const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+    if(!p.legal.documents)p.legal.documents=[];
+    p.legal.documents.push({id:uid(),label:name,done:false});
+    DB.set('projects',projects);toast('Added','success');Router.go('project',{id:pid});
+  },'Add');
+}
+function toggleLegalDoc(pid,docId,val){
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+  const doc=(p.legal.documents||[]).find(d=>d.id===docId);if(!doc)return;
+  doc.done=val;DB.set('projects',projects);auditLog('Updated legal doc on '+p.name);
+}
+function removeLegalDoc(pid,docId){
+  if(!confirm('Remove?'))return;
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+  p.legal.documents=(p.legal.documents||[]).filter(d=>d.id!==docId);
+  DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
+}
+
+function saveDailyProgress(id){
+  const pct=parseInt(document.getElementById('daily-pct')?.value||0);
+  const notes=document.getElementById('daily-notes')?.value||'';
+  if(!pct){toast('Enter % (1-100)','error');return;}
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===id);if(!p)return;
+  if(!p.execution.dailyProgress)p.execution.dailyProgress=[];
+  p.execution.dailyProgress.unshift({date:new Date().toISOString().split('T')[0],pct,notes});
+  p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);toast('Progress saved','success');Router.go('project',{id});
+}
+function saveLookahead(id,idx,plan){
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===id);if(!p)return;
+  if(!p.execution.lookahead)p.execution.lookahead=[{week:'Week 1',plan:''},{week:'Week 2',plan:''}];
+  if(p.execution.lookahead[idx])p.execution.lookahead[idx].plan=plan;
+  DB.set('projects',projects);
+}
+function saveExecution(id,field,val){
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===id);if(!p)return;
+  p.execution[field]=val;DB.set('projects',projects);
+}
+
+function addCloseoutItem(pid){
+  showModal('Add Checklist Item','<div class="form-group"><label class="form-label">Item Label</label><input class="form-control" id="cli-label" placeholder="e.g. Final Sign-off, Keys Handed Over..."></div>',()=>{
+    const label=document.getElementById('cli-label').value.trim();
+    if(!label){toast('Label required','error');return;}
+    const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+    if(!p.closeout.customChecklist)p.closeout.customChecklist=[];
+    p.closeout.customChecklist.push({id:uid(),label,done:false});
+    DB.set('projects',projects);toast('Added','success');Router.go('project',{id:pid});
+  },'Add');
+}
+function toggleCloseoutItem(pid,itemId,val){
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+  const item=(p.closeout.customChecklist||[]).find(i=>i.id===itemId);if(!item)return;
+  item.done=val;DB.set('projects',projects);
+}
+function removeCloseoutItem(pid,itemId){
+  if(!confirm('Remove?'))return;
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+  p.closeout.customChecklist=(p.closeout.customChecklist||[]).filter(i=>i.id!==itemId);
+  DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
+}
+
+function renderTasksTab(p,canEdit){
+  let html='<div class="card"><div class="section-header"><h3>📋 Tasks</h3>'+(canEdit?'<button class="btn btn-primary btn-sm" onclick="addTask(''+p.id+'')">＋ Add Task</button>':'')+'</div>';
+  const tasks=p.tasks||[];
+  if(!tasks.length){html+='<div class="empty-state" style="padding:20px"><div class="icon" style="font-size:24px">📋</div><p>No tasks yet. Add your first task!</p></div>';}
+  else{
+    html+='<div style="display:flex;flex-direction:column;gap:8px">';
+    const sc={todo:'badge-warning',in_progress:'badge-info',done:'badge-success'};
+    const pc={low:'',medium:'badge-warning',high:'badge-danger'};
+    tasks.forEach(t=>{
+      html+='<div class="snag-card" id="task-'+t.id+'"><div style="display:flex;justify-content:space-between;align-items:start"><div style="flex:1"><div class="snag-title">'+t.title+'</div><div style="font-size:12px;color:var(--text2);margin-top:4px">👤 '+(t.assignedTo||'Unassigned')+'</div></div>'+(canEdit?'<button class="btn btn-danger btn-xs" onclick="removeTask(''+p.id+'',''+t.id+'')">✕</button>':'')+'</div><div class="snag-meta" style="margin-top:8px"><span class="badge '+(pc[t.priority]||'')+'">'+t.priority+'</span> <span class="badge '+(sc[t.status]||'badge-gray')+'" style="cursor:pointer" onclick="cycleTaskStatus(''+p.id+'',''+t.id+'')">'+t.status.replace(/_/g,' ')+'</span>'+(t.due?'<span class="badge badge-gray">📅 '+fmtDate(t.due)+'</span>':'')+'</div></div>';
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+  return html;
+}
+function addTask(pid){
+  showModal('Add Task','<div class="form-group"><label class="form-label">Title *</label><input class="form-control" id="t-title" placeholder="Task title"></div><div class="form-row"><div class="form-group"><label class="form-label">Assigned To</label><input class="form-control" id="t-assign" placeholder="Name"></div><div class="form-group"><label class="form-label">Priority</label><select class="form-control" id="t-pri"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div></div><div class="form-group"><label class="form-label">Due Date</label><input class="form-control" type="date" id="t-due"></div>',()=>{
+    const title=document.getElementById('t-title').value.trim();
+    if(!title){toast('Title required','error');return;}
+    const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+    if(!p.tasks)p.tasks=[];
+    p.tasks.push({id:uid(),title,assignedTo:document.getElementById('t-assign').value,due:document.getElementById('t-due').value,priority:document.getElementById('t-pri').value,status:'todo'});
+    DB.set('projects',projects);toast('Task added','success');Router.go('project',{id:pid});
+  },'Add Task');
+}
+function removeTask(pid,tid){
+  if(!confirm('Remove task?'))return;
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+  p.tasks=(p.tasks||[]).filter(t=>t.id!==tid);
+  DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
+}
+function cycleTaskStatus(pid,tid){
+  const projects=DB.get('projects',[]);const p=projects.find(x=>x.id===pid);if(!p)return;
+  const t=(p.tasks||[]).find(x=>x.id===tid);if(!t)return;
+  const sts=['todo','in_progress','done'];
+  t.status=sts[(sts.indexOf(t.status)+1)%sts.length];
+  DB.set('projects',projects);toast('Updated','success');Router.go('project',{id:pid});
+}
+
 </script>
 
 
