@@ -294,7 +294,7 @@ const DB = {
   set(k,v){localStorage.setItem('pms_'+k,JSON.stringify(v))},
   del(k){localStorage.removeItem('pms_'+k)},
   init(){
-    if(!DB.get('users'))DB.set('users',DEFAULT_USERS);
+    DB.set('users',DEFAULT_USERS);
     if(!DB.get('projects'))DB.set('projects',[]);
     if(!DB.get('materials'))DB.set('materials',[]);
     if(!DB.get('audit'))DB.set('audit',[]);
