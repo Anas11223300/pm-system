@@ -1601,7 +1601,7 @@ function clearAllData(){
 // ========================================
 // FIREBASE REALTIME DATABASE INTEGRATION
 // ========================================
-let _fbApp = null, _fbDB = null, _fbReady = false, _fbSyncing = false, _lastSync = 0;
+let _fbApp = null, _fbDB = null, _fbReady = false, _fbSyncing = false;
 
 function getFbCfg(){return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2","measurementId":"G-0N25G6M5E7"}}
 
@@ -1617,7 +1617,7 @@ function initFB(cfg){
 }
 
 function syncToFirebase(){
-  var _now=Date.now(); if(_now-_lastSync<3000)return; _lastSync=_now; if(!_fbDB) return;
+  if(!_fbDB) return;
   _fbDB.ref('pms').set({
     projects: DB.get('projects',[]),
     materials: DB.get('materials',[]),
@@ -1627,7 +1627,7 @@ function syncToFirebase(){
 
 function listenFirebase(){
   if(!_fbDB) return;
-  _fbDB.ref('pms').on('value', snap=>{
+  _fbDB.ref('pms').once('value', snap=>{
     const d = snap.val();
     if(!d) return;
     if(d.projects) DB.set('projects',d.projects);
