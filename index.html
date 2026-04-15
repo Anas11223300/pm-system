@@ -690,7 +690,7 @@ function renderProjects(){
   let html=`
   <div class="page-header">
     <div class="page-header-left"><h2>Projects</h2><p>${myProjects.length} projects ${isGPM?'across all regions':'in your region'}</p></div>
-    <button class="btn btn-primary" onclick="showAddProject()">＋ New Project</button>
+    <button class="btn btn-primary" onclick="showAddProject()">+ New Project</button>
   </div>
   <div class="search-bar">
     <input class="search-input" id="proj-search" placeholder="🔍 Search projects..." oninput="filterProjects()">
@@ -853,7 +853,7 @@ function renderLegalTab(p,canEdit){
   let html=`<div class="card">
   <div class="section-header"><h3>📋 Legal Documents</h3><span class="badge badge-${lp===100?'success':'warning'}">${lp}% Complete</span></div>
   <div class="progress-wrap" style="margin-bottom:16px"><div class="progress-bar" style="width:${lp}%"></div></div>
-<div class="section-header"><h3>Legal Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addLegalDoc('${p.id}')">＋ Add Document</button>`:''}</div>`;
+<div class="section-header"><h3>Legal Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addLegalDoc('${p.id}')">+ Add Document</button>`:''}</div>`;
   (p.legal.documents||[]).forEach(doc=>{
     html+=`<div class="check-item ${doc.done?'done':''}" id="leg-${doc.id}">
       <input type="checkbox" ${doc.done?'checked':''} ${canEdit?'':'disabled'} onchange="toggleLegalDoc('${p.id}','${doc.id}',this.checked)">
@@ -880,7 +880,7 @@ function renderLegalTab(p,canEdit){
     '</div>';
   });
   html+=`<hr class="divider">
-  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','legal')">＋ Add Field</button>`:''}</div>`;
+  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','legal')">+ Add Field</button>`:''}</div>`;
   (p.legal.customFields||[]).forEach(f=>{
     html+=renderCustomField(f,p.id,'legal',canEdit);
   });
@@ -915,7 +915,7 @@ function renderExecutionTab(p,canEdit){
     <div style="display:flex;align-items:flex-end;padding-bottom:14px">${statusBadge(p.execution.materialStatus||'not_arrived')}</div>
   </div>
   <hr class="divider">
-  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','execution')">＋ Add Field</button>`:''}</div>
+  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','execution')">+ Add Field</button>`:''}</div>
   ${(p.execution.customFields||[]).map(f=>renderCustomField(f,p.id,'execution',canEdit)).join('')}
   </div>
   <div class="card" style="margin-bottom:16px">
@@ -938,7 +938,7 @@ function renderExecutionTab(p,canEdit){
   ${lookahead.map((w,i)=>`<div style="margin-bottom:10px"><label class="form-label">${w.week}</label><textarea class="form-control" rows="2" placeholder="Planned work for ${w.week}" ${canEdit?'':"disabled"} onchange="saveLookahead('${p.id}',${i},this.value)">${w.plan}</textarea></div>`).join('')}
   </div>
   <div class="card">
-  <div class="section-header"><h3>📝 Daily Progress Log</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addLog('${p.id}')">＋ Add Entry</button>`:''}</div>
+  <div class="section-header"><h3>📝 Daily Progress Log</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addLog('${p.id}')">+ Add Entry</button>`:''}</div>
   ${logs.length===0?'<div class="empty-state" style="padding:20px"><div class="icon" style="font-size:24px">📝</div><p>No log entries yet</p></div>':''}
   ${logs.map(l=>`<div class="log-entry"><div class="log-meta">🕐 ${fmtDate(l.timestamp?.split('T')[0])} ${l.timestamp?.split('T')[1]?.slice(0,5)||''} &nbsp;|&nbsp; 👤 ${l.user}</div><div class="log-text">${l.text}</div></div>`).join('')}
   </div>`;
@@ -985,7 +985,7 @@ function renderCloseoutTab(p,canEdit){
     </select>`:(p.closeout.coc===true||p.closeout.coc==='signed')?'<span class="badge badge-success">✓ Signed</span>':p.closeout.coc==='pending'?'<span class="badge badge-warning">⏳ Pending</span>':'<span class="badge badge-danger">Not Signed</span>'}
   </div>
   <hr class="divider">
-  <div class="section-header"><h3>Documentation Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addDocument('${p.id}')">＋ Add Document</button>`:''}</div>`;
+  <div class="section-header"><h3>Documentation Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addDocument('${p.id}')">+ Add Document</button>`:''}</div>`;
   (p.closeout.documents||[]).forEach(doc=>{
     html+=`<div class="check-item ${doc.done?'done':''}" id="doc-${doc.id}">
       <input type="checkbox" ${doc.done?'checked':''} ${canEdit?'':'disabled'} onchange="toggleDoc('${p.id}','${doc.id}',this.checked)">
@@ -995,7 +995,7 @@ function renderCloseoutTab(p,canEdit){
     </div>`;
   });
   html+=`<hr class="divider">
-  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','closeout')">＋ Add Field</button>`:''}</div>
+  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','closeout')">+ Add Field</button>`:''}</div>
   ${(p.closeout.customFields||[]).map(f=>renderCustomField(f,p.id,'closeout',canEdit)).join('')}
   </div>`;
   return html;
@@ -1042,7 +1042,7 @@ function removeDoc(pid,docId){
 function renderSnagTab(p,canEdit){
   let html=`<div class="grid-2">
   <div class="card">
-    <div class="section-header"><h3>🔍 Snag List</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addSnag('${p.id}')">＋ Add Snag</button>`:''}</div>
+    <div class="section-header"><h3>🔍 Snag List</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addSnag('${p.id}')">+ Add Snag</button>`:''}</div>
     <div style="margin-bottom:8px">
       <select class="form-control" style="width:auto;display:inline-block" onchange="filterSnags(this.value,'${p.id}')">
         <option value="">All Status</option><option value="open">Open</option><option value="in_progress">In Progress</option><option value="closed">Closed</option>
@@ -1072,7 +1072,7 @@ function renderSnagTab(p,canEdit){
   });
   html+=`</div>
   <div class="card">
-    <div class="section-header"><h3>🧾 Invoices</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addInvoice('${p.id}')">＋ Add Invoice</button>`:''}</div>`;
+    <div class="section-header"><h3>🧾 Invoices</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addInvoice('${p.id}')">+ Add Invoice</button>`:''}</div>`;
   const totalInvoiced=(p.invoices||[]).reduce((s,i)=>s+Number(i.amount||0),0);
   const totalPaid=(p.invoices||[]).filter(i=>i.status==='paid').reduce((s,i)=>s+Number(i.amount||0),0);
   html+=`<div class="grid-2" style="margin-bottom:12px">
@@ -1268,7 +1268,7 @@ function renderMaterials(){
   let html=`
   <div class="page-header">
     <div class="page-header-left"><h2>Materials Stock</h2><p>${myMats.length} items ${isGPM?'across all regions':'in your region'}</p></div>
-    <button class="btn btn-primary" onclick="showAddMaterial()">＋ Add Material</button>
+    <button class="btn btn-primary" onclick="showAddMaterial()">+ Add Material</button>
   </div>
   <div class="search-bar">
     <input class="search-input" id="mat-search" placeholder="🔍 Search materials..." oninput="filterMaterials()">
@@ -1854,21 +1854,29 @@ function removeCloseoutItem(pid,itemId){
   DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
 }
 
-function renderTasksTab(p,canEdit){
-  let html='<div class="card"><div class="section-header"><h3>📋 Tasks</h3>'+(canEdit?'<button class="btn btn-primary btn-sm" onclick="addTask(''+p.id+'')">＋ Add Task</button>':'')+'</div>';
-  const tasks=p.tasks||[];
-  if(!tasks.length){html+='<div class="empty-state" style="padding:20px"><div class="icon" style="font-size:24px">📋</div><p>No tasks yet. Add your first task!</p></div>';}
-  else{
-    html+='<div style="display:flex;flex-direction:column;gap:8px">';
-    const sc={todo:'badge-warning',in_progress:'badge-info',done:'badge-success'};
-    const pc={low:'',medium:'badge-warning',high:'badge-danger'};
-    tasks.forEach(t=>{
-      html+='<div class="snag-card" id="task-'+t.id+'"><div style="display:flex;justify-content:space-between;align-items:start"><div style="flex:1"><div class="snag-title">'+t.title+'</div><div style="font-size:12px;color:var(--text2);margin-top:4px">👤 '+(t.assignedTo||'Unassigned')+'</div></div>'+(canEdit?'<button class="btn btn-danger btn-xs" onclick="removeTask(''+p.id+'',''+t.id+'')">✕</button>':'')+'</div><div class="snag-meta" style="margin-top:8px"><span class="badge '+(pc[t.priority]||'')+'">'+t.priority+'</span> <span class="badge '+(sc[t.status]||'badge-gray')+'" style="cursor:pointer" onclick="cycleTaskStatus(''+p.id+'',''+t.id+'')">'+t.status.replace(/_/g,' ')+'</span>'+(t.due?'<span class="badge badge-gray">📅 '+fmtDate(t.due)+'</span>':'')+'</div></div>';
+function renderTasksTab(p, canEdit) {
+  const tasks = p.tasks || [];
+  const SC = {pending:"#95a5a6","in-progress":"#e67e22",done:"#27ae60"};
+  const SL = {pending:"Pending","in-progress":"In Progress",done:"Done"};
+  let html = `<div class="card"><div class="section-header"><h3>Tasks</h3>${canEdit ? `<button class="btn btn-primary btn-sm" onclick="addTask('${p.id}')">+ Add Task</button>` : ""}</div>`;
+  if (!tasks.length) {
+    html += `<div style="padding:20px;color:#888;text-align:center;"><p>No tasks yet. Add your first task!</p></div>`;
+  } else {
+    html += `<div style="display:flex;flex-direction:column;gap:8px;padding:12px 0;">`;
+    tasks.forEach(function(t) {
+      var sc = SC[t.status] || "#95a5a6";
+      var sl = SL[t.status] || t.status;
+      html += `<div class="check-item" style="display:flex;align-items:center;gap:8px;">
+        <span style="flex:1;font-size:14px;">${t.title||"Task"}</span>
+        ${t.assignee ? `<span style="font-size:12px;color:#666;">${t.assignee}</span>` : ""}
+        <span style="background:${sc};color:#fff;border-radius:4px;padding:2px 8px;font-size:12px;">${sl}</span>
+        ${canEdit ? `<button onclick="cycleTaskStatus('${p.id}','${t.id}')" style="background:${sc};color:#fff;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;">&#x21bb;</button><button onclick="removeTask('${p.id}','${t.id}')" style="background:#e74c3c;color:#fff;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;margin-left:4px;">&#10005;</button>` : ""}
+      </div>`;
     });
-    html+='</div>';
+    html += `</div>`;
   }
-  html+='</div>';
-  return html;
+  html += `</div>`;
+  document.getElementById("tab-content").innerHTML = html;
 }
 function addTask(pid){
   showModal('Add Task','<div class="form-group"><label class="form-label">Title *</label><input class="form-control" id="t-title" placeholder="Task title"></div><div class="form-row"><div class="form-group"><label class="form-label">Assigned To</label><input class="form-control" id="t-assign" placeholder="Name"></div><div class="form-group"><label class="form-label">Priority</label><select class="form-control" id="t-pri"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div></div><div class="form-group"><label class="form-label">Due Date</label><input class="form-control" type="date" id="t-due"></div>',()=>{
