@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<!-- saved from url=(0211)file:///C:/Users/alqm8/AppData/Roaming/Claude/local-agent-mode-sessions/69258259-d6ea-470b-b720-0b042e9c4cac/da5093cc-1fd7-42ea-a386-0a6799f7bbe1/local_7c273227-8ee8-446d-aa79-87f66d912aed/outputs/pm-system.html -->
+<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Management System</title>
+<script src="./Project Management System_files/chart.umd.min.js.تنزيل"></script>
+<style>
+:root{--primary:#2563eb;--primary-dark:#1d4ed8;--success:#16a34a;--warning:#d97706;--danger:#dc2626;--info:#0891b2;--bg:#f1f5f9;--bg2:#e2e8f0;--surface:#ffffff;--surface2:#f8fafc;--sidebar:#1e293b;--sidebar-text:#94a3b8;--sidebar-active:#ffffff;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--border:#e2e8f0;--shadow:0 1px 3px rgba(0,0,0,.12);--shadow-lg:0 10px 25px rgba(0,0,0,.15);--radius:10px;--radius-sm:6px;--transition:.2s ease}
+[data-theme="dark"]{--bg:#0f172a;--bg2:#1e293b;--surface:#1e293b;--surface2:#0f172a;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--border:#334155;--shadow:0 1px 3px rgba(0,0,0,.4);--shadow-lg:0 10px 25px rgba(0,0,0,.5)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+#app{display:flex;min-height:100vh}
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--sidebar);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;transition:var(--transition)}
+.sidebar-logo{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
+.sidebar-logo .logo-icon{width:36px;height:36px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700;flex-shrink:0}
+.sidebar-logo span{color:#fff;font-weight:700;font-size:15px;line-height:1.2}
+.sidebar-user{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-user .user-badge{background:rgba(37,99,235,.3);border:1px solid rgba(37,99,235,.5);border-radius:20px;padding:4px 10px;display:inline-block;color:#93c5fd;font-size:11px;font-weight:600;margin-bottom:4px}
+.sidebar-user .user-name{color:#fff;font-size:13px;font-weight:600}
+.sidebar-user .user-region{color:var(--sidebar-text);font-size:11px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:8px 0}
+.nav-section{padding:8px 16px 4px;color:#64748b;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;color:var(--sidebar-text);cursor:pointer;transition:var(--transition);border-left:3px solid transparent;font-size:13px;text-decoration:none}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav-item.active{background:rgba(37,99,235,.2);color:#fff;border-left-color:var(--primary)}
+.nav-item .nav-icon{font-size:16px;width:20px;text-align:center}
+.sidebar-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08)}
+.btn-logout{width:100%;padding:8px;background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fca5a5;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;transition:var(--transition)}
+.btn-logout:hover{background:rgba(220,38,38,.3)}
+/* MAIN CONTENT */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--shadow)}
+.topbar-title{font-size:18px;font-weight:700;color:var(--text)}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.btn-theme{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px 10px;cursor:pointer;font-size:16px;color:var(--text2);transition:var(--transition)}
+.btn-theme:hover{background:var(--border)}
+.page{padding:24px;flex:1}
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.card-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.card-subtitle{font-size:12px;color:var(--text3)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
+/* STAT CARDS */
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px}
+.stat-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.stat-icon.blue{background:rgba(37,99,235,.12);color:var(--primary)}
+.stat-icon.green{background:rgba(22,163,74,.12);color:var(--success)}
+.stat-icon.orange{background:rgba(217,119,6,.12);color:var(--warning)}
+.stat-icon.red{background:rgba(220,38,38,.12);color:var(--danger)}
+.stat-icon.cyan{background:rgba(8,145,178,.12);color:var(--info)}
+.stat-value{font-size:28px;font-weight:800;color:var(--text);line-height:1}
+.stat-label{font-size:12px;color:var(--text3);margin-top:4px}
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:13px;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
+.btn-success{background:var(--success);color:#fff}.btn-success:hover{opacity:.9}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{opacity:.9}
+.btn-warning{background:var(--warning);color:#fff}.btn-warning:hover{opacity:.9}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text2)}.btn-outline:hover{background:var(--bg)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-xs{padding:3px 8px;font-size:11px}
+/* FORMS */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.form-control{width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:13px;transition:var(--transition);outline:none}
+.form-control:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+select.form-control{cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* TABLES */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg2);padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;gap:4px}
+.badge-success{background:rgba(22,163,74,.12);color:#15803d}
+.badge-warning{background:rgba(217,119,6,.12);color:#b45309}
+.badge-danger{background:rgba(220,38,38,.12);color:#b91c1c}
+.badge-info{background:rgba(8,145,178,.12);color:#0e7490}
+.badge-gray{background:rgba(100,116,139,.12);color:#475569}
+.badge-primary{background:rgba(37,99,235,.12);color:#1d4ed8}
+/* PROGRESS */
+.progress-wrap{background:var(--bg2);border-radius:20px;height:8px;overflow:hidden}
+.progress-bar{height:100%;border-radius:20px;transition:width .5s ease;background:var(--primary)}
+.progress-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px;color:var(--text2)}
+/* TABS */
+.tabs{display:flex;gap:2px;background:var(--bg2);padding:4px;border-radius:var(--radius);margin-bottom:20px}
+.tab{padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:var(--transition);border:none;background:transparent}
+.tab.active{background:var(--surface);color:var(--text);font-weight:600;box-shadow:var(--shadow)}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-lg);max-width:560px;width:90%;max-height:85vh;overflow-y:auto}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:16px;font-weight:700}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text3);line-height:1}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+/* TOAST */
+.toast-container{position:fixed;bottom:20px;right:20px;z-index:2000;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;min-width:280px;animation:slideIn .3s ease;font-size:13px}
+.toast.success{border-left:3px solid var(--success)}.toast.error{border-left:3px solid var(--danger)}.toast.warning{border-left:3px solid var(--warning)}.toast.info{border-left:3px solid var(--primary)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f172a 100%)}
+.login-card{background:var(--surface);border-radius:16px;padding:40px;width:400px;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.login-logo{text-align:center;margin-bottom:32px}
+.login-logo .icon{width:64px;height:64px;background:var(--primary);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 12px}
+.login-logo h1{font-size:22px;font-weight:800;color:var(--text)}
+.login-logo p{font-size:13px;color:var(--text3);margin-top:4px}
+/* ALERTS */
+.alert{padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:12px}
+.alert-danger{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);color:#b91c1c}
+.alert-warning{background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.3);color:#b45309}
+.alert-info{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.3);color:#1d4ed8}
+/* SEARCH BAR */
+.search-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:13px;outline:none}
+.search-input:focus{border-color:var(--primary)}
+/* LOG ENTRIES */
+.log-entry{padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:8px;border-left:3px solid var(--primary)}
+.log-entry .log-meta{font-size:11px;color:var(--text3);margin-bottom:4px}
+.log-entry .log-text{font-size:13px;color:var(--text)}
+/* CHECKLIST */
+.check-item{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:6px}
+.check-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.check-item label{flex:1;font-size:13px;cursor:pointer}
+.check-item.done label{text-decoration:line-through;color:var(--text3)}
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-state .icon{font-size:48px;margin-bottom:12px}
+.empty-state p{font-size:14px}
+/* PAGE HEADER */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px}
+.page-header-left h2{font-size:22px;font-weight:800;color:var(--text)}
+.page-header-left p{font-size:13px;color:var(--text3);margin-top:2px}
+/* REGION BADGE */
+.region-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+/* SNAG */
+.snag-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px}
+.snag-card .snag-title{font-weight:600;font-size:13px;margin-bottom:4px}
+.snag-card .snag-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+/* CHART CONTAINER */
+.chart-container{position:relative;height:220px}
+/* RESPONSIVE */
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0}.grid-4{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:16px 0}
+/* SECTION HEADER */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-header h3{font-size:14px;font-weight:700;color:var(--text)}
+/* MATERIAL ROW */
+.material-row{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr auto;gap:8px;align-items:center;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:6px;font-size:12px}
+/* FINANCIAL */
+.fin-entry{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:6px}
+.fin-entry .fin-desc{font-size:13px;color:var(--text)}
+.fin-entry .fin-amount{font-size:14px;font-weight:700;color:var(--danger)}
+.fin-entry .fin-cat{font-size:11px;color:var(--text3)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">PM</div><span>Project<br>Management</span></div>
+    <div class="sidebar-user">
+      <div class="user-badge">Global PM</div>
+      <div class="user-name">Global Project Manager</div>
+      <div class="user-region">All Regions</div>
+    </div>
+    <nav class="sidebar-nav">
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" data-page="dashboard" onclick="Router.go(&#39;dashboard&#39;)"><span class="nav-icon">📊</span>Dashboard</div>
+    <div class="nav-section">Projects</div>
+    <div class="nav-item" data-page="projects" onclick="Router.go(&#39;projects&#39;)"><span class="nav-icon">📁</span>Projects</div>
+    <div class="nav-section">Operations</div>
+    <div class="nav-item" data-page="materials" onclick="Router.go(&#39;materials&#39;)"><span class="nav-icon">📦</span>Materials Stock</div>
+    <div class="nav-item" data-page="financial" onclick="Router.go(&#39;financial&#39;)"><span class="nav-icon">💰</span>Financial</div>
+    <div class="nav-section">System</div>
+    <div class="nav-item" data-page="audit" onclick="Router.go(&#39;audit&#39;)"><span class="nav-icon">📋</span>Audit Log</div>
+    <div class="nav-item" data-page="settings" onclick="Router.go(&#39;settings&#39;)"><span class="nav-icon">⚙️</span>Settings</div>
+  </nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="Auth.logout()">🚪 Logout</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="page-title">Dashboard</div>
+      <div class="topbar-right">
+        <button class="btn-theme" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+        <span style="font-size:13px;color:var(--text2)">Global Project Manager</span>
+      </div>
+    </div>
+    <div class="page" id="page-content">
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="stat-card"><div class="stat-icon blue">📁</div><div><div class="stat-value">10</div><div class="stat-label">Total Projects</div></div></div>
+    <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-value">6</div><div class="stat-label">Active</div></div></div>
+    <div class="stat-card"><div class="stat-icon orange">⏳</div><div><div class="stat-value">3</div><div class="stat-label">Delayed</div></div></div>
+    <div class="stat-card"><div class="stat-icon cyan">🏁</div><div><div class="stat-value">1</div><div class="stat-label">Completed</div></div></div>
+  </div><div class="card" style="margin-bottom:16px"><div class="section-header"><h3>⚠️ Alerts (10)</h3></div><div class="alert alert-warning" style="margin-bottom:6px"><b>Infrastructure Upgrade - North</b>: PO not received</div><div class="alert alert-warning" style="margin-bottom:6px"><b>Infrastructure Upgrade - South</b>: LPO not received</div><div class="alert alert-warning" style="margin-bottom:6px"><b>Office Renovation - South</b>: PO not received</div><div class="alert alert-warning" style="margin-bottom:6px"><b>Infrastructure Upgrade - East</b>: LPO not received</div><div class="alert alert-warning" style="margin-bottom:6px"><b>Office Renovation - East</b>: LPO not received</div><div style="font-size:12px;color:var(--text3)">+5 more alerts</div></div><div class="grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-title" style="margin-bottom:12px">Projects by Region</div>
+      <div class="chart-container"><canvas id="chart-region" width="714" height="275" style="display: block; box-sizing: border-box; height: 220px; width: 571px;"></canvas></div></div>
+    <div class="card"><div class="card-title" style="margin-bottom:12px">Project Status Overview</div>
+      <div class="chart-container"><canvas id="chart-status" width="714" height="275" style="display: block; box-sizing: border-box; height: 220px; width: 571px;"></canvas></div></div>
+    </div><div class="card"><div class="section-header"><h3>Region Progress</h3></div><div style="margin-bottom:12px">
+        <div class="progress-label"><span style="color:#2563eb;font-weight:600">North Region</span><span>30% — 2 projects</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:30%;background:#2563eb"></div></div>
+      </div><div style="margin-bottom:12px">
+        <div class="progress-label"><span style="color:#16a34a;font-weight:600">South Region</span><span>35% — 2 projects</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:35%;background:#16a34a"></div></div>
+      </div><div style="margin-bottom:12px">
+        <div class="progress-label"><span style="color:#d97706;font-weight:600">East Region</span><span>39% — 2 projects</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:39%;background:#d97706"></div></div>
+      </div><div style="margin-bottom:12px">
+        <div class="progress-label"><span style="color:#dc2626;font-weight:600">West Region</span><span>39% — 2 projects</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:39%;background:#dc2626"></div></div>
+      </div><div style="margin-bottom:12px">
+        <div class="progress-label"><span style="color:#8b5cf6;font-weight:600">Central Region</span><span>23% — 2 projects</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:23%;background:#8b5cf6"></div></div>
+      </div></div><div class="card" style="margin-top:16px"><div class="section-header"><h3>Recent Projects</h3><button class="btn btn-primary btn-sm" onclick="Router.go(&#39;projects&#39;)">View All</button></div>
+  <div class="table-wrap"><table><thead><tr><th>Project</th><th>Region</th><th>Status</th><th>Progress</th><th>Action</th></tr></thead><tbody><tr>
+      <td><span style="font-weight:600">Infrastructure Upgrade - North</span></td>
+      <td><span class="badge" style="background:#2563eb22;color:#2563eb">North</span></td>
+      <td><span class="badge badge-primary">completed</span></td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>25%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:25%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go(&#39;project&#39;,{id:&#39;mnzzu8ahmw4gtefl2aj&#39;})">Open →</button></td>
+    </tr><tr>
+      <td><span style="font-weight:600">Office Renovation - North</span></td>
+      <td><span class="badge" style="background:#2563eb22;color:#2563eb">North</span></td>
+      <td><span class="badge badge-warning">delayed</span></td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>35%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:35%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go(&#39;project&#39;,{id:&#39;mnzzu8ahun10o9lxhzi&#39;})">Open →</button></td>
+    </tr><tr>
+      <td><span style="font-weight:600">Infrastructure Upgrade - South</span></td>
+      <td><span class="badge" style="background:#16a34a22;color:#16a34a">South</span></td>
+      <td><span class="badge badge-success">active</span></td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>35%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:35%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go(&#39;project&#39;,{id:&#39;mnzzu8ahjea8acx7nb&#39;})">Open →</button></td>
+    </tr><tr>
+      <td><span style="font-weight:600">Office Renovation - South</span></td>
+      <td><span class="badge" style="background:#16a34a22;color:#16a34a">South</span></td>
+      <td><span class="badge badge-success">active</span></td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>35%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:35%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go(&#39;project&#39;,{id:&#39;mnzzu8ahyvpr9cxmrt&#39;})">Open →</button></td>
+    </tr><tr>
+      <td><span style="font-weight:600">Infrastructure Upgrade - East</span></td>
+      <td><span class="badge" style="background:#d9770622;color:#d97706">East</span></td>
+      <td><span class="badge badge-warning">delayed</span></td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>55%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:55%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go(&#39;project&#39;,{id:&#39;mnzzu8ainy1bv9ka12o&#39;})">Open →</button></td>
+    </tr><tr>
+      <td><span style="font-weight:600">Office Renovation - East</span></td>
+      <td><span class="badge" style="background:#d9770622;color:#d97706">East</span></td>
+      <td><span class="badge badge-warning">delayed</span></td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>23%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:23%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go(&#39;project&#39;,{id:&#39;mnzzu8ai6431jpqsnes&#39;})">Open →</button></td>
+    </tr></tbody></table></div></div></div>
+  </div></div>
+<div class="toast-container" id="toasts"></div>
+<div id="modal-root"></div>
+
+<script>
+// ========================================
+// CONFIG
+// ========================================
+const REGIONS = ['North','South','East','West','Central'];
+const REGION_COLORS = ['#2563eb','#16a34a','#d97706','#dc2626','#8b5cf6'];
+
+const DEFAULT_USERS = [
+  {id:'gpm',username:'admin',password:'Admin@2024#',role:'gpm',name:'Global Project Manager',region:null},
+  {id:'r1',username:'north_pm',password:'North@2024',role:'pm',name:'North Region PM',region:0},
+  {id:'r2',username:'south_pm',password:'South@2024',role:'pm',name:'South Region PM',region:1},
+  {id:'r3',username:'east_pm',password:'East@2024',role:'pm',name:'East Region PM',region:2},
+  {id:'r4',username:'west_pm',password:'West@2024',role:'pm',name:'West Region PM',region:3},
+  {id:'r5',username:'central_pm',password:'Central@2024',role:'pm',name:'Central Region PM',region:4}
+];
+
+// ========================================
+// DB
+// ========================================
+const DB = {
+  get(k,def=null){try{const v=localStorage.getItem('pms_'+k);return v?JSON.parse(v):def}catch{return def}},
+  set(k,v){localStorage.setItem('pms_'+k,JSON.stringify(v))},
+  del(k){localStorage.removeItem('pms_'+k)},
+  init(){
+    if(!DB.get('users'))DB.set('users',DEFAULT_USERS);
+    if(!DB.get('projects'))DB.set('projects',[]);
+    if(!DB.get('materials'))DB.set('materials',[]);
+    if(!DB.get('audit'))DB.set('audit',[]);
+    // seed demo project
+    const projs=DB.get('projects');
+    if(projs.length===0){
+      const demo=makeDemoData();
+      DB.set('projects',demo.projects);
+      DB.set('materials',demo.materials);
+    }
+  }
+};
+
+function makeDemoData(){
+  const projects=[];
+  REGIONS.forEach((r,ri)=>{
+    ['Infrastructure Upgrade','Office Renovation'].forEach((name,pi)=>{
+      projects.push(makeProject(name+' - '+r, ri, pi));
+    });
+  });
+  const materials=[];
+  REGIONS.forEach((r,ri)=>{
+    ['Steel Beams','Concrete Mix','Electrical Cables','Piping','HVAC Units'].forEach((m,mi)=>{
+      materials.push({
+        id:uid(),region:ri,name:m,quantity:Math.floor(Math.random()*100+10),
+        ordered:Math.random()>0.3,expectedDelivery:futureDate(Math.floor(Math.random()*30+5)),
+        holder:['PM','Procurement','Finance'][Math.floor(Math.random()*3)],
+        poDate:pastDate(Math.floor(Math.random()*15+1)),
+        history:[],notes:''
+      });
+    });
+  });
+  return {projects,materials};
+}
+
+function makeProject(name,region,idx){
+  const statuses=['active','active','delayed','completed'];
+  return {
+    id:uid(),name,region,
+    status:statuses[Math.floor(Math.random()*statuses.length)],
+    createdAt:pastDate(30),updatedAt:pastDate(2),
+    legal:{
+      lpo:Math.random()>0.3,po:Math.random()>0.4,
+      customFields:[{id:uid(),label:'Site Survey Approval',type:'checkbox',value:false},{id:uid(),label:'Municipality Permit',type:'checkbox',value:Math.random()>0.5}]
+    },
+    execution:{
+      materialStatus:['arrived','not_arrived','partial'][Math.floor(Math.random()*3)],
+      logs:[{id:uid(),timestamp:pastDate(5)+'T09:00',user:'System',text:'Project initiated and kick-off meeting completed.'}],
+      customFields:[{id:uid(),label:'Contractor Mobilized',type:'checkbox',value:Math.random()>0.5}]
+    },
+    closeout:{
+      coc:Math.random()>0.6,
+      documents:[
+        {id:uid(),name:'Certificate of Completion (COC)',done:false},
+        {id:uid(),name:'As-Built Drawings',done:Math.random()>0.5},
+        {id:uid(),name:'Final Inspection Report',done:Math.random()>0.5},
+        {id:uid(),name:'Warranty Documents',done:false}
+      ],
+      customFields:[]
+    },
+    snagList:[],
+    invoices:[],
+    budget:Math.floor(Math.random()*500000+100000),
+    expenses:[]
+  };
+}
+
+// ========================================
+// UTILITIES
+// ========================================
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+function futureDate(days){const d=new Date();d.setDate(d.getDate()+days);return d.toISOString().split('T')[0]}
+function pastDate(days){const d=new Date();d.setDate(d.getDate()-days);return d.toISOString().split('T')[0]}
+function fmtDate(d){if(!d)return'—';try{return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}catch{return d}}
+function fmtMoney(n){return'SAR '+Number(n||0).toLocaleString()}
+function calcLegalProgress(legal){
+  const items=[legal.lpo,legal.po,...(legal.customFields||[]).filter(f=>f.type==='checkbox').map(f=>!!f.value)];
+  if(!items.length)return 0;
+  return Math.round(items.filter(Boolean).length/items.length*100);
+}
+function calcCloseoutProgress(closeout){
+  const items=[closeout.coc,...(closeout.documents||[]).map(d=>d.done),...(closeout.customFields||[]).filter(f=>f.type==='checkbox').map(f=>!!f.value)];
+  if(!items.length)return 0;
+  return Math.round(items.filter(Boolean).length/items.length*100);
+}
+function calcOverallProgress(p){
+  const l=calcLegalProgress(p.legal);
+  const c=calcCloseoutProgress(p.closeout);
+  const e=Math.min(100,Math.round((l+c)/2));
+  return e;
+}
+function statusBadge(s){
+  const map={active:'badge-success',delayed:'badge-warning',completed:'badge-primary',open:'badge-warning','in_progress':'badge-info',closed:'badge-success',arrived:'badge-success',not_arrived:'badge-danger',partial:'badge-warning'};
+  return `<span class="badge ${map[s]||'badge-gray'}">${s.replace(/_/g,' ')}</span>`;
+}
+function auditLog(action){
+  const user=Auth.current();
+  const log=DB.get('audit',[]);
+  log.unshift({id:uid(),timestamp:new Date().toISOString(),user:user?user.name:'System',action});
+  if(log.length>200)log.length=200;
+  DB.set('audit',log);
+}
+
+// ========================================
+// AUTH
+// ========================================
+const Auth={
+  current(){return DB.get('session')},
+  login(username,password){
+    const users=DB.get('users',DEFAULT_USERS);
+    const u=users.find(x=>x.username===username&&x.password===password);
+    if(u){DB.set('session',u);auditLog('Login');return u}
+    return null;
+  },
+  logout(){auditLog('Logout');DB.del('session');Router.go('login')},
+  isGPM(){const u=this.current();return u&&u.role==='gpm'}
+};
+
+// ========================================
+// TOAST
+// ========================================
+function toast(msg,type='info'){
+  const el=document.createElement('div');
+  const icons={success:'✅',error:'❌',warning:'⚠️',info:'ℹ️'};
+  el.className=`toast ${type}`;
+  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(()=>el.remove(),3500);
+}
+
+// ========================================
+// MODAL
+// ========================================
+function showModal(title,bodyHTML,onConfirm,confirmText='Save',confirmClass='btn-primary'){
+  const root=document.getElementById('modal-root');
+  root.innerHTML=`
+  <div class="modal-overlay" id="modal-bg">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">${title}</span>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">${bodyHTML}</div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn ${confirmClass}" id="modal-confirm">${confirmText}</button>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target.id==='modal-bg')closeModal()});
+  if(onConfirm)document.getElementById('modal-confirm').onclick=()=>{onConfirm();closeModal()};
+}
+function showModalNoConfirm(title,bodyHTML){
+  const root=document.getElementById('modal-root');
+  root.innerHTML=`
+  <div class="modal-overlay" id="modal-bg">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">${title}</span>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">${bodyHTML}</div>
+    </div>
+  </div>`;
+  document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target.id==='modal-bg')closeModal()});
+}
+function closeModal(){document.getElementById('modal-root').innerHTML=''}
+
+// ========================================
+// ROUTER
+// ========================================
+const Router={
+  page:'login',params:{},
+  go(page,params={}){
+    if(page!=='login'&&!Auth.current()){this.go('login');return}
+    if(page==='financial'&&!Auth.isGPM()){toast('Access denied','error');return}
+    this.page=page;this.params=params;
+    this.render();
+  },
+  render(){
+    const user=Auth.current();
+    if(!user){renderLogin();return}
+    const pages={
+      dashboard:renderDashboard,
+      projects:renderProjects,
+      project:renderProjectDetail,
+      materials:renderMaterials,
+      financial:renderFinancial,
+      audit:renderAudit,
+      settings:renderSettings
+    };
+    renderShell(user);
+    (pages[this.page]||renderDashboard)();
+    // highlight nav
+    document.querySelectorAll('.nav-item').forEach(el=>{
+      el.classList.toggle('active',el.dataset.page===this.page);
+    });
+  }
+};
+
+// ========================================
+// SHELL
+// ========================================
+function renderShell(user){
+  const isGPM=user.role==='gpm';
+  const regionLabel=isGPM?'All Regions':REGIONS[user.region]+' Region';
+  const nav=`
+    <div class="nav-section">Overview</div>
+    <div class="nav-item" data-page="dashboard" onclick="Router.go('dashboard')"><span class="nav-icon">📊</span>Dashboard</div>
+    <div class="nav-section">Projects</div>
+    <div class="nav-item" data-page="projects" onclick="Router.go('projects')"><span class="nav-icon">📁</span>Projects</div>
+    <div class="nav-section">Operations</div>
+    <div class="nav-item" data-page="materials" onclick="Router.go('materials')"><span class="nav-icon">📦</span>Materials Stock</div>
+    ${isGPM?`<div class="nav-item" data-page="financial" onclick="Router.go('financial')"><span class="nav-icon">💰</span>Financial</div>`:''}
+    <div class="nav-section">System</div>
+    ${isGPM?`<div class="nav-item" data-page="audit" onclick="Router.go('audit')"><span class="nav-icon">📋</span>Audit Log</div>`:''}
+    <div class="nav-item" data-page="settings" onclick="Router.go('settings')"><span class="nav-icon">⚙️</span>Settings</div>
+  `;
+  document.getElementById('app').innerHTML=`
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">PM</div><span>Project<br>Management</span></div>
+    <div class="sidebar-user">
+      <div class="user-badge">${isGPM?'Global PM':'Regional PM'}</div>
+      <div class="user-name">${user.name}</div>
+      <div class="user-region">${regionLabel}</div>
+    </div>
+    <nav class="sidebar-nav">${nav}</nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="Auth.logout()">🚪 Logout</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="page-title">Dashboard</div>
+      <div class="topbar-right">
+        <button class="btn-theme" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+        <span style="font-size:13px;color:var(--text2)">${user.name}</span>
+      </div>
+    </div>
+    <div class="page" id="page-content"></div>
+  </div>`;
+}
+function setTitle(t){const el=document.getElementById('page-title');if(el)el.textContent=t}
+function setContent(h){const el=document.getElementById('page-content');if(el)el.innerHTML=h}
+function toggleTheme(){
+  const html=document.documentElement;
+  html.setAttribute('data-theme',html.getAttribute('data-theme')==='dark'?'light':'dark');
+}
+
+// ========================================
+// LOGIN
+// ========================================
+function renderLogin(){
+  document.getElementById('app').innerHTML=`
+  <div class="login-wrap" style="width:100%">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="icon">PM</div>
+        <h1>Project Management System</h1>
+        <p>Multi-Region Company Portal</p>
+      </div>
+      <div id="login-err"></div>
+      <div class="form-group"><label class="form-label">Username</label>
+        <input class="form-control" id="l-user" placeholder="Enter username" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="form-group"><label class="form-label">Password</label>
+        <input class="form-control" type="password" id="l-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-primary" style="width:100%;padding:11px;font-size:14px" onclick="doLogin()">🔐 Sign In</button>
+      <div style="margin-top:20px;padding:12px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text3)">
+        <strong>Demo Credentials:</strong><br>
+        GPM: admin / Admin@2024# &nbsp;|&nbsp; North: north_pm / North@2024<br>
+        South: south_pm / South@2024 &nbsp;|&nbsp; East: east_pm / East@2024<br>
+        West: west_pm / West@2024 &nbsp;|&nbsp; Central: central_pm / Central@2024
+      </div>
+    </div>
+  </div>`;
+}
+function doLogin(){
+  const u=document.getElementById('l-user').value.trim();
+  const p=document.getElementById('l-pass').value;
+  const user=Auth.login(u,p);
+  if(user){toast('Welcome, '+user.name,'success');Router.go('dashboard')}
+  else{document.getElementById('login-err').innerHTML='<div class="alert alert-danger">❌ Invalid username or password</div>'}
+}
+
+// ========================================
+// DASHBOARD
+// ========================================
+function renderDashboard(){
+  setTitle('Dashboard');
+  const user=Auth.current();
+  const isGPM=user.role==='gpm';
+  const projects=DB.get('projects',[]);
+  const myProjects=isGPM?projects:projects.filter(p=>p.region===user.region);
+  const active=myProjects.filter(p=>p.status==='active').length;
+  const delayed=myProjects.filter(p=>p.status==='delayed').length;
+  const completed=myProjects.filter(p=>p.status==='completed').length;
+  const materials=DB.get('materials',[]);
+
+  // Alerts
+  const alerts=[];
+  myProjects.forEach(p=>{
+    if(!p.legal.lpo)alerts.push({type:'warning',msg:`<b>${p.name}</b>: LPO not received`});
+    if(!p.legal.po)alerts.push({type:'warning',msg:`<b>${p.name}</b>: PO not received`});
+    p.snagList&&p.snagList.filter(s=>s.status==='open'&&s.dueDate&&s.dueDate<new Date().toISOString().split('T')[0]).forEach(s=>{
+      alerts.push({type:'danger',msg:`<b>${p.name}</b>: Overdue snag — ${s.title}`});
+    });
+  });
+
+  let html=`
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="stat-card"><div class="stat-icon blue">📁</div><div><div class="stat-value">${myProjects.length}</div><div class="stat-label">Total Projects</div></div></div>
+    <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-value">${active}</div><div class="stat-label">Active</div></div></div>
+    <div class="stat-card"><div class="stat-icon orange">⏳</div><div><div class="stat-value">${delayed}</div><div class="stat-label">Delayed</div></div></div>
+    <div class="stat-card"><div class="stat-icon cyan">🏁</div><div><div class="stat-value">${completed}</div><div class="stat-label">Completed</div></div></div>
+  </div>`;
+
+  if(alerts.length){
+    html+=`<div class="card" style="margin-bottom:16px"><div class="section-header"><h3>⚠️ Alerts (${alerts.length})</h3></div>`;
+    alerts.slice(0,5).forEach(a=>{html+=`<div class="alert alert-${a.type}" style="margin-bottom:6px">${a.msg}</div>`});
+    if(alerts.length>5)html+=`<div style="font-size:12px;color:var(--text3)">+${alerts.length-5} more alerts</div>`;
+    html+=`</div>`;
+  }
+
+  if(isGPM){
+    html+=`<div class="grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-title" style="margin-bottom:12px">Projects by Region</div>
+      <div class="chart-container"><canvas id="chart-region"></canvas></div></div>
+    <div class="card"><div class="card-title" style="margin-bottom:12px">Project Status Overview</div>
+      <div class="chart-container"><canvas id="chart-status"></canvas></div></div>
+    </div>`;
+
+    html+=`<div class="card"><div class="section-header"><h3>Region Progress</h3></div>`;
+    REGIONS.forEach((r,ri)=>{
+      const rp=projects.filter(p=>p.region===ri);
+      const avg=rp.length?Math.round(rp.reduce((s,p)=>s+calcOverallProgress(p),0)/rp.length):0;
+      html+=`<div style="margin-bottom:12px">
+        <div class="progress-label"><span style="color:${REGION_COLORS[ri]};font-weight:600">${r} Region</span><span>${avg}% — ${rp.length} projects</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:${avg}%;background:${REGION_COLORS[ri]}"></div></div>
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+
+  // Recent projects
+  html+=`<div class="card" style="margin-top:16px"><div class="section-header"><h3>Recent Projects</h3><button class="btn btn-primary btn-sm" onclick="Router.go('projects')">View All</button></div>
+  <div class="table-wrap"><table><thead><tr><th>Project</th><th>Region</th><th>Status</th><th>Progress</th><th>Action</th></tr></thead><tbody>`;
+  myProjects.slice(0,6).forEach(p=>{
+    const prog=calcOverallProgress(p);
+    html+=`<tr>
+      <td><span style="font-weight:600">${p.name}</span></td>
+      <td><span class="badge" style="background:${REGION_COLORS[p.region]}22;color:${REGION_COLORS[p.region]}">${REGIONS[p.region]}</span></td>
+      <td>${statusBadge(p.status)}</td>
+      <td><div style="min-width:100px"><div class="progress-label" style="margin-bottom:3px"><span></span><span>${prog}%</span></div><div class="progress-wrap"><div class="progress-bar" style="width:${prog}%"></div></div></div></td>
+      <td><button class="btn btn-outline btn-xs" onclick="Router.go('project',{id:'${p.id}'})">Open →</button></td>
+    </tr>`;
+  });
+  html+=`</tbody></table></div></div>`;
+
+  setContent(html);
+
+  if(isGPM){
+    setTimeout(()=>{
+      try{
+        const regionCounts=REGIONS.map((r,ri)=>projects.filter(p=>p.region===ri).length);
+        new Chart(document.getElementById('chart-region'),{type:'bar',data:{labels:REGIONS,datasets:[{label:'Projects',data:regionCounts,backgroundColor:REGION_COLORS}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
+        new Chart(document.getElementById('chart-status'),{type:'doughnut',data:{labels:['Active','Delayed','Completed'],datasets:[{data:[active,delayed,completed],backgroundColor:['#16a34a','#d97706','#2563eb']}]},options:{responsive:true,maintainAspectRatio:false}});
+      }catch(e){}
+    },100);
+  }
+}
+
+// ========================================
+// PROJECTS LIST
+// ========================================
+function renderProjects(){
+  setTitle('Projects');
+  const user=Auth.current();
+  const isGPM=user.role==='gpm';
+  const projects=DB.get('projects',[]);
+  const myProjects=isGPM?projects:projects.filter(p=>p.region===user.region);
+
+  let html=`
+  <div class="page-header">
+    <div class="page-header-left"><h2>Projects</h2><p>${myProjects.length} projects ${isGPM?'across all regions':'in your region'}</p></div>
+    <button class="btn btn-primary" onclick="showAddProject()">＋ New Project</button>
+  </div>
+  <div class="search-bar">
+    <input class="search-input" id="proj-search" placeholder="🔍 Search projects..." oninput="filterProjects()">
+    <select class="form-control" id="proj-status-filter" style="width:auto" onchange="filterProjects()">
+      <option value="">All Status</option><option value="active">Active</option><option value="delayed">Delayed</option><option value="completed">Completed</option>
+    </select>
+    ${isGPM?`<select class="form-control" id="proj-region-filter" style="width:auto" onchange="filterProjects()">
+      <option value="">All Regions</option>${REGIONS.map((r,i)=>`<option value="${i}">${r}</option>`).join('')}
+    </select>`:''}
+  </div>
+  <div id="proj-list">`;
+
+  if(myProjects.length===0){
+    html+=`<div class="card"><div class="empty-state"><div class="icon">📁</div><p>No projects yet. Click "New Project" to get started.</p></div></div>`;
+  } else {
+    html+=`<div class="table-wrap"><table>
+    <thead><tr><th>Project Name</th><th>Region</th><th>Status</th><th>Legal</th><th>Execution</th><th>Closeout</th><th>Overall</th><th>Actions</th></tr></thead>
+    <tbody id="proj-tbody">`;
+    myProjects.forEach(p=>html+=projectRow(p));
+    html+=`</tbody></table></div>`;
+  }
+  html+=`</div>`;
+  setContent(html);
+}
+
+function projectRow(p){
+  const lp=calcLegalProgress(p.legal);
+  const cp=calcCloseoutProgress(p.closeout);
+  const op=calcOverallProgress(p);
+  return `<tr id="proj-row-${p.id}">
+    <td><span style="font-weight:600;cursor:pointer;color:var(--primary)" onclick="Router.go('project',{id:'${p.id}'})">${p.name}</span></td>
+    <td><span class="badge" style="background:${REGION_COLORS[p.region]}22;color:${REGION_COLORS[p.region]}">${REGIONS[p.region]}</span></td>
+    <td>${statusBadge(p.status)}</td>
+    <td><small>${lp}%</small></td>
+    <td><small>${p.execution.materialStatus?statusBadge(p.execution.materialStatus):'-'}</small></td>
+    <td><small>${cp}%</small></td>
+    <td><div style="min-width:80px"><div class="progress-label" style="margin-bottom:3px"><span></span><span style="font-size:11px">${op}%</span></div><div class="progress-wrap" style="height:6px"><div class="progress-bar" style="width:${op}%"></div></div></div></td>
+    <td><button class="btn btn-outline btn-xs" onclick="Router.go('project',{id:'${p.id}'})">Open</button> <button class="btn btn-danger btn-xs" onclick="deleteProject('${p.id}')">✕</button></td>
+  </tr>`;
+}
+
+function filterProjects(){
+  const q=(document.getElementById('proj-search')?.value||'').toLowerCase();
+  const st=document.getElementById('proj-status-filter')?.value||'';
+  const rf=document.getElementById('proj-region-filter')?.value;
+  const user=Auth.current();
+  const projects=DB.get('projects',[]);
+  let list=user.role==='gpm'?projects:projects.filter(p=>p.region===user.region);
+  if(q)list=list.filter(p=>p.name.toLowerCase().includes(q));
+  if(st)list=list.filter(p=>p.status===st);
+  if(rf!==undefined&&rf!=='')list=list.filter(p=>p.region===parseInt(rf));
+  const tbody=document.getElementById('proj-tbody');
+  if(tbody)tbody.innerHTML=list.map(projectRow).join('');
+}
+
+function showAddProject(){
+  const user=Auth.current();
+  const isGPM=user.role==='gpm';
+  const regionOpts=isGPM?REGIONS.map((r,i)=>`<option value="${i}">${r}</option>`).join(''):`<option value="${user.region}">${REGIONS[user.region]}</option>`;
+  showModal('New Project',`
+    <div class="form-group"><label class="form-label">Project Name</label><input class="form-control" id="np-name" placeholder="Enter project name"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Region</label><select class="form-control" id="np-region">${regionOpts}</select></div>
+      <div class="form-group"><label class="form-label">Status</label><select class="form-control" id="np-status"><option value="active">Active</option><option value="delayed">Delayed</option></select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Budget (SAR)</label><input class="form-control" type="number" id="np-budget" placeholder="0"></div>
+  `,()=>{
+    const name=document.getElementById('np-name').value.trim();
+    if(!name){toast('Project name required','error');return}
+    const p=makeProject(name,parseInt(document.getElementById('np-region').value),0);
+    p.status=document.getElementById('np-status').value;
+    p.budget=parseFloat(document.getElementById('np-budget').value)||0;
+    const projs=DB.get('projects',[]);projs.push(p);DB.set('projects',projs);
+    auditLog('Created project: '+name);toast('Project created','success');renderProjects();
+  },'Create Project');
+}
+
+function deleteProject(id){
+  if(!confirm('Delete this project? This cannot be undone.'))return;
+  const projs=DB.get('projects',[]).filter(p=>p.id!==id);
+  DB.set('projects',projs);auditLog('Deleted project: '+id);toast('Project deleted','success');renderProjects();
+}
+
+// ========================================
+// PROJECT DETAIL
+// ========================================
+let currentTab='legal';
+function renderProjectDetail(){
+  const id=Router.params.id;
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===id);
+  if(!p){setContent('<div class="card"><p>Project not found.</p></div>');return}
+  const user=Auth.current();
+  const canEdit=user.role==='gpm'||user.region===p.region;
+
+  setTitle(p.name);
+  const prog=calcOverallProgress(p);
+  const html=`
+  <div style="margin-bottom:16px">
+    <button class="btn btn-outline btn-sm" onclick="Router.go('projects')">← Back to Projects</button>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <h2 style="font-size:20px;font-weight:800">${p.name}</h2>
+        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+          <span class="badge" style="background:${REGION_COLORS[p.region]}22;color:${REGION_COLORS[p.region]}">${REGIONS[p.region]} Region</span>
+          ${statusBadge(p.status)}
+          <span class="badge badge-gray">Budget: ${fmtMoney(p.budget)}</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:28px;font-weight:800;color:var(--primary)">${prog}%</div>
+        <div style="font-size:11px;color:var(--text3)">Overall Progress</div>
+        ${canEdit?`<select class="form-control" style="margin-top:6px;width:auto" onchange="updateProjectStatus('${p.id}',this.value)">
+          <option value="active" ${p.status==='active'?'selected':''}>Active</option>
+          <option value="delayed" ${p.status==='delayed'?'selected':''}>Delayed</option>
+          <option value="completed" ${p.status==='completed'?'selected':''}>Completed</option>
+        </select>`:''}
+      </div>
+    </div>
+    <div style="margin-top:12px"><div class="progress-wrap"><div class="progress-bar" style="width:${prog}%"></div></div></div>
+  </div>
+  <div class="tabs">
+    <button class="tab ${currentTab==='legal'?'active':''}" onclick="switchTab('legal','${id}')">📋 Legal</button>
+    <button class="tab ${currentTab==='execution'?'active':''}" onclick="switchTab('execution','${id}')">🔧 Execution</button>
+    <button class="tab ${currentTab==='closeout'?'active':''}" onclick="switchTab('closeout','${id}')">✅ Closeout</button>
+    <button class="tab ${currentTab==='snag'?'active':''}" onclick="switchTab('snag','${id}')">🔍 Snag & Invoices</button>
+  </div>
+  <div id="tab-content"></div>`;
+  setContent(html);
+  renderTab(p,canEdit);
+}
+
+function switchTab(tab,id){currentTab=tab;Router.go('project',{id});}
+
+function renderTab(p,canEdit){
+  const tc=document.getElementById('tab-content');if(!tc)return;
+  if(currentTab==='legal')tc.innerHTML=renderLegalTab(p,canEdit);
+  else if(currentTab==='execution')tc.innerHTML=renderExecutionTab(p,canEdit);
+  else if(currentTab==='closeout')tc.innerHTML=renderCloseoutTab(p,canEdit);
+  else if(currentTab==='snag')tc.innerHTML=renderSnagTab(p,canEdit);
+}
+
+function updateProjectStatus(id,status){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  p.status=status;p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);auditLog('Updated status: '+p.name+' → '+status);toast('Status updated','success');
+}
+
+// LEGAL TAB
+function renderLegalTab(p,canEdit){
+  const lp=calcLegalProgress(p.legal);
+  let html=`<div class="card">
+  <div class="section-header"><h3>📋 Legal Documents</h3><span class="badge badge-${lp===100?'success':'warning'}">${lp}% Complete</span></div>
+  <div class="progress-wrap" style="margin-bottom:16px"><div class="progress-bar" style="width:${lp}%"></div></div>
+  <div class="check-item ${p.legal.lpo?'done':''}">
+    <input type="checkbox" id="lpo" ${p.legal.lpo?'checked':''} ${canEdit?'':'disabled'} onchange="saveLegal('${p.id}','lpo',this.checked)">
+    <label for="lpo"><strong>LPO Received</strong> — Local Purchase Order</label>
+    ${p.legal.lpo?'<span class="badge badge-success">✓ Done</span>':'<span class="badge badge-warning">Pending</span>'}
+  </div>
+  <div class="check-item ${p.legal.po?'done':''}" style="margin-top:6px">
+    <input type="checkbox" id="po" ${p.legal.po?'checked':''} ${canEdit?'':'disabled'} onchange="saveLegal('${p.id}','po',this.checked)">
+    <label for="po"><strong>PO Received</strong> — Purchase Order</label>
+    ${p.legal.po?'<span class="badge badge-success">✓ Done</span>':'<span class="badge badge-warning">Pending</span>'}
+  </div>
+  <hr class="divider">
+  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','legal')">＋ Add Field</button>`:''}</div>`;
+  (p.legal.customFields||[]).forEach(f=>{
+    html+=renderCustomField(f,p.id,'legal',canEdit);
+  });
+  html+=`</div>`;
+  return html;
+}
+
+function saveLegal(id,field,val){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  p.legal[field]=val;p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);auditLog('Updated legal '+field+' on '+p.name);
+  // re-render progress
+  const prog=calcLegalProgress(p.legal);
+  document.querySelector('.card .progress-bar') && (document.querySelector('.card .progress-bar').style.width=prog+'%');
+}
+
+// EXECUTION TAB
+function renderExecutionTab(p,canEdit){
+  const logs=p.execution.logs||[];
+  let html=`<div class="card" style="margin-bottom:16px">
+  <div class="section-header"><h3>🔧 Execution Status</h3></div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">Material Status</label>
+      <select class="form-control" ${canEdit?'':'disabled'} onchange="saveExecution('${p.id}','materialStatus',this.value)">
+        <option value="not_arrived" ${p.execution.materialStatus==='not_arrived'?'selected':''}>Not Arrived</option>
+        <option value="partial" ${p.execution.materialStatus==='partial'?'selected':''}>Partial</option>
+        <option value="arrived" ${p.execution.materialStatus==='arrived'?'selected':''}>Arrived</option>
+      </select></div>
+    <div style="display:flex;align-items:flex-end;padding-bottom:14px">${statusBadge(p.execution.materialStatus||'not_arrived')}</div>
+  </div>
+  <hr class="divider">
+  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','execution')">＋ Add Field</button>`:''}</div>
+  ${(p.execution.customFields||[]).map(f=>renderCustomField(f,p.id,'execution',canEdit)).join('')}
+  </div>
+  <div class="card">
+  <div class="section-header"><h3>📝 Daily Progress Log</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addLog('${p.id}')">＋ Add Entry</button>`:''}</div>
+  ${logs.length===0?'<div class="empty-state" style="padding:20px"><div class="icon" style="font-size:24px">📝</div><p>No log entries yet</p></div>':''}
+  ${logs.map(l=>`<div class="log-entry"><div class="log-meta">🕐 ${fmtDate(l.timestamp?.split('T')[0])} ${l.timestamp?.split('T')[1]?.slice(0,5)||''} &nbsp;|&nbsp; 👤 ${l.user}</div><div class="log-text">${l.text}</div></div>`).join('')}
+  </div>`;
+  return html;
+}
+
+function saveExecution(id,field,val){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  p.execution[field]=val;p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);auditLog('Updated execution '+field+' on '+p.name);toast('Saved','success');
+}
+
+function addLog(id){
+  showModal('Add Progress Log',`
+    <div class="form-group"><label class="form-label">Log Entry</label>
+    <textarea class="form-control" id="log-text" rows="4" placeholder="Describe today's progress..."></textarea></div>
+  `,()=>{
+    const text=document.getElementById('log-text').value.trim();
+    if(!text){toast('Please enter a log entry','error');return}
+    const projects=DB.get('projects',[]);
+    const p=projects.find(x=>x.id===id);if(!p)return;
+    const user=Auth.current();
+    if(!p.execution.logs)p.execution.logs=[];
+    p.execution.logs.unshift({id:uid(),timestamp:new Date().toISOString(),user:user.name,text});
+    p.updatedAt=new Date().toISOString().split('T')[0];
+    DB.set('projects',projects);auditLog('Added log on '+p.name);toast('Log added','success');
+    Router.go('project',{id});
+  },'Add Log');
+}
+
+// CLOSEOUT TAB
+function renderCloseoutTab(p,canEdit){
+  const cp=calcCloseoutProgress(p.closeout);
+  let html=`<div class="card">
+  <div class="section-header"><h3>✅ Closeout Checklist</h3><span class="badge badge-${cp===100?'success':'warning'}">${cp}% Complete</span></div>
+  <div class="progress-wrap" style="margin-bottom:16px"><div class="progress-bar" style="width:${cp}%"></div></div>
+  <div class="check-item ${p.closeout.coc?'done':''}">
+    <input type="checkbox" id="coc" ${p.closeout.coc?'checked':''} ${canEdit?'':'disabled'} onchange="saveCloseout('${p.id}','coc',this.checked)">
+    <label for="coc"><strong>COC Signed</strong> — Certificate of Completion</label>
+    ${p.closeout.coc?'<span class="badge badge-success">✓ Signed</span>':'<span class="badge badge-danger">Not Signed</span>'}
+  </div>
+  <hr class="divider">
+  <div class="section-header"><h3>Documentation Checklist</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addDocument('${p.id}')">＋ Add Document</button>`:''}</div>`;
+  (p.closeout.documents||[]).forEach(doc=>{
+    html+=`<div class="check-item ${doc.done?'done':''}" id="doc-${doc.id}">
+      <input type="checkbox" ${doc.done?'checked':''} ${canEdit?'':'disabled'} onchange="toggleDoc('${p.id}','${doc.id}',this.checked)">
+      <label>${doc.name}</label>
+      ${doc.done?'<span class="badge badge-success">✓</span>':'<span class="badge badge-gray">Pending</span>'}
+      ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeDoc('${p.id}','${doc.id}')">✕</button>`:''}
+    </div>`;
+  });
+  html+=`<hr class="divider">
+  <div class="section-header"><h3>Custom Fields</h3>${canEdit?`<button class="btn btn-outline btn-xs" onclick="addCustomField('${p.id}','closeout')">＋ Add Field</button>`:''}</div>
+  ${(p.closeout.customFields||[]).map(f=>renderCustomField(f,p.id,'closeout',canEdit)).join('')}
+  </div>`;
+  return html;
+}
+
+function saveCloseout(id,field,val){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  p.closeout[field]=val;p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);auditLog('Updated closeout on '+p.name);
+}
+
+function toggleDoc(pid,docId,val){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  const doc=p.closeout.documents.find(d=>d.id===docId);if(!doc)return;
+  doc.done=val;p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);auditLog('Updated document on '+p.name);
+}
+
+function addDocument(pid){
+  showModal('Add Document',`
+    <div class="form-group"><label class="form-label">Document Name</label>
+    <input class="form-control" id="doc-name" placeholder="e.g. Final Inspection Report"></div>
+  `,()=>{
+    const name=document.getElementById('doc-name').value.trim();
+    if(!name){toast('Name required','error');return}
+    const projects=DB.get('projects',[]);
+    const p=projects.find(x=>x.id===pid);if(!p)return;
+    p.closeout.documents.push({id:uid(),name,done:false});
+    DB.set('projects',projects);toast('Document added','success');Router.go('project',{id:pid});
+  },'Add');
+}
+
+function removeDoc(pid,docId){
+  if(!confirm('Remove this document?'))return;
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  p.closeout.documents=p.closeout.documents.filter(d=>d.id!==docId);
+  DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
+}
+
+// SNAG & INVOICES TAB
+function renderSnagTab(p,canEdit){
+  let html=`<div class="grid-2">
+  <div class="card">
+    <div class="section-header"><h3>🔍 Snag List</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addSnag('${p.id}')">＋ Add Snag</button>`:''}</div>
+    <div style="margin-bottom:8px">
+      <select class="form-control" style="width:auto;display:inline-block" onchange="filterSnags(this.value,'${p.id}')">
+        <option value="">All Status</option><option value="open">Open</option><option value="in_progress">In Progress</option><option value="closed">Closed</option>
+      </select>
+    </div>`;
+  if(!p.snagList?.length){html+=`<div class="empty-state" style="padding:20px"><div class="icon" style="font-size:24px">✅</div><p>No snag items</p></div>`}
+  else p.snagList.forEach(s=>{
+    const priorityColors={high:'var(--danger)',medium:'var(--warning)',low:'var(--success)'};
+    html+=`<div class="snag-card" id="snag-${s.id}">
+      <div style="display:flex;justify-content:space-between">
+        <div class="snag-title">${s.title}</div>
+        ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeSnag('${p.id}','${s.id}')">✕</button>`:''}
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px">${s.description||''}</div>
+      <div class="snag-meta">
+        <span class="badge" style="background:${priorityColors[s.priority]||'gray'}22;color:${priorityColors[s.priority]||'gray'}">${s.priority||'low'}</span>
+        ${statusBadge(s.status||'open')}
+        ${s.assignedTo?`<span class="badge badge-gray">👤 ${s.assignedTo}</span>`:''}
+        ${s.dueDate?`<span class="badge badge-gray">📅 ${fmtDate(s.dueDate)}</span>`:''}
+      </div>
+      ${canEdit?`<div style="margin-top:8px"><select class="form-control" style="width:auto" onchange="updateSnagStatus('${p.id}','${s.id}',this.value)">
+        <option value="open" ${s.status==='open'?'selected':''}>Open</option>
+        <option value="in_progress" ${s.status==='in_progress'?'selected':''}>In Progress</option>
+        <option value="closed" ${s.status==='closed'?'selected':''}>Closed</option>
+      </select></div>`:''}
+    </div>`;
+  });
+  html+=`</div>
+  <div class="card">
+    <div class="section-header"><h3>🧾 Invoices</h3>${canEdit?`<button class="btn btn-primary btn-sm" onclick="addInvoice('${p.id}')">＋ Add Invoice</button>`:''}</div>`;
+  const totalInvoiced=(p.invoices||[]).reduce((s,i)=>s+Number(i.amount||0),0);
+  const totalPaid=(p.invoices||[]).filter(i=>i.status==='paid').reduce((s,i)=>s+Number(i.amount||0),0);
+  html+=`<div class="grid-2" style="margin-bottom:12px">
+    <div class="stat-card" style="padding:12px"><div class="stat-icon blue">💵</div><div><div class="stat-value" style="font-size:18px">${fmtMoney(totalInvoiced)}</div><div class="stat-label">Total Invoiced</div></div></div>
+    <div class="stat-card" style="padding:12px"><div class="stat-icon green">✅</div><div><div class="stat-value" style="font-size:18px">${fmtMoney(totalPaid)}</div><div class="stat-label">Total Paid</div></div></div>
+  </div>`;
+  if(!p.invoices?.length){html+=`<div class="empty-state" style="padding:20px"><div class="icon" style="font-size:24px">🧾</div><p>No invoices yet</p></div>`}
+  else {
+    html+=`<div class="table-wrap"><table><thead><tr><th>#</th><th>Amount</th><th>Status</th><th>Date</th>${canEdit?'<th>Action</th>':''}</tr></thead><tbody>`;
+    p.invoices.forEach(inv=>{
+      html+=`<tr><td><strong>${inv.invoiceNumber}</strong></td><td>${fmtMoney(inv.amount)}</td><td>${statusBadge(inv.status||'submitted')}</td><td>${fmtDate(inv.date)}</td>
+      ${canEdit?`<td>
+        <select class="form-control" style="width:auto;font-size:11px" onchange="updateInvoiceStatus('${p.id}','${inv.id}',this.value)">
+          <option value="submitted" ${inv.status==='submitted'?'selected':''}>Submitted</option>
+          <option value="approved" ${inv.status==='approved'?'selected':''}>Approved</option>
+          <option value="paid" ${inv.status==='paid'?'selected':''}>Paid</option>
+        </select>
+        <button class="btn btn-danger btn-xs" onclick="removeInvoice('${p.id}','${inv.id}')">✕</button>
+      </td>`:''}
+      </tr>`;
+    });
+    html+=`</tbody></table></div>`;
+  }
+  html+=`</div></div>`;
+  return html;
+}
+
+function addSnag(pid){
+  showModal('Add Snag Item',`
+    <div class="form-group"><label class="form-label">Title *</label><input class="form-control" id="s-title" placeholder="Issue title"></div>
+    <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" id="s-desc" rows="2" placeholder="Details..."></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Priority</label><select class="form-control" id="s-priority"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
+      <div class="form-group"><label class="form-label">Assigned To</label><input class="form-control" id="s-assign" placeholder="Name"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Due Date</label><input class="form-control" type="date" id="s-due"></div>
+  `,()=>{
+    const title=document.getElementById('s-title').value.trim();
+    if(!title){toast('Title required','error');return}
+    const projects=DB.get('projects',[]);
+    const p=projects.find(x=>x.id===pid);if(!p)return;
+    if(!p.snagList)p.snagList=[];
+    p.snagList.push({id:uid(),title,description:document.getElementById('s-desc').value,priority:document.getElementById('s-priority').value,status:'open',assignedTo:document.getElementById('s-assign').value,dueDate:document.getElementById('s-due').value,createdAt:new Date().toISOString()});
+    DB.set('projects',projects);toast('Snag added','success');Router.go('project',{id:pid});
+  },'Add Snag');
+}
+
+function removeSnag(pid,sid){
+  if(!confirm('Remove this snag item?'))return;
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  p.snagList=p.snagList.filter(s=>s.id!==sid);
+  DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
+}
+
+function updateSnagStatus(pid,sid,status){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  const s=p.snagList.find(x=>x.id===sid);if(!s)return;
+  s.status=status;DB.set('projects',projects);toast('Updated','success');
+}
+
+function addInvoice(pid){
+  showModal('Add Invoice',`
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Invoice # *</label><input class="form-control" id="inv-num" placeholder="INV-001"></div>
+      <div class="form-group"><label class="form-label">Amount (SAR) *</label><input class="form-control" type="number" id="inv-amount" placeholder="0"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Date</label><input class="form-control" type="date" id="inv-date"></div>
+      <div class="form-group"><label class="form-label">Status</label><select class="form-control" id="inv-status"><option value="submitted">Submitted</option><option value="approved">Approved</option><option value="paid">Paid</option></select></div>
+    </div>
+  `,()=>{
+    const num=document.getElementById('inv-num').value.trim();
+    const amt=parseFloat(document.getElementById('inv-amount').value);
+    if(!num||!amt){toast('Invoice # and amount required','error');return}
+    const projects=DB.get('projects',[]);
+    const p=projects.find(x=>x.id===pid);if(!p)return;
+    if(!p.invoices)p.invoices=[];
+    p.invoices.push({id:uid(),invoiceNumber:num,amount:amt,date:document.getElementById('inv-date').value,status:document.getElementById('inv-status').value});
+    DB.set('projects',projects);toast('Invoice added','success');Router.go('project',{id:pid});
+  },'Add Invoice');
+}
+
+function removeInvoice(pid,invId){
+  if(!confirm('Remove this invoice?'))return;
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  p.invoices=p.invoices.filter(i=>i.id!==invId);
+  DB.set('projects',projects);toast('Removed','success');Router.go('project',{id:pid});
+}
+
+function updateInvoiceStatus(pid,invId,status){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  const inv=p.invoices.find(i=>i.id===invId);if(!inv)return;
+  inv.status=status;DB.set('projects',projects);toast('Updated','success');
+}
+
+// CUSTOM FIELDS
+function renderCustomField(f,pid,section,canEdit){
+  if(f.type==='checkbox'){
+    return `<div class="check-item ${f.value?'done':''}">
+      <input type="checkbox" ${f.value?'checked':''} ${canEdit?'':'disabled'} onchange="updateCustomField('${pid}','${section}','${f.id}',this.checked)">
+      <label>${f.label}</label>
+      ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeCustomField('${pid}','${section}','${f.id}')">✕</button>`:''}
+    </div>`;
+  }
+  if(f.type==='date'){
+    return `<div class="form-group" style="display:flex;align-items:center;gap:8px">
+      <label style="min-width:160px;font-size:13px">${f.label}:</label>
+      <input type="date" class="form-control" value="${f.value||''}" ${canEdit?'':'disabled'} onchange="updateCustomField('${pid}','${section}','${f.id}',this.value)" style="flex:1">
+      ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeCustomField('${pid}','${section}','${f.id}')">✕</button>`:''}
+    </div>`;
+  }
+  if(f.type==='dropdown'){
+    const opts=(f.options||'Option 1,Option 2').split(',');
+    return `<div class="form-group" style="display:flex;align-items:center;gap:8px">
+      <label style="min-width:160px;font-size:13px">${f.label}:</label>
+      <select class="form-control" ${canEdit?'':'disabled'} onchange="updateCustomField('${pid}','${section}','${f.id}',this.value)" style="flex:1">
+        ${opts.map(o=>`<option ${f.value===o?'selected':''}>${o}</option>`).join('')}
+      </select>
+      ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeCustomField('${pid}','${section}','${f.id}')">✕</button>`:''}
+    </div>`;
+  }
+  // text
+  return `<div class="form-group" style="display:flex;align-items:center;gap:8px">
+    <label style="min-width:160px;font-size:13px">${f.label}:</label>
+    <input class="form-control" value="${f.value||''}" ${canEdit?'':'disabled'} onchange="updateCustomField('${pid}','${section}','${f.id}',this.value)" style="flex:1">
+    ${canEdit?`<button class="btn btn-danger btn-xs" onclick="removeCustomField('${pid}','${section}','${f.id}')">✕</button>`:''}
+  </div>`;
+}
+
+function addCustomField(pid,section){
+  showModal('Add Custom Field',`
+    <div class="form-group"><label class="form-label">Field Label *</label><input class="form-control" id="cf-label" placeholder="Field name"></div>
+    <div class="form-group"><label class="form-label">Field Type</label>
+      <select class="form-control" id="cf-type" onchange="toggleDropdownOpts()">
+        <option value="checkbox">Checkbox</option>
+        <option value="text">Text</option>
+        <option value="date">Date</option>
+        <option value="dropdown">Dropdown</option>
+      </select></div>
+    <div class="form-group" id="cf-opts-wrap" style="display:none">
+      <label class="form-label">Options (comma separated)</label>
+      <input class="form-control" id="cf-opts" placeholder="Option A,Option B,Option C">
+    </div>
+  `,()=>{
+    const label=document.getElementById('cf-label').value.trim();
+    if(!label){toast('Label required','error');return}
+    const type=document.getElementById('cf-type').value;
+    const opts=document.getElementById('cf-opts').value;
+    const projects=DB.get('projects',[]);
+    const p=projects.find(x=>x.id===pid);if(!p)return;
+    const field={id:uid(),label,type,value:type==='checkbox'?false:'',options:opts||undefined};
+    if(!p[section].customFields)p[section].customFields=[];
+    p[section].customFields.push(field);
+    DB.set('projects',projects);toast('Field added','success');Router.go('project',{id:pid});
+  },'Add Field');
+}
+
+function toggleDropdownOpts(){
+  const t=document.getElementById('cf-type').value;
+  document.getElementById('cf-opts-wrap').style.display=t==='dropdown'?'block':'none';
+}
+
+function updateCustomField(pid,section,fid,val){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  const f=(p[section].customFields||[]).find(x=>x.id===fid);if(!f)return;
+  f.value=val;p.updatedAt=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);
+}
+
+function removeCustomField(pid,section,fid){
+  if(!confirm('Remove this field?'))return;
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  p[section].customFields=(p[section].customFields||[]).filter(f=>f.id!==fid);
+  DB.set('projects',projects);toast('Field removed','success');Router.go('project',{id:pid});
+}
+
+// ========================================
+// MATERIALS
+// ========================================
+function renderMaterials(){
+  setTitle('Materials Stock');
+  const user=Auth.current();
+  const isGPM=user.role==='gpm';
+  const materials=DB.get('materials',[]);
+  const myMats=isGPM?materials:materials.filter(m=>m.region===user.region);
+
+  let html=`
+  <div class="page-header">
+    <div class="page-header-left"><h2>Materials Stock</h2><p>${myMats.length} items ${isGPM?'across all regions':'in your region'}</p></div>
+    <button class="btn btn-primary" onclick="showAddMaterial()">＋ Add Material</button>
+  </div>
+  <div class="search-bar">
+    <input class="search-input" id="mat-search" placeholder="🔍 Search materials..." oninput="filterMaterials()">
+    <select class="form-control" id="mat-holder-filter" style="width:auto" onchange="filterMaterials()">
+      <option value="">All Holders</option><option>PM</option><option>Procurement</option><option>Finance</option>
+    </select>
+    <select class="form-control" id="mat-ordered-filter" style="width:auto" onchange="filterMaterials()">
+      <option value="">All</option><option value="yes">Ordered</option><option value="no">Not Ordered</option>
+    </select>
+    ${isGPM?`<select class="form-control" id="mat-region-filter" style="width:auto" onchange="filterMaterials()">
+      <option value="">All Regions</option>${REGIONS.map((r,i)=>`<option value="${i}">${r}</option>`).join('')}
+    </select>`:''}
+  </div>`;
+
+  if(isGPM){
+    REGIONS.forEach((r,ri)=>{
+      const rMats=myMats.filter(m=>m.region===ri);
+      if(!rMats.length)return;
+      html+=renderMaterialsTable(rMats,r,ri,true);
+    });
+  } else {
+    html+=renderMaterialsTable(myMats,REGIONS[user.region],user.region,true);
+  }
+
+  setContent(html);
+}
+
+function renderMaterialsTable(mats,regionName,ri,canEdit){
+  let html=`<div class="card" style="margin-bottom:16px">
+  <div class="section-header">
+    <h3><span style="color:${REGION_COLORS[ri]}">■</span> ${regionName} Region</h3>
+    <span class="badge badge-gray">${mats.length} items</span>
+  </div>
+  <div class="table-wrap" id="mat-table-${ri}"><table>
+  <thead><tr><th>Material</th><th>Qty</th><th>Ordered</th><th>Expected Delivery</th><th>Holder</th><th>PO Date</th><th>Notes</th>${canEdit?'<th>Action</th>':''}</tr></thead>
+  <tbody id="mat-tbody-${ri}">`;
+  mats.forEach(m=>{html+=materialRow(m,canEdit)});
+  html+=`</tbody></table></div></div>`;
+  return html;
+}
+
+function materialRow(m,canEdit){
+  return `<tr id="mat-row-${m.id}">
+    <td><strong>${m.name}</strong></td>
+    <td>${m.quantity}</td>
+    <td>${m.ordered?'<span class="badge badge-success">✓ Yes</span>':'<span class="badge badge-danger">No</span>'}</td>
+    <td>${fmtDate(m.expectedDelivery)}</td>
+    <td><span class="badge badge-${m.holder==='PM'?'primary':m.holder==='Procurement'?'warning':'info'}">${m.holder||'—'}</span></td>
+    <td>${fmtDate(m.poDate)}</td>
+    <td style="max-width:150px;font-size:12px">${m.notes||'—'}</td>
+    ${canEdit?`<td>
+      <button class="btn btn-outline btn-xs" onclick="editMaterial('${m.id}')">✎</button>
+      <button class="btn btn-danger btn-xs" onclick="deleteMaterial('${m.id}')">✕</button>
+    </td>`:''}
+  </tr>`;
+}
+
+function filterMaterials(){
+  const q=(document.getElementById('mat-search')?.value||'').toLowerCase();
+  const holder=document.getElementById('mat-holder-filter')?.value||'';
+  const ordered=document.getElementById('mat-ordered-filter')?.value||'';
+  const rf=document.getElementById('mat-region-filter')?.value;
+  const user=Auth.current();
+  let mats=DB.get('materials',[]);
+  if(user.role!=='gpm')mats=mats.filter(m=>m.region===user.region);
+  if(q)mats=mats.filter(m=>m.name.toLowerCase().includes(q));
+  if(holder)mats=mats.filter(m=>m.holder===holder);
+  if(ordered==='yes')mats=mats.filter(m=>m.ordered);
+  if(ordered==='no')mats=mats.filter(m=>!m.ordered);
+  if(rf!==undefined&&rf!=='')mats=mats.filter(m=>m.region===parseInt(rf));
+  REGIONS.forEach((_,ri)=>{
+    const tbody=document.getElementById('mat-tbody-'+ri);
+    if(tbody)tbody.innerHTML=mats.filter(m=>m.region===ri).map(m=>materialRow(m,true)).join('');
+  });
+}
+
+function showAddMaterial(){
+  const user=Auth.current();
+  const isGPM=user.role==='gpm';
+  const regionOpts=isGPM?REGIONS.map((r,i)=>`<option value="${i}">${r}</option>`).join(''):`<option value="${user.region}">${REGIONS[user.region]}</option>`;
+  showModal('Add Material',`
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Material Name *</label><input class="form-control" id="m-name" placeholder="e.g. Steel Beams"></div>
+      <div class="form-group"><label class="form-label">Quantity</label><input class="form-control" type="number" id="m-qty" value="0"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Region</label><select class="form-control" id="m-region">${regionOpts}</select></div>
+      <div class="form-group"><label class="form-label">Holder</label>
+        <select class="form-control" id="m-holder"><option>PM</option><option>Procurement</option><option>Finance</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Ordered?</label>
+        <select class="form-control" id="m-ordered"><option value="false">No</option><option value="true">Yes</option></select></div>
+      <div class="form-group"><label class="form-label">PO Date</label><input class="form-control" type="date" id="m-po"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Expected Delivery</label><input class="form-control" type="date" id="m-delivery"></div>
+    <div class="form-group"><label class="form-label">Notes</label><input class="form-control" id="m-notes" placeholder="Optional notes"></div>
+  `,()=>{
+    const name=document.getElementById('m-name').value.trim();
+    if(!name){toast('Name required','error');return}
+    const mats=DB.get('materials',[]);
+    mats.push({
+      id:uid(),region:parseInt(document.getElementById('m-region').value),
+      name,quantity:parseInt(document.getElementById('m-qty').value)||0,
+      ordered:document.getElementById('m-ordered').value==='true',
+      expectedDelivery:document.getElementById('m-delivery').value,
+      holder:document.getElementById('m-holder').value,
+      poDate:document.getElementById('m-po').value,
+      notes:document.getElementById('m-notes').value,
+      history:[]
+    });
+    DB.set('materials',mats);auditLog('Added material: '+name);toast('Material added','success');renderMaterials();
+  },'Add Material');
+}
+
+function editMaterial(id){
+  const mats=DB.get('materials',[]);
+  const m=mats.find(x=>x.id===id);if(!m)return;
+  showModal('Edit Material',`
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Name *</label><input class="form-control" id="em-name" value="${m.name}"></div>
+      <div class="form-group"><label class="form-label">Quantity</label><input class="form-control" type="number" id="em-qty" value="${m.quantity}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Holder</label>
+        <select class="form-control" id="em-holder">
+          <option ${m.holder==='PM'?'selected':''}>PM</option>
+          <option ${m.holder==='Procurement'?'selected':''}>Procurement</option>
+          <option ${m.holder==='Finance'?'selected':''}>Finance</option>
+        </select></div>
+      <div class="form-group"><label class="form-label">Ordered?</label>
+        <select class="form-control" id="em-ordered">
+          <option value="false" ${!m.ordered?'selected':''}>No</option>
+          <option value="true" ${m.ordered?'selected':''}>Yes</option>
+        </select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">PO Date</label><input class="form-control" type="date" id="em-po" value="${m.poDate||''}"></div>
+      <div class="form-group"><label class="form-label">Expected Delivery</label><input class="form-control" type="date" id="em-delivery" value="${m.expectedDelivery||''}"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><input class="form-control" id="em-notes" value="${m.notes||''}"></div>
+  `,()=>{
+    const user=Auth.current();
+    m.name=document.getElementById('em-name').value.trim();
+    m.quantity=parseInt(document.getElementById('em-qty').value)||0;
+    m.holder=document.getElementById('em-holder').value;
+    m.ordered=document.getElementById('em-ordered').value==='true';
+    m.poDate=document.getElementById('em-po').value;
+    m.expectedDelivery=document.getElementById('em-delivery').value;
+    m.notes=document.getElementById('em-notes').value;
+    m.history.push({timestamp:new Date().toISOString(),action:'Updated',user:user.name});
+    DB.set('materials',mats);auditLog('Updated material: '+m.name);toast('Updated','success');renderMaterials();
+  },'Save');
+}
+
+function deleteMaterial(id){
+  if(!confirm('Delete this material?'))return;
+  const mats=DB.get('materials',[]).filter(m=>m.id!==id);
+  DB.set('materials',mats);auditLog('Deleted material: '+id);toast('Deleted','success');renderMaterials();
+}
+
+// ========================================
+// FINANCIAL (GPM ONLY)
+// ========================================
+function renderFinancial(){
+  setTitle('Financial Overview');
+  if(!Auth.isGPM()){setContent('<div class="card"><p>Access denied.</p></div>');return}
+  const projects=DB.get('projects',[]);
+  const totalBudget=projects.reduce((s,p)=>s+Number(p.budget||0),0);
+  const totalExpenses=projects.reduce((s,p)=>s+(p.expenses||[]).reduce((es,e)=>es+Number(e.amount||0),0),0);
+  const remaining=totalBudget-totalExpenses;
+
+  let html=`
+  <div class="page-header"><div class="page-header-left"><h2>Financial Overview</h2><p>Cash flow and budget tracking</p></div>
+    <button class="btn btn-outline btn-sm" onclick="exportData()">⬇ Export JSON</button>
+  </div>
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="stat-card"><div class="stat-icon blue">💼</div><div><div class="stat-value" style="font-size:20px">${fmtMoney(totalBudget)}</div><div class="stat-label">Total Budget</div></div></div>
+    <div class="stat-card"><div class="stat-icon red">💸</div><div><div class="stat-value" style="font-size:20px">${fmtMoney(totalExpenses)}</div><div class="stat-label">Total Expenses</div></div></div>
+    <div class="stat-card"><div class="stat-icon green">💰</div><div><div class="stat-value" style="font-size:20px">${fmtMoney(remaining)}</div><div class="stat-label">Remaining</div></div></div>
+  </div>
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-title" style="margin-bottom:12px">Budget vs Actual by Region</div>
+      <div class="chart-container"><canvas id="fin-chart"></canvas></div></div>
+    <div class="card"><div class="card-title" style="margin-bottom:12px">Overall Budget Utilization</div>
+      <div class="chart-container"><canvas id="fin-pie"></canvas></div></div>
+  </div>`;
+
+  // Per project financial
+  html+=`<div class="card"><div class="section-header"><h3>Project Financials</h3></div>
+  <div class="table-wrap"><table><thead><tr><th>Project</th><th>Region</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Used %</th><th>Action</th></tr></thead><tbody>`;
+  projects.forEach(p=>{
+    const spent=(p.expenses||[]).reduce((s,e)=>s+Number(e.amount||0),0);
+    const rem=Number(p.budget||0)-spent;
+    const pct=p.budget?Math.round(spent/p.budget*100):0;
+    html+=`<tr>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="badge" style="background:${REGION_COLORS[p.region]}22;color:${REGION_COLORS[p.region]}">${REGIONS[p.region]}</span></td>
+      <td>${fmtMoney(p.budget)}</td>
+      <td>${fmtMoney(spent)}</td>
+      <td style="color:${rem<0?'var(--danger)':'var(--success)'}">${fmtMoney(rem)}</td>
+      <td><div class="progress-wrap"><div class="progress-bar" style="width:${Math.min(pct,100)}%;background:${pct>90?'var(--danger)':pct>70?'var(--warning)':'var(--primary)'}"></div></div><small>${pct}%</small></td>
+      <td><button class="btn btn-outline btn-xs" onclick="showProjectExpenses('${p.id}')">Details</button> <button class="btn btn-primary btn-xs" onclick="addExpense('${p.id}')">+ Expense</button></td>
+    </tr>`;
+  });
+  html+=`</tbody></table></div></div>`;
+  setContent(html);
+
+  setTimeout(()=>{
+    try{
+      const labels=REGIONS;
+      const budgets=REGIONS.map((_,ri)=>projects.filter(p=>p.region===ri).reduce((s,p)=>s+Number(p.budget||0),0));
+      const spents=REGIONS.map((_,ri)=>projects.filter(p=>p.region===ri).reduce((s,p)=>s+(p.expenses||[]).reduce((es,e)=>es+Number(e.amount||0),0),0));
+      new Chart(document.getElementById('fin-chart'),{type:'bar',data:{labels,datasets:[{label:'Budget',data:budgets,backgroundColor:'rgba(37,99,235,.6)'},{label:'Spent',data:spents,backgroundColor:'rgba(220,38,38,.6)'}]},options:{responsive:true,maintainAspectRatio:false}});
+      new Chart(document.getElementById('fin-pie'),{type:'doughnut',data:{labels:['Spent','Remaining'],datasets:[{data:[totalExpenses,Math.max(0,remaining)],backgroundColor:['#dc2626','#16a34a']}]},options:{responsive:true,maintainAspectRatio:false}});
+    }catch(e){}
+  },100);
+}
+
+function addExpense(pid){
+  showModal('Add Expense',`
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Amount (SAR) *</label><input class="form-control" type="number" id="exp-amount" placeholder="0"></div>
+      <div class="form-group"><label class="form-label">Category</label>
+        <select class="form-control" id="exp-cat">
+          <option>Labor</option><option>Materials</option><option>Equipment</option><option>Subcontractor</option><option>Overhead</option><option>Other</option>
+        </select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Description</label><input class="form-control" id="exp-desc" placeholder="What was this expense for?"></div>
+  `,()=>{
+    const amt=parseFloat(document.getElementById('exp-amount').value);
+    if(!amt){toast('Amount required','error');return}
+    const projects=DB.get('projects',[]);
+    const p=projects.find(x=>x.id===pid);if(!p)return;
+    if(!p.expenses)p.expenses=[];
+    p.expenses.push({id:uid(),amount:amt,category:document.getElementById('exp-cat').value,description:document.getElementById('exp-desc').value,timestamp:new Date().toISOString(),user:Auth.current().name});
+    DB.set('projects',projects);auditLog('Added expense on '+p.name);toast('Expense added','success');renderFinancial();
+  },'Add Expense');
+}
+
+function showProjectExpenses(pid){
+  const projects=DB.get('projects',[]);
+  const p=projects.find(x=>x.id===pid);if(!p)return;
+  const exps=p.expenses||[];
+  const total=exps.reduce((s,e)=>s+Number(e.amount||0),0);
+  let body=`<p style="margin-bottom:12px;font-size:13px"><strong>Budget:</strong> ${fmtMoney(p.budget)} &nbsp;|&nbsp; <strong>Spent:</strong> ${fmtMoney(total)} &nbsp;|&nbsp; <strong>Remaining:</strong> ${fmtMoney(Number(p.budget||0)-total)}</p>`;
+  if(!exps.length)body+=`<div class="empty-state"><div class="icon">💸</div><p>No expenses recorded</p></div>`;
+  else exps.forEach(e=>{
+    body+=`<div class="fin-entry">
+      <div><div class="fin-desc">${e.description||'—'}</div><div class="fin-cat">${e.category} · ${fmtDate(e.timestamp?.split('T')[0])} · ${e.user}</div></div>
+      <div class="fin-amount">-${fmtMoney(e.amount)}</div>
+    </div>`;
+  });
+  showModalNoConfirm(p.name+' — Expenses',body);
+}
+
+// ========================================
+// AUDIT LOG
+// ========================================
+function renderAudit(){
+  setTitle('Audit Log');
+  if(!Auth.isGPM()){setContent('<div class="card"><p>Access denied.</p></div>');return}
+  const logs=DB.get('audit',[]);
+  let html=`<div class="page-header"><div class="page-header-left"><h2>Audit Log</h2><p>${logs.length} entries</p></div>
+    <button class="btn btn-danger btn-sm" onclick="if(confirm('Clear audit log?')){DB.set('audit',[]);renderAudit()}">Clear Log</button>
+  </div>
+  <div class="card"><div class="table-wrap"><table>
+  <thead><tr><th>Timestamp</th><th>User</th><th>Action</th></tr></thead><tbody>`;
+  if(!logs.length)html+=`<tr><td colspan="3" style="text-align:center;color:var(--text3);padding:30px">No audit entries</td></tr>`;
+  logs.forEach(l=>{
+    html+=`<tr><td style="font-size:12px;white-space:nowrap">${l.timestamp?new Date(l.timestamp).toLocaleString('en-GB'):''}</td><td>${l.user}</td><td>${l.action}</td></tr>`;
+  });
+  html+=`</tbody></table></div></div>`;
+  setContent(html);
+}
+
+// ========================================
+// SETTINGS
+// ========================================
+function renderSettings(){
+  setTitle('Settings');
+  const user=Auth.current();
+  const isGPM=user.role==='gpm';
+  const users=DB.get('users',DEFAULT_USERS);
+
+  let html=`
+  <div class="page-header"><div class="page-header-left"><h2>Settings</h2></div></div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">🔐 Change My Password</div>
+      <div class="form-group"><label class="form-label">Current Password</label><input class="form-control" type="password" id="cp-old"></div>
+      <div class="form-group"><label class="form-label">New Password</label><input class="form-control" type="password" id="cp-new"></div>
+      <div class="form-group"><label class="form-label">Confirm Password</label><input class="form-control" type="password" id="cp-confirm"></div>
+      <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">💾 Data Management</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn btn-outline" onclick="exportData()">⬇ Export All Data (JSON)</button>
+        <label class="btn btn-outline" style="cursor:pointer">⬆ Import Data (JSON)<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label>
+        <button class="btn btn-danger" onclick="clearAllData()">🗑 Reset All Data</button>
+      </div>
+    </div>
+  </div>`;
+
+  if(isGPM){
+    html+=`<div class="card" style="margin-top:16px">
+    <div class="section-header"><h3>👥 User Credentials</h3></div>
+    <div class="table-wrap"><table>
+    <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Region</th><th>Action</th></tr></thead><tbody>`;
+    users.forEach(u=>{
+      html+=`<tr>
+        <td>${u.name}</td><td><code>${u.username}</code></td>
+        <td>${u.role==='gpm'?'<span class="badge badge-primary">Global PM</span>':'<span class="badge badge-info">Regional PM</span>'}</td>
+        <td>${u.region!==null?REGIONS[u.region]:'All'}</td>
+        <td><button class="btn btn-outline btn-xs" onclick="resetUserPassword('${u.id}')">Reset PW</button></td>
+      </tr>`;
+    });
+    html+=`</tbody></table></div></div>`;
+  }
+  setContent(html);
+}
+
+function changePassword(){
+  const old=document.getElementById('cp-old').value;
+  const nw=document.getElementById('cp-new').value;
+  const cf=document.getElementById('cp-confirm').value;
+  const user=Auth.current();
+  const users=DB.get('users',DEFAULT_USERS);
+  const u=users.find(x=>x.id===user.id);
+  if(!u||u.password!==old){toast('Current password incorrect','error');return}
+  if(nw.length<6){toast('New password must be at least 6 characters','error');return}
+  if(nw!==cf){toast('Passwords do not match','error');return}
+  u.password=nw;DB.set('users',users);
+  DB.set('session',{...user,password:nw});
+  auditLog('Changed password');toast('Password updated','success');
+}
+
+function resetUserPassword(uid_){
+  if(!Auth.isGPM()){toast('Access denied','error');return}
+  showModal('Reset Password',`
+    <div class="form-group"><label class="form-label">New Password *</label><input class="form-control" id="rp-new" type="password" placeholder="Min 6 characters"></div>
+  `,()=>{
+    const pw=document.getElementById('rp-new').value;
+    if(pw.length<6){toast('Min 6 characters','error');return}
+    const users=DB.get('users',DEFAULT_USERS);
+    const u=users.find(x=>x.id===uid_);if(!u)return;
+    u.password=pw;DB.set('users',users);auditLog('Reset password for: '+u.name);toast('Password reset','success');
+  },'Reset');
+}
+
+function exportData(){
+  const data={projects:DB.get('projects',[]),materials:DB.get('materials',[]),users:DB.get('users',[]).map(u=>({...u,password:'[hidden]'})),exported:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='pm-backup-'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();toast('Data exported','success');
+}
+
+function importData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=(ev)=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(data.projects)DB.set('projects',data.projects);
+      if(data.materials)DB.set('materials',data.materials);
+      auditLog('Imported data');toast('Data imported successfully','success');
+      setTimeout(()=>Router.go('dashboard'),500);
+    }catch{toast('Invalid JSON file','error')}
+  };
+  reader.readAsText(file);
+}
+
+function clearAllData(){
+  if(!confirm('WARNING: This will delete ALL projects, materials, and expenses. Continue?'))return;
+  if(!confirm('Are you absolutely sure? This cannot be undone.'))return;
+  DB.del('projects');DB.del('materials');DB.del('audit');
+  DB.init();auditLog('Reset all data');toast('Data reset','success');Router.go('dashboard');
+}
+
+// ========================================
+// INIT
+// ========================================
+DB.init();
+const session=Auth.current();
+if(session){Router.go('dashboard')}else{renderLogin()}
+</script>
+
+
+</body></html>
