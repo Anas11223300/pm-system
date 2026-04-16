@@ -201,6 +201,31 @@ a{text-decoration:none;color:inherit}
 .badge-purple{background:var(--purple-bg);color:var(--purple)}
 .badge-gray{background:#F1F5F9;color:var(--muted)}
 
+
+/* ===== SUPPLY CHAIN FULL WIDTH ===== */
+#page-supplyChain.page.active{display:flex;flex-direction:column;height:100%}
+.sc-full{display:flex;flex-direction:column;flex:1;overflow:hidden}
+.sc-full .sticky-table-wrap{flex:1;overflow:auto}
+
+/* ===== INVENTORY ===== */
+.inv-category{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  padding:6px 12px;background:#F1F5F9;color:var(--muted);border-bottom:1px solid var(--border)}
+.stock-ok{color:var(--green)}
+.stock-low{color:var(--yellow)}
+.stock-critical{color:var(--red)}
+.txn-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--border);font-size:13px}
+.txn-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.txn-dot.in{background:var(--green)}
+.txn-dot.out{background:var(--red)}
+.note-item{padding:10px 12px;background:#F8FAFC;border-radius:8px;margin-bottom:8px;font-size:13px}
+.note-meta{font-size:11px;color:var(--muted);margin-bottom:4px}
+.approval-row{display:flex;align-items:center;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--border)}
+.approval-step{min-width:200px;font-weight:600;font-size:13px}
+.approval-date{font-size:12px;color:var(--muted);min-width:100px}
+.approval-waiting{font-size:12px;color:var(--yellow);font-weight:600}
+
 /* ===== STAGE COLORS ===== */
 .stage-not-started{color:#94A3B8}
 .stage-survey{color:#0EA5E9}
@@ -296,7 +321,7 @@ a{text-decoration:none;color:inherit}
 .tab-content.active{display:block}
 
 /* ===== CHART PLACEHOLDER ===== */
-.chart-area{height:240px;display:flex;align-items:center;justify-content:center;background:#F8FAF3;border-radius:8px;color:var(--muted);font-size:13px}
+.chart-area{height:240px;display:flex;align-items:center;justify-content:center;background:#F8FAFC;border-radius:8px;color:var(--muted);font-size:13px}
 
 /* ===== DONUT ===== */
 .donut-wrap{display:flex;flex-direction:column;align-items:center;padding:12px 0}
@@ -386,6 +411,9 @@ a{text-decoration:none;color:inherit}
       </div>
       <div class="nav-item" onclick="showPage('supplyChain',this)">
         <span class="nav-icon">📦</span> Supply Chain
+      </div>
+      <div class="nav-item" onclick="showPage('inventory',this)">
+        <span class="nav-icon">🏭</span> Inventory
       </div>
       <div class="nav-section">Management</div>
       <div class="nav-item" onclick="showPage('projects',this)">
@@ -526,7 +554,7 @@ a{text-decoration:none;color:inherit}
       </div>
 
       <!-- ========== SUPPLY CHAIN ========== -->
-      <div id="page-supplyChain" class="page">
+      <div id="page-supplyChain" class="page sc-full">
         <div class="pc-header">
           <div class="filter-bar">
             <select class="filter-select" id="scRegion" onchange="renderSupplyChain()">
@@ -554,7 +582,7 @@ a{text-decoration:none;color:inherit}
           <div id="scSummary" style="padding:10px 16px;background:#FEF2F2;border-bottom:1px solid #FECACA;font-size:13px;color:#991B1B;font-weight:600"></div>
         </div>
 
-        <div class="sticky-table-wrap">
+        <div class="sticky-table-wrap" style="flex:1;overflow:auto">
           <table>
             <thead>
               <tr>
@@ -572,6 +600,95 @@ a{text-decoration:none;color:inherit}
             </thead>
             <tbody id="scTableBody"></tbody>
           </table>
+        </div>
+      </div>
+
+      
+      <!-- ========== INVENTORY ========== -->
+      <div id="page-inventory" class="page">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div><div class="section-title">🏭 Inventory Control</div>
+          <div class="section-sub">Materials stock — receipts, dispatches &amp; balances</div></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-primary-sm" onclick="openInvModal('receipt')">+ Add Receipt</button>
+            <button class="btn-sm" onclick="openInvModal('dispatch')">↗ Dispatch</button>
+          </div>
+        </div>
+        <div id="invAlertStrip"></div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px" id="invKpiGrid"></div>
+        <div class="card">
+          <div class="tabs">
+            <div class="tab active" onclick="switchTab(this,'inv-tab-stock')">Materials Stock</div>
+            <div class="tab" onclick="switchTab(this,'inv-tab-txn');renderTxnLog()">Transaction Log</div>
+            <div class="tab" onclick="switchTab(this,'inv-tab-dispatch');renderDispatchLog()">Dispatch by Project</div>
+          </div>
+          <div class="tab-content active" id="inv-tab-stock">
+            <div style="display:flex;gap:8px;padding:10px 0;flex-wrap:wrap">
+              <select class="filter-select" id="invCatFilter" onchange="renderInvTable()">
+                <option value="">All Categories</option>
+                <option>Electrical – Fixed</option>
+                <option>Electrical – Variable</option>
+                <option>Civil – Fixed</option>
+                <option>Civil – Variable</option>
+              </select>
+              <input class="filter-search" id="invSearch" placeholder="Search material..." oninput="renderInvTable()" style="width:220px">
+            </div>
+            <div class="table-wrap"><table id="invTable">
+              <thead><tr>
+                <th>Code</th><th>Description</th><th>Category</th><th>Unit</th>
+                <th>Per School (avg)</th><th>Total Received</th><th>Dispatched</th>
+                <th>On Hand</th><th>Status</th><th>Action</th>
+              </tr></thead>
+              <tbody id="invTableBody"></tbody>
+            </table></div>
+          </div>
+          <div class="tab-content" id="inv-tab-txn">
+            <div id="invTxnLog" style="max-height:500px;overflow-y:auto;padding:8px 0"></div>
+          </div>
+          <div class="tab-content" id="inv-tab-dispatch">
+            <div id="invDispatchLog" style="padding:8px 0"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVENTORY MODAL -->
+      <div id="invModal" class="modal" style="display:none">
+        <div class="modal-box" style="max-width:480px">
+          <div class="modal-header">
+            <span id="invModalTitle">Add Receipt</span>
+            <button onclick="closeModal('invModal')" style="background:none;border:none;font-size:20px;cursor:pointer">×</button>
+          </div>
+          <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+            <div class="form-group">
+              <label>Material</label>
+              <select id="invMaterialSel" class="filter-select" style="width:100%"></select>
+            </div>
+            <div id="invProjectRow" class="form-group" style="display:none">
+              <label>Project / Region</label>
+              <select id="invProjectSel" class="filter-select" style="width:100%">
+                <option value="">Select project...</option>
+                <option>Northern Borders</option><option>Tabuk</option>
+                <option>Najran</option><option>Jizan</option><option>Al-Jouf</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quantity</label>
+              <input type="number" id="invQty" class="filter-search" style="width:100%" min="1" placeholder="0">
+            </div>
+            <div id="invPoRow" class="form-group">
+              <label>PO Number</label>
+              <input type="text" id="invPo" class="filter-search" style="width:100%" placeholder="PO-XXXX">
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="invDate" class="filter-search" style="width:100%">
+            </div>
+            <div class="form-group">
+              <label>Notes (optional)</label>
+              <input type="text" id="invNotes" class="filter-search" style="width:100%" placeholder="Remarks...">
+            </div>
+            <button class="btn-primary-sm" onclick="saveInvTxn()" style="padding:10px">Save</button>
+          </div>
         </div>
       </div>
 
@@ -683,7 +800,7 @@ a{text-decoration:none;color:inherit}
       </div>
       <div class="form-field" id="blockReasonField"><label>Block Reason</label>
         <select id="sch_reason">
-          <option>Material Delay</option><option>Procurement</option>
+          <option>Material Delay</option><option>Procurement'</option>
           <option>Client Approval</option><option>Contractor</option>
           <option>Utility / SEC</option><option>RFI Pending</option><option>Other</option>
         </select>
@@ -692,7 +809,7 @@ a{text-decoration:none;color:inherit}
     <div class="form-row">
       <div class="form-field"><label>Owner</label>
         <select id="sch_owner">
-          <option>Procurement</option><option>Contractor</option>
+          <option>Procurement'</option><option>Contractor</option>
           <option>Client</option><option>Utility / SEC</option><option>PM</option>
         </select>
       </div>
@@ -748,7 +865,7 @@ a{text-decoration:none;color:inherit}
 
 // ===================== CONFIG =====================
 function getFbCfg(){
-  return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2"};
+  return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectI":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2"};
 }
 
 // ===================== DB (localStorage + Firebase) =====================
@@ -787,26 +904,78 @@ const BLOCK_REASONS = ['Material Delay','Procurement','Client Approval','Contrac
 const OWNERS = ['Procurement','Contractor','Client','Utility / SEC','PM'];
 const KIT_STATUS = ['Ready','Partial','Missing'];
 
-const DEFAULT_PROJECTS = REGIONS.map((r,i)=>({
-  id:'proj-'+i,
-  name:'Solar Schools Program – '+r,
-  region:r,
-  value:45000000 + i*3000000,
-  start:'2024-01-01',
-  end:'2025-12-31',
-  status:'Active',
-  desc:'Installation of 15kW solar systems on 200 schools in '+r+' region.',
-  lpo:false, po:false,
-  actualPct:0,
-  budget:{planned:45000000+i*3000000,actual:12000000+i*1500000},
-  legal:[
-    {id:'l1',name:'Main Contract',done:false},
-    {id:'l2',name:'LPO',done:false},
-    {id:'l3',name:'PO',done:false},
-    {id:'l4',name:'Performance Bond',done:false},
-    {id:'l5',name:'Insurance Certificate',done:false}
-  ]
-}));
+const DEFAULT_PROJECTS = [
+  {id:'proj-NO',name:'Solar Schools – Northern Borders',region:'Northern Borders',
+   value:52000000,start:'2024-03-01',end:'2026-06-30',status:'Active',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Northern Borders region. Includes civil foundations, string inverters, SMDB, injection metering, data loggers, and full T&C.',
+   notes:[],
+   approvalChain:[
+     {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-01-20',waitingOn:'',issuedBy:'GPM Office'},
+     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-02-05',waitingOn:'',issuedBy:'Procurement'},
+     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Finance Dept ‒ pending budget release',issuedBy:''},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor – SABB policy renewal',issuedBy:''},
+     {id:'ac5',name:'Performance Bond',done:true,doneDate:'2024-02-12',waitingOn:'',issuedBy:'Al Rajhi Bank'}
+   ],
+   budget:{planned:52000000,actual:13000000},lpo:true,po:false,actualPct:25,
+   legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:false},{id:'l4',name:'Performance Bond',done:true},{id:'l5',name:'Insurance Certificate',done:false}]
+  },
+  {id:'proj-TA',name:'Solar Schools – Tabuk',region:'Tabuk',
+   value:49000000,start:'2024-04-01',end:'2026-08-31',status:'Active',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Tabuk region. High sand-exposure environment – enhanced IP-rating enclosures required.',
+   notes:[],
+   approvalChain:[
+     {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-02-10',waitingOn:'',issuedBy:'GPM Office'},
+     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-03-01',waitingOn:'',issuedBy:'Procurement'},
+     {id:'ac3',name:'PO (Purchase Order)',done:true,doneDate:'2024-03-20',waitingOn:'',issuedBy:'Finance Dept'},
+     {id:'ac4',name:'Insurance Certificate',done:true,doneDate:'2024-04-01',waitingOn:'',issuedBy:'Malath Insurance'},
+     {id:'ac5',name:'Performance Bond',done:true,doneDate:'2024-03-15',waitingOn:'',issuedBy:'SNB Bank'}
+   ],
+   budget:{planned:49000000,actual:18000000},lpo:true,po:true,actualPct:37,
+   legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:true},{id:'l4',name:'Performance Bond',done:true},{id:'l5',name:'Insurance Certificate',done:true}]
+  },
+  {id:'proj-NA',name:'Solar Schools – Najran',region:'Najran',
+   value:46000000,start:'2024-05-01',end:'2026-09-30',status:'Active',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Najran region. Coordination required with local municipality for grid injection approvals.',
+   notes:[],
+   approvalChain:[
+     {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-03-15',waitingOn:'',issuedBy:'GPM Office'},
+     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-04-01',waitingOn:'',issuedBy:'Procurement'},
+     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Legal Dept – awaiting stamp approval',issuedBy:''},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor – document incomplete',issuedBy:''},
+     {id:'ac5',name:'Performance Bond',done:false,doneDate:'',waitingOn:'Bank – credit line approval pending',issuedBy:''}
+   ],
+   budget:{planned:46000000,actual:8000000},lpo:true,po:false,actualPct:17,
+   legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:false},{id:'l4',name:'Performance Bond',done:false},{id:'l5',name:'Insurance Certificate',done:false}]
+  },
+  {id:'proj-JZ',name:'Solar Schools – Jizan',region:'Jizan',
+   value:44000000,start:'2024-06-01',end:'2026-10-31',status:'Delayed',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Jizan region. High humidity coastal environment – marine-grade hardware specified.',
+   notes:[],
+   approvalChain:[
+     {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-04-10',waitingOn:'',issuedBy:'GPM Office'},
+     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:false,doneDate:'',waitingOn:'Finance Dept – 2nd approval signature required',issuedBy:''},
+     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Pending LPO issuance',issuedBy:''},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Pending PO issuance',issuedBy:''},
+     {id:'ac5',name:'Performance Bond',done:false,doneDate:'',waitingOn:'Pending contract activation',issuedBy:''}
+   ],
+   budget:{planned:44000000,actual:3000000},lpo:false,po:false,actualPct:7,
+   legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:false},{id:'l3',name:'PO',done:false},{id:'l4',name:'Performance Bond',done:false},{id:'l5',name:'Insurance Certificate',done:false}]
+  },
+  {id:'proj-AJ',name:'Solar Schools – Al-Jouf',region:'Al-Jouf',
+   value:41000000,start:'2024-07-01',end:'2026-12-31',status:'Active',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Al-Jouf region. Remote desert sites – logistics plan required for materials delivery.',
+   notes:[],
+   approvalChain:[
+     {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-05-01',waitingOn:'',issuedBy:'GPM Office'},
+     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-05-20',waitingOn:'',issuedBy:'Procurement'},
+     {id:'ac3',name:'PO (Purchase Order)',done:true,doneDate:'2024-06-05',waitingOn:'',issuedBy:'Finance Dept'},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor – awaiting Tawuniya approval',issuedBy:''},
+     {id:'ac5',name:'Performance Bond',done:true,doneDate:'2024-06-01',waitingOn:'',issuedBy:'Riyad Bank'}
+   ],
+   budget:{planned:41000000,actual:9500000},lpo:true,po:true,actualPct:23,
+   legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:true},{id:'l4',name:'Performance Bond',done:true},{id:'l5',name:'Insurance Certificate',done:false}]
+  }
+];
 
 // ===================== SAMPLE SCHOOL DATA GENERATOR =====================
 function generateSampleSchools(){
@@ -862,7 +1031,7 @@ function doLogin(){
   document.getElementById('app').style.display='flex';
   document.getElementById('sidebarUserName').textContent = found.name;
   document.getElementById('sidebarUserRole').textContent = found.role==='gpm'?'Global PM':'Regional PM · '+found.region;
-  document.getElementById('settingsUser').textContent = found.name;
+  document.getElementById('settingsUser'>.textContent = found.name;
   document.getElementById('settingsRole').textContent = found.role==='gpm'?'Global Project Manager':'Regional PM';
   // Hide add project for regional PMs
   if(found.role!=='gpm') document.getElementById('addProjectBtn').style.display='none';
@@ -917,13 +1086,14 @@ function showPage(pageId, navEl){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+pageId).classList.add('active');
   if(navEl) navEl.classList.add('active');
-  const titles={dashboard:'Dashboard',programControl:'Program Control',supplyChain:'Supply Chain',
+  const titles={dashboard:'Dashboard',programControl:'Program Control',supplyChain:'Supply Chain',inventory:'Inventory',
     projects:'Projects',financial:'Financial',auditLog:'Audit Log',settings:'Settings'};
   document.getElementById('headerTitle').textContent = titles[pageId]||pageId;
   // Render page content
   if(pageId==='dashboard') renderDashboard();
   if(pageId==='programControl') renderProgramControl();
   if(pageId==='supplyChain') renderSupplyChain();
+  if(pageId==='inventory') renderInventory();
   if(pageId==='projects') renderProjects();
   if(pageId==='financial') renderFinancial();
   if(pageId==='auditLog') renderAuditLog();
@@ -1012,6 +1182,15 @@ function drillRegion(region){
 }
 
 let donutChartInst=null;
+function checkAndShowInvAlert(){
+  const mats=getMaterials();
+  const alerts=mats.filter(m=>{const {onHand}=getStockSummary(m.code);return onHand<m.perSchool*50&&onHand>=0&&m.perSchool>0;});
+  const strip=document.getElementById('pcAlertStrip');
+  if(strip&&alerts.length){
+    strip.innerHTML+=`<div class="alert-item">🏭 <span class="chip" onclick="showPage('inventory',document.querySelector('[onclick*=inventory]'))">${alerts.length} low-stock items</span></div>`;
+  }
+}
+
 function renderDonut(schools){
   const reasons = {};
   schools.filter(s=>s.blocked).forEach(s=>{
@@ -1175,7 +1354,7 @@ function editSchool(id){
   document.getElementById('sch_days').value=s.days||0;
   document.getElementById('sch_civil').value=s.civilKit;
   document.getElementById('sch_elec').value=s.elecKit;
-  document.getElementById('sch_blocked').value=s.blocked?'yes':'no';
+  document.getElementByIId('sch_blocked').value=s.blocked?'yes':'no';
   document.getElementById('sch_reason').value=s.reason||'Material Delay';
   document.getElementById('sch_owner').value=s.owner||'Procurement';
   document.getElementById('sch_forecast').value=s.forecast||'';
@@ -1324,20 +1503,45 @@ function openProjectDetail(id){
 
     <div class="card">
       <div class="tabs">
-        <div class="tab active" onclick="switchTab(this,'tab-legal')">Legal Documents</div>
+        <div class="tab active" onclick="switchTab(this,'tab-approval')">Approval Chain</div>
         <div class="tab" onclick="switchTab(this,'tab-fin')">Financial</div>
+        <div class="tab" onclick="switchTab(this,'tab-notes')">PM Notes</div>
         <div class="tab" onclick="switchTab(this,'tab-desc')">Details</div>
       </div>
-      <div class="tab-content active" id="tab-legal">
-        <div style="max-width:500px">
-          ${(p.legal||[]).map((l,li)=>`
-            <div class="fin-row">
-              <span>${l.name}</span>
-              <div style="display:flex;gap:10px;align-items:center">
-                <span class="badge ${l.done?'badge-green':'badge-yellow'}">${l.done?'✅ Done':'⏳ Pending'}</span>
-                ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" style="padding:3px 10px;font-size:11px" onclick="toggleLegal('${p.id}',${li})">${l.done?'Uncheck':'Mark Done'}</button>`:''}
+      <div class="tab-content active" id="tab-approval">
+        <div style="max-width:700px">
+          ${(p.approvalChain||p.legal||[]).map((ac,i)=>{
+            const isDone=ac.done;
+            return `<div class="approval-row">
+              <div style="display:flex;align-items:center;gap:10px;flex:1">
+                <div style="width:28px;height:28px;border-radius:50%;background:${isDone?'var(--green-bg)':'#FEF3C7'};
+                  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">
+                  ${isDone?'✅':'⏳'}
+                </div>
+                <div>
+                  <div class="approval-step">${ac.name||ac.id}</div>
+                  ${isDone?`<div class="approval-date">✓ Issued: ${ac.doneDate||'—'} &nbsp;|&nbsp; By: ${ac.issuedBy||'—'}</div>`
+                    :`<div class="approval-waiting">⚠ Waiting on: ${ac.waitingOn||'—'}</div>`}
+                </div>
               </div>
-            </div>`).join('')}
+              <span class="badge ${isDone?'badge-green':'badge-yellow'}">${isDone?'Done':'Pending'}</span>
+              ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" style="padding:3px 10px;font-size:11px"
+                onclick="toggleApproval('${p.id}',${i})">${isDone?'Revert':'Mark Done'}</button>`:''}
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="tab-content" id="tab-notes">
+        <div style="max-width:600px">
+          <div id="notesList" style="margin-bottom:16px">
+            ${(p.notes||[]).length===0?'<div style="color:var(--muted);font-size:13px;padding:12px 0">No notes yet.</div>':
+              (p.notes||[]).slice().reverse().map(n=>`
+                <div class="note-item">
+                  <div class="note-meta">${n.user} &nbsp;·&nbsp; ${new Date(n.t).toLocaleString('en-SA')}</div>
+                  <div>${n.msg}</div>
+                </div>`).join('')}
+          </div>
+          <button class="btn-primary-sm" onclick="openNotesModal('${p.id}')">+ Add Note</button>
         </div>
       </div>
       <div class="tab-content" id="tab-fin">
@@ -1504,6 +1708,302 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('loginUser').value='';
   document.getElementById('loginPass').value='';
 });
+
+// ===================== APPROVAL CHAIN =====================
+function toggleApproval(projId, idx){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===projId);
+  if(!p) return;
+  const chain=p.approvalChain||p.legal||[];
+  chain[idx].done=!chain[idx].done;
+  if(chain[idx].done && !chain[idx].doneDate) chain[idx].doneDate=new Date().toISOString().split('T')[0];
+  DB.set('projects',projects);
+  auditLog('Approval step '+chain[idx].name+(chain[idx].done?' marked Done':' reverted')+' on '+p.name);
+  openProjectDetail(projId);
+}
+
+// ===================== PM NOTES =====================
+let _currentNoteProjectId=null;
+function openNotesModal(projId){
+  _currentNoteProjectId=projId;
+  document.getElementById('noteText').value='';
+  document.getElementById('notesModal').style.display='flex';
+}
+function saveNote(){
+  const msg=document.getElementById('noteText').value.trim();
+  if(!msg) return;
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===_currentNoteProjectId);
+  if(!p) return;
+  if(!p.notes) p.notes=[];
+  p.notes.push({msg, user:Auth.user.name||Auth.user.username, t:Date.now()});
+  DB.set('projects',projects);
+  auditLog('Note added on '+p.name);
+  closeModal('notesModal');
+  openProjectDetail(_currentNoteProjectId);
+}
+
+// ===================== INVENTORY =====================
+const DEFAULT_MATERIALS = [
+  // Electrical – Fixed
+  {code:'EF-001',desc:'Inverter 20 KTL 380/400 V',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-002',desc:'SMDB (63A)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-003',desc:'M-5 Ring terminal (4sqmm earthing cable)',cat:'Electrical – Fixed',unit:'Each',perSchool:260},
+  {code:'EF-004',desc:'Earthing cable 4Sqmm (structure to module)',cat:'Electrical – Fixed',unit:'Meter',perSchool:23},
+  {code:'EF-005',desc:'Smart Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-006',desc:'SIM Card for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-007',desc:'Enclosure for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-008',desc:'MCCB (63A)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-009',desc:'Injection Meter (PM2230)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-010',desc:'Fuse Holder (3 Pole)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-011',desc:'Fuses 6A',cat:'Electrical – Fixed',unit:'Each',perSchool:3},
+  {code:'EF-012',desc:'CTs (size as per MDB busbar)',cat:'Electrical – Fixed',unit:'Each',perSchool:3},
+  {code:'EF-013',desc:'Ferrule Terminal for 1.5Sqmm Cable',cat:'Electrical – Fixed',unit:'Each',perSchool:11},
+  {code:'EF-014',desc:'Ring Type Terminal Lug M10',cat:'Electrical – Fixed',unit:'Each',perSchool:4},
+  {code:'EF-015',desc:'Copper Bus Bar for Neutral 25x3x250mm',cat:'Electrical – Fixed',unit:'pcs',perSchool:1},
+  {code:'EF-016',desc:'All Cables Tags',cat:'Electrical – Fixed',unit:'Set',perSchool:1},
+  // Electrical – Variable
+  {code:'EV-001',desc:'Stabuli MC4 Connectors Male+Female (set)',cat:'Electrical – Variable',unit:'Each',perSchool:5},
+  {code:'EV-002',desc:'Riyadh Cables 4CX25 Sqmm CU,XLPE,PVC',cat:'Electrical – Variable',unit:'Meter',perSchool:25},
+  {code:'EV-003',desc:'6 Sqmm Earthing Cable (Y/G)',cat:'Electrical – Variable',unit:'Meter',perSchool:25},
+  {code:'EV-004',desc:'DC Cable (Red)',cat:'Electrical – Variable',unit:'Meter',perSchool:100},
+  {code:'EV-005',desc:'DC Cable (Black)',cat:'Electrical – Variable',unit:'Meter',perSchool:100},
+  {code:'EV-006',desc:'Heat Shrinkable Tube 06 Sqmm Yellow Green',cat:'Electrical – Variable',unit:'Meter',perSchool:0.1},
+  {code:'EV-007',desc:'Heat Shrinkable Tube 16 Sqmm R,Y,B,B',cat:'Electrical – Variable',unit:'Meter',perSchool:0.25},
+  {code:'EV-008',desc:'M-8 Ring Terminal Lug (Cable Tray Earthing)',cat:'Electrical – Variable',unit:'Each',perSchool:40},
+  {code:'EV-009',desc:'2C Shielded Cable (Belden)',cat:'Electrical – Variable',unit:'Meter',perSchool:5},
+  {code:'EV-010',desc:'Cable Wrapper 10mm',cat:'Electrical – Variable',unit:'Packet',perSchool:1},
+  {code:'EV-011',desc:'1CX1.5Sqmm Flexible Cable (R,Y,B,B)',cat:'Electrical – Variable',unit:'Meter',perSchool:5},
+  {code:'EV-012',desc:'3CX1.5Sqmm Flexible Cable – Data Logger',cat:'Electrical – Variable',unit:'Meter',perSchool:4},
+  {code:'EV-013',desc:'1/2" EMT Conduit',cat:'Electrical – Variable',unit:'Meter',perSchool:6},
+  {code:'EV-014',desc:'1/2" EMT Bend',cat:'Electrical – Variable',unit:'Each',perSchool:3},
+  {code:'EV-015',desc:'Junction Box (7/7)',cat:'Electrical – Variable',unit:'Each',perSchool:5},
+  {code:'EV-016',desc:'1/2" EMT Connector',cat:'Electrical – Variable',unit:'Each',perSchool:10},
+  {code:'EV-017',desc:'Two Sided Saddle (for 1/2")',cat:'Electrical – Variable',unit:'Each',perSchool:15},
+  {code:'EV-018',desc:'Fisher PVC 6mm – Saddle',cat:'Electrical – Variable',unit:'Each',perSchool:30},
+  {code:'EV-019',desc:'1/2" EMT Coupler',cat:'Electrical – Variable',unit:'Each',perSchool:4},
+  {code:'EV-020',desc:'Din Rail (35x7.5)',cat:'Electrical – Variable',unit:'Each',perSchool:1},
+  // Civil – Fixed
+  {code:'CF-001',desc:'End Bracket-1 (Front)',cat:'Civil – Fixed',unit:'Each',perSchool:52},
+  {code:'CF-002',desc:'End Bracket-2 (Back)',cat:'Civil – Fixed',unit:'Each',perSchool:52},
+  {code:'CF-003',desc:'End Clamps',cat:'Civil – Fixed',unit:'Each',perSchool:104},
+  {code:'CF-004',desc:'Rubbers (compatible with End-Clamp)',cat:'Civil – Fixed',unit:'Each',perSchool:104},
+  {code:'CF-005',desc:'Self Screw 5/8" X 15mm – For earthing structure',cat:'Civil – Fixed',unit:'Each',perSchool:104},
+  {code:'CF-006',desc:'Nut, Bolt (M4x10)',cat:'Civil – Fixed',unit:'Each',perSchool:104},
+  {code:'CF-007',desc:'Washer for Screw (M5)',cat:'Civil – Fixed',unit:'Each',perSchool:104},
+  {code:'CF-008',desc:'Anchor Bolts SS 316',cat:'Civil – Fixed',unit:'Each',perSchool:104},
+  {code:'CF-009',desc:'Flat Washer M12',cat:'Civil – Fixed',unit:'Each',perSchool:4},
+  {code:'CF-010',desc:'Nut, Bolt (M10x50)',cat:'Civil – Fixed',unit:'Each',perSchool:4},
+  // Civil – Variable
+  {code:'CV-001',desc:'Foundations (400x200x250mm L×W×H)',cat:'Civil – Variable',unit:'Each',perSchool:70},
+  {code:'CV-002',desc:'1/2" Liquid Tight Conduit UV Rated',cat:'Civil – Variable',unit:'Meter',perSchool:30},
+  {code:'CV-003',desc:'1/2" Liquid Tight Connectors',cat:'Civil – Variable',unit:'Each',perSchool:10},
+  {code:'CV-004',desc:'Sikaflex / Vetoflex',cat:'Civil – Variable',unit:'Packets',perSchool:1},
+  {code:'CV-005',desc:'Wooden Screw (M5)',cat:'Civil – Variable',unit:'Each',perSchool:70},
+  {code:'CV-006',desc:'50x50 HDG Perforated Cable Tray (2mm, 3m)',cat:'Civil – Variable',unit:'Meter',perSchool:60},
+  {code:'CV-007',desc:'50x50 HDG Cable Tray Cover (1.5mm, 3m)',cat:'Civil – Variable',unit:'Meter',perSchool:60},
+  {code:'CV-008',desc:'50x50 HDG Elbow with Cover (2mm)',cat:'Civil – Variable',unit:'Each',perSchool:10},
+  {code:'CV-009',desc:'50x50 Cable Tray Connectors (U-Type)',cat:'Civil – Variable',unit:'Each',perSchool:20},
+  {code:'CV-010',desc:'C-Channel / Slotted Channel',cat:'Civil – Variable',unit:'Meter',perSchool:9},
+  {code:'CV-011',desc:'Fisher PVC 6mm for Cable Tray',cat:'Civil – Variable',unit:'Each',perSchool:60},
+  {code:'CV-012',desc:'Screw (M6x25) for Cable Tray',cat:'Civil – Variable',unit:'Each',perSchool:40},
+  {code:'CV-013',desc:'100mm Cable Tie PVC UV Rated',cat:'Civil – Variable',unit:'PKT',perSchool:1},
+  {code:'CV-014',desc:'200mm Cable Tie PVC UV Rated',cat:'Civil – Variable',unit:'Each',perSchool:25},
+  {code:'CV-015',desc:'200mm Steel Cable Tie',cat:'Civil – Variable',unit:'Each',perSchool:15},
+  {code:'CV-016',desc:'Block Fisher 8mm',cat:'Civil – Variable',unit:'Each',perSchool:25},
+  {code:'CV-017',desc:'Block Fisher 10mm',cat:'Civil – Variable',unit:'Each',perSchool:12},
+  {code:'CV-018',desc:'Nut, Bolt (M8x10)',cat:'Civil – Variable',unit:'Each',perSchool:10},
+  {code:'CV-019',desc:'Zinc Spray (Silver Alberdo anti-corrosion)',cat:'Civil – Variable',unit:'Each',perSchool:1},
+  {code:'CV-020',desc:'Wall Putty',cat:'Civil – Variable',unit:'KG',perSchool:1}
+];
+
+function getMaterials(){return DB.get('invMaterials')||DEFAULT_MATERIALS.map(m=>({...m,stock:[],dispatches:[]}))}
+function getTxns(){return DB.get('invTxns')||[]}
+
+function getStockSummary(code){
+  const txns=getTxns().filter(t=>t.code===code);
+  const totalIn=txns.filter(t=>t.type==='receipt').reduce((s,t)=>s+t.qty,0);
+  const totalOut=txns.filter(t=>t.type==='dispatch').reduce((s,t)=>s+t.qty,0);
+  return {totalIn, totalOut, onHand:totalIn-totalOut};
+}
+
+function renderInventory(){
+  // KPIs
+  const mats=getMaterials();
+  const txns=getTxns();
+  const totalReceipts=txns.filter(t=>t.type==='receipt').reduce((s,t)=>s+t.qty,0);
+  const totalDispatched=txns.filter(t=>t.type==='dispatch').reduce((s,t)=>s+t.qty,0);
+  let lowCount=0;
+  mats.forEach(m=>{
+    const {onHand}=getStockSummary(m.code);
+    const threshold=m.perSchool*50;
+    if(onHand>0 && onHand<threshold) lowCount++;
+  });
+  document.getElementById('invKpiGrid').innerHTML=`
+    <div class="kpi-card blue"><div class="kpi-label">Materials</div><div class="kpi-value">${mats.length}</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Total Received</div><div class="kpi-value" style="font-size:22px">${totalReceipts.toLocaleString()}</div></div>
+    <div class="kpi-card purple"><div class="kpi-label">Total Dispatched</div><div class="kpi-value" style="font-size:22px">${totalDispatched.toLocaleString()}</div></div>
+    <div class="kpi-card ${lowCount>0?'red':'green'}"><div class="kpi-label">Low Stock Alerts</div><div class="kpi-value">${lowCount}</div></div>
+  `;
+  // Alert strip
+  const alerts=[];
+  mats.forEach(m=>{
+    const {onHand}=getStockSummary(m.code);
+    const threshold=m.perSchool*50;
+    if(onHand>=0 && onHand<threshold && m.perSchool>0){
+      alerts.push(`<span style="font-weight:600">[${m.code}]</span> ${m.desc}: <span class="${onHand===0?'stock-critical':'stock-low'}">${onHand} ${m.unit} remaining</span>`);
+    }
+  });
+  document.getElementById('invAlertStrip').innerHTML=alerts.length?
+    `<div class="alert-strip" style="margin-bottom:12px;flex-direction:column;align-items:flex-start;gap:4px">
+      <strong>⚠ Low Stock Warning (${alerts.length} items)</strong>
+      ${alerts.slice(0,5).map(a=>`<div class="alert-item">• ${a}</div>`).join('')}
+      ${alerts.length>5?`<div style="font-size:11px;color:var(--muted)">…and ${alerts.length-5} more</div>`:''}
+    </div>`:'';
+  renderInvTable();
+}
+
+function renderInvTable(){
+  const mats=getMaterials();
+  const cat=document.getElementById('invCatFilter')?.value||'';
+  const q=(document.getElementById('invSearch')?.value||'').toLowerCase();
+  const filtered=mats.filter(m=>(!cat||m.cat===cat)&&(!q||m.desc.toLowerCase().includes(q)||m.code.toLowerCase().includes(q)));
+  const tbody=document.getElementById('invTableBody');
+  if(!tbody) return;
+  let lastCat='';
+  tbody.innerHTML=filtered.map(m=>{
+    const {totalIn,totalOut,onHand}=getStockSummary(m.code);
+    const threshold=m.perSchool*50;
+    const status=onHand===0&&totalIn===0?'No Stock':onHand===0?'<span class="stock-critical">⛔ Out':
+      onHand<threshold?'<span class="stock-low">⚠ Low':'<span class="stock-ok">✓ OK';
+    const catRow=m.cat!==lastCat?`<tr><td colspan="10" class="inv-category">${m.cat}</td></tr>`:'' ;
+    lastCat=m.cat;
+    return catRow+`<tr>
+      <td style="font-family:monospace;font-size:12px">${m.code}</td>
+      <td>${m.desc}</td>
+      <td><span class="badge badge-gray" style="font-size:10px">${m.cat.replace('Electrical','Elec').replace('Variable','Var').replace('Fixed','Fix')}</span></td>
+      <td>${m.unit}</td>
+      <td style="text-align:right">${m.perSchool}</td>
+      <td style="text-align:right;color:var(--green);font-weight:600">${totalIn.toLocaleString()}</td>
+      <td style="text-align:right;color:var(--red)">${totalOut.toLocaleString()}</td>
+      <td style="text-align:right;font-weight:700">${onHand.toLocaleString()}</td>
+      <td>${status}</span></td>
+      <td>
+        <button class="btn-sm" style="padding:3px 8px;font-size:11px" onclick="openInvModal('receipt','${m.code}')">+</button>
+        <button class="btn-sm" style="padding:3px 8px;font-size:11px" onclick="openInvModal('dispatch','${m.code}')">↗</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderTxnLog(){
+  const txns=getTxns().slice().reverse();
+  const mats=getMaterials();
+  document.getElementById('invTxnLog').innerHTML=txns.length?txns.map(t=>{
+    const m=mats.find(x=>x.code===t.code);
+    return `<div class="txn-row">
+      <div class="txn-dot ${t.type==='receipt'?'in':'out'}"></div>
+      <div style="flex:1">
+        <div style="font-weight:600">${t.type==='receipt'?'📥 Receipt':'📤 Dispatch'} &nbsp;·&nbsp;
+          <span style="font-family:monospace;font-size:12px">${t.code}</span></div>
+        <div style="color:var(--muted);font-size:12px">${m?m.desc:t.code}</div>
+        ${t.project?`<div style="font-size:12px;color:var(--purple)">→ ${t.project}</div>`:''}
+        ${t.po?`<div style="font-size:12px;color:var(--muted)">PO: ${t.po}</div>`:''}
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:700;color:${t.type==='receipt'?'var(--green)':'var(--red)'}">${t.type==='receipt'?'+':'−'}${t.qty.toLocaleString()} ${m?m.unit:''}</div>
+        <div style="font-size:11px;color:var(--muted)">${t.date}</div>
+      </div>
+    </div>`;
+  }).join(''):'<div style="color:var(--muted);padding:20px;text-align:center">No transactions yet.</div>';
+}
+
+function renderDispatchLog(){
+  const txns=getTxns().filter(t=>t.type==='dispatch');
+  const mats=getMaterials();
+  const byProject={};
+  txns.forEach(t=>{
+    if(!byProject[t.project]) byProject[t.project]=[];
+    byProject[t.project].push(t);
+  });
+  const regions=['Northern Borders','Tabuk','Najran','Jizan','Al-Jouf'];
+  document.getElementById('invDispatchLog').innerHTML=regions.map(r=>{
+    const rtxns=byProject[r]||[];
+    if(!rtxns.length) return `<div style="padding:10px 0;color:var(--muted);font-size:13px"><strong>${r}:</strong> No dispatches yet.</div>`;
+    return `<div style="margin-bottom:20px">
+      <div style="font-weight:700;color:var(--primary);margin-bottom:8px;font-size:14px">📍 ${r}</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Code</th><th>Description</th><th>Qty</th><th>Unit</th><th>Date</th><th>PO</th></tr></thead>
+        <tbody>${rtxns.map(t=>{
+          const m=mats.find(x=>x.code===t.code);
+          return `<tr><td style="font-family:monospace;font-size:12px">${t.code}</td>
+            <td>${m?m.desc:t.code}</td>
+            <td style="font-weight:700">${t.qty.toLocaleString()}</td>
+            <td>${m?m.unit:''}</td>
+            <td>${t.date}</td>
+            <td style="color:var(--muted)">${t.po||'—'}</td></tr>`;
+        }).join('')}</tbody>
+      </table></div>
+    </div>`;
+  }).join('');
+}
+
+let _invModalType='receipt';
+function openInvModal(type, preCode=''){
+  _invModalType=type;
+  document.getElementById('invModalTitle').textContent=type==='receipt'?'📥 Add Receipt':'📤 Dispatch Materials';
+  document.getElementById('invProjectRow').style.display=type==='dispatch'?'block':'none';
+  document.getElementById('invPoRow').style.display=type==='receipt'?'block':'none';
+  // Populate material dropdown
+  const mats=getMaterials();
+  const sel=document.getElementById('invMaterialSel');
+  sel.innerHTML=mats.map(m=>`<option value="${m.code}" ${m.code===preCode?'selected':''}>[${m.code}] ${m.desc}</option>`).join('');
+  if(preCode) sel.value=preCode;
+  document.getElementById('invQty').value='';
+  document.getElementById('invPo').value='';
+  document.getElementById('invDate').value=new Date().toISOString().split('T')[0];
+  document.getElementById('invNotes').value='';
+  document.getElementById('invModal').style.display='flex';
+}
+
+function saveInvTxn(){
+  const code=document.getElementById('invMaterialSel').value;
+  const qty=parseInt(document.getElementById('invQty').value)||0;
+  const po=document.getElementById('invPo').value.trim();
+  const date=document.getElementById('invDate').value;
+  const notes=document.getElementById('invNotes').value.trim();
+  const project=_invModalType==='dispatch'?document.getElementById('invProjectSel').value:'';
+  if(!code||qty<=0) return alert('Please select material and enter a valid quantity.');
+  if(_invModalType==='dispatch'&&!project) return alert('Please select a project for dispatch.');
+  // Check stock for dispatch
+  if(_invModalType==='dispatch'){
+    const {onHand}=getStockSummary(code);
+    if(qty>onHand) return alert(`Insufficient stock. On hand: ${onHand}`);
+  }
+  const txns=getTxns();
+  txns.push({code,type:_invModalType,qty,po,date,project,notes,user:Auth.user?.username||'system',t:Date.now()});
+  DB.set('invTxns',txns);
+  auditLog(`Inventory ${_invModalType}: ${qty} of [${code}]${project?' → '+project:''}`);
+  closeModal('invModal');
+  renderInventory();
+}
+
+function closeModal(id){document.getElementById(id).style.display='none'}
 </script>
+
+      <!-- PM NOTES MODAL -->
+      <div id="notesModal" class="modal" style="display:none">
+        <div class="modal-box" style="max-width:440px">
+          <div class="modal-header">
+            <span>Add Note</span>
+            <button onclick="closeModal('notesModal')" style="background:none;border:none;font-size:20px;cursor:pointer">×</button>
+          </div>
+          <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+            <textarea id="noteText" rows="4" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:vertical" placeholder="Enter your note..."></textarea>
+            <button class="btn-primary-sm" onclick="saveNote()" style="padding:10px">Add Note</button>
+          </div>
+        </div>
+      </div>
+
 </body>
 </html>
