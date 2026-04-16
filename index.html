@@ -53,7 +53,20 @@ a{text-decoration:none;color:inherit}
 .login-logo{display:flex;justify-content:center;margin-bottom:32px}
 .login-title{font-size:20px;font-weight:700;color:var(--primary);text-align:center;margin-bottom:6px}
 .login-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:28px}
-.form-groups�F�&v���&�GF�ӣg�Т�f�&��w&�W�&VǶF�7���&��6��f��B�6��S�'��f��B�vV�v�C�c�6���#�f"����WFVB���&v���&�GF�ӣg��FW�B�G&�6f�&ӧWW&66S��WGFW"�76��s��W�Т�f�&��w&�W��WG��v�GF��S�FF��s��G��&�&FW#��W�6�ƖBf"���&�&FW"���&�&FW"�&F�W3����f��B�6��S�G��G&�6�F���&�&FW"�'3��WFƖ�S����S��Т�f�&��w&�W��WC�f�7W7�&�&FW"�6���#�f"���&��'��Ɩv�B�Т�'F����v�簢v�GF��S�FF��s�7��&6�w&�V�C�f"���&��'���6���#�6ffc��&�&FW#����S�&�&FW"�&F�W3����f��B�6��S�W��f��B�vV�v�C�c���&v���F�����G&�6�F���&6�w&�V�B�'3��Т�'F����v�㦆�fW'�&6�w&�V�C�3#Sc4T'Т���v	n-error{color:var(--red);font-size:13px;text-align:center;margin-top:10px;display:none}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-group input{
+  width:100%;padding:11px 14px;border:1.5px solid var(--border);
+  border-radius:8px;font-size:14px;transition:border .2s;outline:none;
+}
+.form-group input:focus{border-color:var(--primary-light)}
+.btn-login{
+  width:100%;padding:13px;background:var(--primary);color:#fff;
+  border:none;border-radius:8px;font-size:15px;font-weight:600;
+  margin-top:8px;transition:background .2s;
+}
+.btn-login:hover{background:#2563EB}
+.login-error{color:var(--red);font-size:13px;text-align:center;margin-top:10px;display:none}
 
 /* ===== APP LAYOUT ===== */
 #app{display:none;height:100vh;overflow:hidden}
@@ -78,7 +91,7 @@ a{text-decoration:none;color:inherit}
 }
 .nav-item:hover{background:rgba(255,255,255,.06);color:#E2E8F0}
 .nav-item.active{background:#2563EB;color:#fff}
-.nav-item .nav-icon{font-size:160x;width:20px;text-align:center}
+.nav-item .nav-icon{font-size:16px;width:20px;text-align:center}
 .sidebar-user{
   padding:16px;border-top:1px solid rgba(255,255,255,.08);
   font-size:12px;color:#64748B;
@@ -88,7 +101,7 @@ a{text-decoration:none;color:inherit}
 /* ===== MAIN ===== */
 .main{margin-left:var(--sidebar-w);height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
-/* ===== HEARER ===== */
+/* ===== HEADER ===== */
 .header{
   height:var(--header-h);background:#fff;border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
@@ -152,7 +165,19 @@ a{text-decoration:none;color:inherit}
 .region-bar-fill{height:100%;border-radius:5px;background:var(--primary-light);transition:width .4s}
 .region-pct{font-size:12px;font-weight:700;color:var(--primary);width:42px;text-align:right;flex-shrink:0}
 .region-count{font-size:11px;color:var(--muted);width:65px;flex-shrink:0}
-.region-blocked�f��B�6��S���6���#�f"���&VB��f��B�vV�v�C�c�v�GF��s��FW�B�Ɩv�&�v�GР��������U%B5E$����������W'B�7G&���&6�w&�V�C�4dTc$c#�&�&FW#��6�ƖB4dT44�&�&FW"�&F�W3�����FF��s��g���&v���&�GF�ӣg��F�7���f�W��Ɩv�֗FV�3�6V�FW#�v�'���f��B�6��S�7��6���#�3��##�f�W��w&�w&��Т��W'B�7G&��6����&6�w&�V�C�4D3#c#c�6���#�6ffc�FF��s�7���&�&FW"�&F�W3�#���f��B�6��S���f��B�vV�v�C�s�7W'6�#����FW#��Т��W'B֗FV׶F�7���f�W��Ɩv�֗FV�3�6V�FW;gap:6px}
+.region-blocked{font-size:11px;color:var(--red);font-weight:600;width:70px;text-align:right}
+
+/* ===== ALERT STRIP ===== */
+.alert-strip{
+  background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;
+  padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;
+  font-size:13px;color:#991B1B;flex-wrap:wrap;
+}
+.alert-strip .chip{
+  background:#DC2626;color:#fff;padding:3px 10px;border-radius:20px;
+  font-size:11px;font-weight:700;cursor:pointer;
+}
+.alert-item{display:flex;align-items:center;gap:6px}
 
 /* ===== TABLE ===== */
 .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
@@ -195,9 +220,60 @@ a{text-decoration:none;color:inherit}
 }
 .filter-select{
   padding:7px 12px;border:1.5px solid var(--border);border-radius:7px;
-  font-size:13px;background:#ffc;color:var(--text);outline:none;min-width:130px;
+  font-size:13px;background:#fff;color:var(--text);outline:none;min-width:130px;
 }
-.filter-select:focus{border-color:var(-display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.filter-select:focus{border-color:var(--primary-light)}
+.filter-search{
+  padding:7px 12px;border:1.5px solid var(--border);border-radius:7px;
+  font-size:13px;outline:none;width:220px;
+}
+.filter-search:focus{border-color:var(--primary-light)}
+.btn-sm{
+  padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;
+  border:1.5px solid var(--border);background:#fff;color:var(--text);transition:all .2s;
+}
+.btn-sm:hover{border-color:var(--primary-light);color:var(--primary-light)}
+.btn-primary-sm{
+  padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;
+  border:none;background:var(--primary-light);color:#fff;
+}
+.btn-primary-sm:hover{background:#1D4ED8}
+.btn-danger-sm{
+  padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;
+  border:none;background:var(--red);color:#fff;
+}
+
+/* ===== STICKY TABLE CONTAINER ===== */
+.sticky-table-wrap{height:calc(100vh - 300px);overflow-y:auto;border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius)}
+
+/* ===== MINI KPI STRIP ===== */
+.mini-kpi-strip{
+  display:flex;gap:24px;padding:12px 20px;background:var(--surface);
+  border-bottom:1px solid var(--border);font-size:13px;
+}
+.mini-kpi{display:flex;align-items:center;gap:8px}
+.mini-kpi .val{font-weight:700;font-size:15px}
+.mini-kpi .lbl{color:var(--muted)}
+
+/* ===== PROJECT CONTROL PANEL ===== */
+.pc-header{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:20;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
+  z-index:200;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:#fff;border-radius:14px;padding:28px;width:560px;max-width:95vw;
+  max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.modal-title{font-size:18px;font-weight:700;color:var(--primary);margin-bottom:20px}
+.modal-close{float:right;background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer;margin-top:-4px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .form-field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
 .form-field input,.form-field select,.form-field textarea{
   width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;
@@ -220,7 +296,7 @@ a{text-decoration:none;color:inherit}
 .tab-content.active{display:block}
 
 /* ===== CHART PLACEHOLDER ===== */
-.chart-area{height:240px;display:flex;align-items:center;justify-content:center;background:#F8FAFC;border-radius:8px;color:var(--muted);font-size:13px}
+.chart-area{height:240px;display:flex;align-items:center;justify-content:center;background:#F8FAF3;border-radius:8px;color:var(--muted);font-size:13px}
 
 /* ===== DONUT ===== */
 .donut-wrap{display:flex;flex-direction:column;align-items:center;padding:12px 0}
@@ -239,7 +315,48 @@ a{text-decoration:none;color:inherit}
 
 /* ===== SETTINGS ===== */
 .settings-group{margin-bottom:28px}
-.settings-group h3�f��B�6��S�G��f��B�vV�v�C�s�6���#�f"���&��'����&v���&�GF�ӣG��FF��r�&�GF�ӣ���&�&FW"�&�GF�ӣ�6�ƖBf"���&�&FW"�Р�������2�5U%dR4�d2��������67W'fR�w&�FF��s���Р�������$U5��4�dR��D�����������VF�����v�GF��#������w&�G�w&�B�FV��FR�6��V��3�&WVB�2�g"��Р�������45$���$"������𣣢�vV&��B�67&���&'�v�GF��W���V�v�C�W�У���vV&��B�67&���&"�G&6��&6�w&�V�C�G&�7&V�GУ���vV&��B�67&���&"�F�V�'�&6�w&�V�C�44$CTS�&�&FW"�&F�W3�7�У���vV&��B�67&���&"�F�V�#���fW'�&6�w&�V�C�3�D4#�Р�������$��B��������VF�&��G��6�FV&"��VFW'�F�7������W������&v����VgC��У��7G��S����VC��&�G�ࠣ��������������������������t���������������������������F�b�C�&��v��67&VV�#��F�b6�73�&��v���&��#��F�b6�73�&��v�����v�#��7frv�GF��#c"�V�v�C�#Sb"f�Wt&���#cSb"����3�&�GG���wwr�s2��&r�#�7fr"7G��S�&&�&FW"�&F�W3���#��&V7Bv�GF��#c"�V�v�C�#Sb"'��#�"f����"3cV2"���FW�B��#�"��##""FW�B��6��#�&֖FF�R"f����"6fffffb"f��B�6��S�#2"f��B�f֖Ǔ�$&���6�2�6W&�b"F�&V7F����''F�#�]�m�}���}����FW�C��FW�B��#�"��#CB"FW�B��6��#�&֖FF�R"f����"6fffffb"f��B�6��S�#�"f��B�vV�v�C�&&��B"f��B�f֖Ǔ�$&���6�2�6W&�b"�WGFW"�76��s�#2#�4T�C��FW�C���7fs���F�c��F�b6�73�&��v���F�F�R#�6��"U2�w&�6��G&����F�c��F�b6�73�&��v���7V"#��F����66����26��"&�w&�(	2R&Vv���3��F�c��F�b6�73�&f�&��w&�W#���&V��W6W&��S���&V��Ɩ�WBG�S�'FW�B"�C�&��v��W6W""�6V���FW#�$V�FW"W6W&��R"WF�6���WFS�&�fb#���F�c��F�b6�73�&f�&��w&�W#���&V��77v�&C���&V��Ɩ�WBG�S�'77v�&B"�C�&��v��72"�6V���FW#�$V�FW"77v�&B"��W�F�v��&�b�WfV�B�W����tV�FW"r�F���v�ₒ#���F�c��'WGF��6�73�&'F����v��"��6Ɩ6��&F���v�ₒ#�6�v�����'WGF����F�b6�73�&��v	n-error" id="loginError">Invalid credentials. Please try again.</div>
+.settings-group h3{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* ===== S-CURVE CANVAS ===== */
+.scurve-wrap{padding:8px 0}
+
+/* ===== RESPONSIVE (OPTIONAL) ===== */
+@media(max-width:1200px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#94A3B8}
+
+/* ===== PRINT ===== */
+@media print{.sidebar,.header{display:none}.main{margin-left:0}}
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg width="160" height="56" viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px">
+        <rect width="160" height="56" rx="8" fill="#0a1f5c"/>
+        <text x="80" y="22" text-anchor="middle" fill="#ffffff" font-size="13" font-family="Arial,sans-serif" direction="rtl">صناعات</text>
+        <text x="80" y="44" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="bold" font-family="Arial,sans-serif" letter-spacing="3">SENAAT</text>
+      </svg>
+    </div>
+    <div class="login-title">Solar EPC Program Control</div>
+    <div class="login-sub">National Schools Solar Program – 5 Regions</div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="Enter username" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="loginError">Invalid credentials. Please try again.</div>
   </div>
 </div>
 
@@ -309,7 +426,7 @@ a{text-decoration:none;color:inherit}
     <div class="page-content">
 
       <!-- ========== DASHBOARD ========== -->
-      <div id="page-dashboarb" class="page active">
+      <div id="page-dashboard" class="page active">
         <div class="section-title">National Program Overview</div>
         <div class="section-sub" id="dashDate"></div>
 
@@ -325,8 +442,61 @@ a{text-decoration:none;color:inherit}
           <div class="card">
             <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:4px">Blocked by Reason</div>
             <div class="donut-wrap">
-              <canvas id="donutChart" width�#c"�V�v�C�#c#���6�f3��F�b6�73�&F��WB��VvV�B"�C�&F��WD�VvV�B#���F�c���F�c���F�c���F�cࠢ���2�7W'fR�7&�F�6��77VW2����F�b6�73�&w&�Bӂ�B#��F�b6�73�&6&B#��F�b7G��S�&f��B�6��S�G��f��B�vV�v�C�s�6���#�f"���&��'����&v���&�GF�ӣ��#�&�w&W722�7W'fR�WF��6�7V�FVB���F�c��6�f2�C�'67W'fT6�'B"�V�v�C�#�#���6�f3���F�c��F�b6�73�&6&B#��F�b7G��S�&f��B�6��S�G��f��B�vV�v�C�s�6���#�f"���&��'����&v���&�GF�ӣ'�#�)����7&�F�6��77VW3��F�c��F�b�C�&7&�F�6ė77VW2"7G��S�&�V�v�C�#���fW&f��rד�WF�#���F�c���F�c���F�c���F�cࠢ�������������$�u$�4��E$����������������F�b�C�'vR�&�w&�6��G&��"6�73�'vR#����7F�6��6��G&���V�����F�b6�73�'2ֆVFW"#��F�b6�73�&f��FW"�&"#��6V�V7B6�73�&f��FW"�6V�V7B"�C�'5&Vv���"��6��vS�'&V�FW%&�w&�6��G&��#���F���f�VS�"#���&Vv���3���F������F������'F�W&�&�&FW'3���F������F����F'V����F������F������&����F������F���䦗�����F������F�����Ԧ�Vc���F������6V�V7C��6V�V7B6�73�&f��FW"�6V�V7B"�C�'57FvR"��6��vS�'&V�FW%&�w&�6��G&��#���F���f�VS�"#���7FvW3���F������F������B7F'FVC���F������F����6�FR7W'fW����F������F����6ƖV�B&�f����F������F����6�f���FW&��3���F������F����6�f����7F��F��S���F������F����V�V2�FW&��3���F������F����V�V2��7F��F��S���F������F����Bf��3���F������F����V�W&v��VC���F������6V�V7C��6V�V7B6�73�&f��FW"�6V�V7B"�C�'4&��6�VB"��6��vS�'&V�FW%&�w&�6��G&��#���F���f�VS�"#���7FGW3���F������F���f�VS�'�W2#�&��6�VB��Ǔ���F������F���f�VS�&��#���B&��6�VC���F������6V�V7C�Ɩ�WB6�73�&f��FW"�6V&6�"�C�'56V&6�"�6V���FW#�%6V&6�66�����B�"��^(
-b"���WC�'&V�FW%&�w&�6��G&��#��'WGF��6�73�&'F��&��'��6�"��6Ɩ6��&�V�FE66������F�#�FB66������'WGF����'WGF��6�73�&'F��6�"��6Ɩ6��&W��'EF&�T55b���*�rW��'C��'WGF�����F�c��F�b6�73�&֖�ַ��7G&�"�C�'4֖攷�#���F�c��F�b�C="pcAlertStrip' ></div>
+              <canvas id="donutChart" width="160" height="160"></canvas>
+              <div class="donut-legend" id="donutLegend"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-Curve + Critical Issues -->
+        <div class="grid-8-4">
+          <div class="card">
+            <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:8px">Progress S-Curve (Auto-calculated)</div>
+            <canvas id="scurveChart" height="80"></canvas>
+          </div>
+          <div class="card">
+            <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px">⚠️ Critical Issues</div>
+            <div id="criticalIssues" style="height:200px;overflow-y:auto"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== PROGRAM CONTROL ========== -->
+      <div id="page-programControl" class="page">
+        <!-- Sticky control panel -->
+        <div class="pc-header">
+          <div class="filter-bar">
+            <select class="filter-select" id="pcRegion" onchange="renderProgramControl()">
+              <option value="">All Regions</option>
+              <option>Northern Borders</option>
+              <option>Tabuk</option>
+              <option>Najran</option>
+              <option>Jizan</option>
+              <option>Al-Jouf</option>
+            </select>
+            <select class="filter-select" id="pcStage" onchange="renderProgramControl()">
+              <option value="">All Stages</option>
+              <option>Not Started</option>
+              <option>Site Survey</option>
+              <option>Client Approval</option>
+              <option>Civil Materials</option>
+              <option>Civil Install Done</option>
+              <option>Elec Materials</option>
+              <option>Elec Install Done</option>
+              <option>T&amp;C</option>
+              <option>Energized</option>
+            </select>
+            <select class="filter-select" id="pcBlocked" onchange="renderProgramControl()">
+              <option value="">All Status</option>
+              <option value="yes">Blocked Only</option>
+              <option value="no">Not Blocked</option>
+            </select>
+            <input class="filter-search" id="pcSearch" placeholder="Search school ID or name…" oninput="renderProgramControl()">
+            <button class="btn-primary-sm" onclick="openAddSchoolModal()">+ Add School</button>
+            <button class="btn-sm" onclick="exportTableCSV()">⬇ Export</button>
+          </div>
+          <div class="mini-kpi-strip" id="pcMiniKpi"></div>
+          <div id="pcAlertStrip"></div>
         </div>
 
         <div class="sticky-table-wrap" id="pcTableWrap">
@@ -410,7 +580,54 @@ b"���WC�'&V�FW%&�w&�6��G&��#��'WGF�
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
           <div>
             <div class="section-title">Projects</div>
-            <div class="section-sub">Regional program documents &&��6��G&7G3��F�c���F�c��'WGF��6�73�&'F��&��'��6�"��6Ɩ6��&�V�&��V7D��F�"�C�&FE&��V7D'F�#��Wr&��V7C��'WGF�����F�c��F�b�C�'&��V7G4Ɨ7B#���F�c��F�b�C�'&��V7DFWF��"7G��S�&F�7������R#��'WGF��6�73�&'F��6�"��6Ɩ6��&6��6U&��V7DFWF��"7G��S�&�&v���&�GF�ӣg�#�(i&6�F�&��V7G3��'WGF����F�b�C�'&��V7DFWF��6��FV�B#���F�c���F�c���F�cࠢ�������������d���4����������������F�b�C�'vR�f���6��"6�73�'vR#��F�b6�73�'6V7F����F�F�R#�f���6���fW'f�Ws��F�c��F�b6�73�'6V7F����7V"#�'VFvWBg27GV�7&�72��&Vv���3��F�c��F�b6�73�&���w&�B"7G��S�&w&�B�FV��FR�6��V��3�&WVB�B�g"�"�C�&f���w&�B#���F�c��F�b6�73�&6&B#��F�b7G��S�&f��B�6��S�G��f��B�vV�v�C�s�6���#�f"���&��'����&v���&�GF�ӣg�#�&��V7B'VFvWBG&6�W#��F�c��F�b6�73�'F&�R�w&#��F&�S��F�VC��G#��F��&��V7C��F���F��&Vv�����F���F��'VFvWB�4"���F���F��7V�C��F���F��&V����s��F���F��RW6VC��F���F��7FGW3��F����G#���F�VC��F&�G��C�&f��F&�T&�G�#���F&�G����F&�S���F�c���F�c���F�cࠢ�������������TD�B��r��������������F�b�C�'vR�VF�D��r"6�73�'vR#��F�b6�73�'6V7F����F�F�R#�VF�B��s��F�c��F�b6�73�'6V7F����7V"#�gV��6��vR��7F�'���F�c��F�b6�73�&6&B#��F�b�C�&VF�DƗ7B#���F�c���F�c���F�cࠢ�������������4UED��u2��������������F�b�C�'vR�6WGF��w2"6�73�'vR#��F�b6�73�'6V7F����F�F�R#�6WGF��w3��F�c��F�b6�73�'6V7F����7V"#�7�7FV�6��f�wW&F�����F�c��F�b6�73�&6&B"7G��S�&���v�GF��S�#��F�b6�73�'6WGF��w2�w&�W#�ƃ3�66�V�C���3��F�b6�73�&f���&�r#��7����vvVB��3��7���7G&��r�C�'6WGF��w5W6W"#�(	C��7G&��s���F�c��F�b6�73�&f���&�r#��7��&��S��7���7��C�'6WGF��w5&��R#�(	C��7����F�c��F�b6�73�&f���&�r#��7��f�&V&6R7��3��7���7��C�'6WGF��w4f"#�(	C��7����F�c���F�c��F�b6�73�'6WGF��w2�w&�W#�ƃ3�FF���3��'WGF��6�73�&'F��6�"��6Ɩ6��&6�V$��6��E&V��B��"Set Local Data</button>
+            <div class="section-sub">Regional program documents &amp; contracts</div>
+          </div>
+          <button class="btn-primary-sm" onclick="openProjectModal()" id="addProjectBtn">+ New Project</button>
+        </div>
+        <div id="projectsList"></div>
+        <div id="projectDetail" style="display:none">
+          <button class="btn-sm" onclick="closeProjectDetail()" style="margin-bottom:16px">← Back to Projects</button>
+          <div id="projectDetailContent"></div>
+        </div>
+      </div>
+
+      <!-- ========== FINANCIAL ========== -->
+      <div id="page-financial" class="page">
+        <div class="section-title">Financial Overview</div>
+        <div class="section-sub">Budget vs Actual across all regions</div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)" id="finKpiGrid"></div>
+        <div class="card">
+          <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:16px">Project Budget Tracker</div>
+          <div class="table-wrap">
+            <table><thead><tr><th>Project</th><th>Region</th><th>Budget (SAR)</th><th>Spent</th><th>Remaining</th><th>% Used</th><th>Status</th></tr></thead>
+            <tbody id="finTableBody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== AUDIT LOG ========== -->
+      <div id="page-auditLog" class="page">
+        <div class="section-title">Audit Log</div>
+        <div class="section-sub">Full change history</div>
+        <div class="card">
+          <div id="auditList"></div>
+        </div>
+      </div>
+
+      <!-- ========== SETTINGS ========== -->
+      <div id="page-settings" class="page">
+        <div class="section-title">Settings</div>
+        <div class="section-sub">System configuration</div>
+        <div class="card" style="max-width:500px">
+          <div class="settings-group">
+            <h3>Account</h3>
+            <div class="fin-row"><span>Logged in as</span><strong id="settingsUser">—</strong></div>
+            <div class="fin-row"><span>Role</span><span id="settingsRole">—</span></div>
+            <div class="fin-row"><span>Firebase Sync</span><span id="settingsFb">—</span></div>
+          </div>
+          <div class="settings-group">
+            <h3>Data</h3>
+            <button class="btn-sm" onclick="clearLocalAndReload()">Reset Local Data</button>
           </div>
         </div>
       </div>
@@ -456,7 +673,7 @@ b"���WC�'&V�FW%&�w&�6��G&��#��'WGF�
       </div>
       <div class="form-field"><label>Elec Kit</label>
         <select id="sch_elec"><option>Ready</option><option>Partial</option><option>Missing</option></select>
-      </dis>
+      </div>
     </div>
     <div class="form-row">
       <div class="form-field"><label>Blocked?</label>
@@ -464,9 +681,9 @@ b"���WC�'&V�FW%&�w&�6��G&��#��'WGF�
           <option value="no">No</option><option value="yes">Yes</option>
         </select>
       </div>
-      <div class="form-field" id="blockReasonField'"><label>Block Reason</label>
+      <div class="form-field" id="blockReasonField"><label>Block Reason</label>
         <select id="sch_reason">
-          <option>Material Delay</option><option>Procurment</option>
+          <option>Material Delay</option><option>Procurement</option>
           <option>Client Approval</option><option>Contractor</option>
           <option>Utility / SEC</option><option>RFI Pending</option><option>Other</option>
         </select>
@@ -512,7 +729,65 @@ b"���WC�'&V�FW%&�w&�6��G&��#��'WGF�
       <div class="form-field"><label>Start Date</label><input id="proj_start" type="date"></div>
     </div>
     <div class="form-row">
-      <div class="form-field"><label>End Date</label><input id="proj_end" tupes�&FFR#���F�c��F�b6�73�&f�&��f�V�B#���&V��7FGW3���&V���6V�V7B�C�'&���7FGW2#���F����7F�fS���F������F���������C���F������F����6���WFVC���F������F����FV��VC���F������6V�V7C���F�c���F�c��F�b6�73�&f�&��f�V�B#���&V��FW67&�F������&V���FW�F&V�C�'&���FW62"&�w3�#2#���FW�F&V���F�c��F�b6�73�&��F��7F���2#��'WGF��6�73�&'F��6�"��6Ɩ6��&6��6T��Fw&��V7D��F�r�#�6�6V���'WGF����'WGF��6�73�&'F��&��'��6�"��6Ɩ6��'6fU&��V7B��#�6fR&��V7C��'WGF�����F�c���F�c���F�cࠣ�67&�B7&3�&�GG3���6F��6FVƗg"��WB����6�'B�4B�B��F�7B�6�'B�V�B�֖��2#���67&�C��67&�C�wW6R7G&�7Bs��������������������������4��d�r��������������������ЦgV�7F���vWDf$66fr���&WGW&��&��W�#�$��7���d�ts&V�f�D��'c3��E�E��fF�F�r"�&WF�F����#�'��7�7FV���GW2�f�&V&6V�6��"�&FF&6UU$�#�&�GG3�����7�7FV���GW2�FVfV�B�'FF"�f�&V&6V���6��"�'&��V7D�B#�'��7�7FV���GW2"�'7F�&vT'V6�WB#�'��7�7FV���GVW2�f�&V&6W7F�&vR�"�&�W76v��u6V�FW$�B#�#sCC33sSs3R"�&�B#�#�sCC33sSs3S�vV#�&S�66C3c3ffcfS6#"'Ӱ�Р������������������������D"���6�7F�&vR�f�&V&6R���������������������Ц6��7BD"���vWB����G'��6��7Bc���6�7F�&vR�vWD�FV҂w�5�r����&WGW&�c��4���'6R�b���V���6F6��&WGW&��V������6WB���b��G'����6�7F�&vR�6WD�FV҂w�5�r��ĥ4���7G&��v�g��b���f%6WB���b��6F6������FV�����6�7F�&vR�&V��fT�FV҂w�5�r����f$FV�������B�������v�2&W6WBW6W'2g&��FVfV�@�D"�6WB�wW6W'2r�DTdT�E�U4U%2����b�D"�vWB�w66����2r��D"�6WB�w66����2r�vV�W&FU6��U66����2������b�D"�vWB�w&��V7G2r��D"�6WB�w&��V7G2r�DTdT�E�$��T5E2����b�D"�vWB�vVF�Br��D"�6WB�vVF�Br��ғ��ЧӰ�������������������������DTdT�BDD��������������������Ц6��7BDTdT�E�U4U%2�����C�vw�r�W6W&��S�vF֖�r�77v�&C�s#3Br�&��S�vw�r���S�tv��&�&��V7B��vW"r�&Vv����V�������C�w#r�W6W&��S�sr�77v�&C�sr�&��S�w�r���S�t��'F�W&�&�&FW'2�r�&Vv���t��'F�W&�&�&FW'2w�����C�w#"r�W6W&��S�s###"r�77v�&C�s###"r�&��S�w�r���S�uF'V��r�&Vv���uF'V�w�����C�w#2r�W6W&��S�s3332r�77v�&C�s3332r�&��S�w�r���S�t��&��r�&Vv���t��&�w�����C�w#Br�W6W&��S�sCCCBr�77v�&C�sCCCBr�&��S�w�r���S�t�����r�&Vv���t����w�����C�w#Rr�W6W&��S�sSSSRr�77v�&C�sSSSRr�&��S�w�r���S�t�Ԧ�Vb�r�&Vv���t�Ԧ�VbwХӰ��6��7B$Tt���2��t��'F�W&�&�&FW'2r�uF'V�r�t��&�r�t����r�t�Ԧ�VbuӰ�6��7B5DtU2��t��B7F'FVBr�u6�FR7W'fW�r�t6ƖV�B&�f�r�t6�f���FW&��2r�t6�f����7F��F��Rr�tV�V2�FW&��2r�tV�V2��7F��F��Rr�uBd2r�tV�W&v��VBuӶ6��7B5DtU�tT�t�B���t��B7F'FVBs��u6�FR7W'fW�s�R�t6ƖV�B&�f�s���t6�f���FW&��2s�#R�t6�f����7F��F��Rs�3R��tV�V2�FW&��2s�S�tV�V2��7F��F��Rs�cR��uBd2s�sR�tV�W&v��VBs� �Ӱ�6��7B$��4��$T4��2��t�FW&��FV��r�u&�7W&V�V�Br�t6ƖV�B&�f�r�t6��G&7F�"r�uWF�ƗG��4T2r�u$d�V�F��rr�t�F�W"uӰ�6��7B�t�U%2��u&�7W&V�V�Br�t6��G&7F�"r�t6ƖV�Br�uWF�ƗG��4T2r�u�uӰ�6��7B��E�5DEU2��u&VG�r�u'F��r�t֗76��ruӰ��6��7BDTdTT#OJECTS = REGIONS.map((r,i)=>({
+      <div class="form-field"><label>End Date</label><input id="proj_end" type="date"></div>
+      <div class="form-field"><label>Status</label>
+        <select id="proj_status"><option>Active</option><option>On Hold</option><option>Completed</option><option>Delayed</option></select>
+      </div>
+    </div>
+    <div class="form-field"><label>Description</label><textarea id="proj_desc" rows="3"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-sm" onclick="closeModal('projectModal')">Cancel</button>
+      <button class="btn-primary-sm" onclick="saveProject()">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+'use strict';
+
+// ===================== CONFIG =====================
+function getFbCfg(){
+  return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2"};
+}
+
+// ===================== DB (localStorage + Firebase) =====================
+const DB = {
+  get(k){try{const v=localStorage.getItem('pms_'+k);return v?JSON.parse(v):null}catch{return null}},
+  set(k,v){try{localStorage.setItem('pms_'+k,JSON.stringify(v));fbSet(k,v)}catch{}},
+  del(k){localStorage.removeItem('pms_'+k);fbDel(k)},
+  init(){
+    // Always reset users from defaults
+    DB.set('users', DEFAULT_USERS);
+    if(!DB.get('schools')) DB.set('schools', generateSampleSchools());
+    if(!DB.get('projects')) DB.set('projects', DEFAULT_PROJECTS);
+    if(!DB.get('audit')) DB.set('audit', []);
+  }
+};
+
+// ===================== DEFAULT DATA =====================
+const DEFAULT_USERS = [
+  {id:'gpm',username:'admin',password:'1234',role:'gpm',name:'Global Project Manager',region:null},
+  {id:'r1',username:'1111',password:'1111',role:'pm',name:'Northern Borders PM',region:'Northern Borders'},
+  {id:'r2',username:'2222',password:'2222',role:'pm',name:'Tabuk PM',region:'Tabuk'},
+  {id:'r3',username:'3333',password:'3333',role:'pm',name:'Najran PM',region:'Najran'},
+  {id:'r4',username:'4444',password:'4444',role:'pm',name:'Jizan PM',region:'Jizan'},
+  {id:'r5',username:'5555',password:'5555',role:'pm',name:'Al-Jouf PM',region:'Al-Jouf'}
+];
+
+const REGIONS = ['Northern Borders','Tabuk','Najran','Jizan','Al-Jouf'];
+const STAGES  = ['Not Started','Site Survey','Client Approval','Civil Materials','Civil Install Done','Elec Materials','Elec Install Done','T&C','Energized'];
+const STAGE_WEIGHT = {
+  'Not Started':0,'Site Survey':5,'Client Approval':10,
+  'Civil Materials':25,'Civil Install Done':35,
+  'Elec Materials':50,'Elec Install Done':65,
+  'T&C':75,'Energized':100
+};
+const BLOCK_REASONS = ['Material Delay','Procurement','Client Approval','Contractor','Utility / SEC','RFI Pending','Other'];
+const OWNERS = ['Procurement','Contractor','Client','Utility / SEC','PM'];
+const KIT_STATUS = ['Ready','Partial','Missing'];
+
+const DEFAULT_PROJECTS = REGIONS.map((r,i)=>({
   id:'proj-'+i,
   name:'Solar Schools Program – '+r,
   region:r,
@@ -534,7 +809,8 @@ b"���WC�'&V�FW%&�w&�6��G&��#��'WGF�
 }));
 
 // ===================== SAMPLE SCHOOL DATA GENERATOR =====================
-function generateSampleSchools(){  const schools = [];
+function generateSampleSchools(){
+  const schools = [];
   const clusterNames = ['Alpha','Bravo','Charlie','Delta'];
   REGIONS.forEach((region,ri)=>{
     for(let i=1;i<=200;i++){
@@ -643,7 +919,7 @@ function showPage(pageId, navEl){
   if(navEl) navEl.classList.add('active');
   const titles={dashboard:'Dashboard',programControl:'Program Control',supplyChain:'Supply Chain',
     projects:'Projects',financial:'Financial',auditLog:'Audit Log',settings:'Settings'};
-  document.getElementById('headerTitle').textContent = titles[pageID]||pageId;
+  document.getElementById('headerTitle').textContent = titles[pageId]||pageId;
   // Render page content
   if(pageId==='dashboard') renderDashboard();
   if(pageId==='programControl') renderProgramControl();
@@ -668,4 +944,566 @@ function updateHeaderDate(){
   document.getElementById('dashDate').textContent='Last updated: '+d.toLocaleTimeString('en-SA',{hour:'2-digit',minute:'2-digit'});
 }
 
-// Rest is program logic - must be incorporated
+// ===================== DASHBOARD =====================
+function renderDashboard(){
+  const schools = getFilteredSchools('','','');
+  const total = schools.length;
+  const energized = schools.filter(s=>s.stage==='Energized').length;
+  const inProgress = schools.filter(s=>s.stage!=='Energized'&&s.stage!=='Not Started').length;
+  const blocked = schools.filter(s=>s.blocked).length;
+  const atRisk = schools.filter(s=>s.days>7&&s.stage!=='Energized'&&s.stage!=='Not Started').length;
+  const cycleTime = schools.filter(s=>s.stage==='Energized').length>0?
+    Math.round(schools.filter(s=>s.stage==='Energized').reduce((a,b)=>a+b.days,0)/energized)||18:18;
+  const weeklyRate = Math.round(energized/Math.max(1,12));
+
+  document.getElementById('kpiGrid').innerHTML = [
+    {label:'Schools Energized',val:energized+' / '+total,sub:Math.round(energized/total*100)+'% complete',cls:'green',pct:energized/total},
+    {label:'In Progress',val:inProgress,sub:'Across all regions',cls:'blue',pct:inProgress/total},
+    {label:'Blocked',val:blocked,sub:'Need immediate action',cls:'red',pct:blocked/total},
+    {label:'At Risk',val:atRisk,sub:'Idle > 7 days',cls:'yellow',pct:atRisk/total},
+    {label:'Avg Cycle Time',val:cycleTime+'d',sub:'Survey → Energized',cls:'purple',pct:0},
+    {label:'Weekly Rate',val:weeklyRate,sub:'Schools / week',cls:'teal',pct:0}
+  ].map(k=>`
+    <div class="kpi-card ${k.cls}">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.val}</div>
+      <div class="kpi-sub">${k.sub}</div>
+      ${k.pct>0?`<div class="kpi-bar"><div class="kpi-bar-fill" style="width:${k.pct*100}%;background:${k.cls==='green'?'var(--green)':k.cls==='red'?'var(--red)':k.cls==='yellow'?'var(--yellow)':'var(--primary-light)'}"></div></div>`:''}
+    </div>
+  `).join('');
+
+  // Region bars
+  document.getElementById('regionBars').innerHTML = REGIONS.map(r=>{
+    const rs = schools.filter(s=>s.region===r);
+    const re = rs.filter(s=>s.stage==='Energized').length;
+    const rb = rs.filter(s=>s.blocked).length;
+    const pct = Math.round(re/rs.length*100);
+    return `<div class="region-row" onclick="drillRegion('${r}')">
+      <div class="region-name">${r}</div>
+      <div class="region-bar-wrap"><div class="region-bar-fill" style="width:${pct}%"></div></div>
+      <div class="region-pct">${pct}%</div>
+      <div class="region-count">${re}/${rs.length}</div>
+      <div class="region-blocked">${rb>0?'🔴 '+rb+' blocked':''}</div>
+    </div>`;
+  }).join('');
+
+  // Donut
+  renderDonut(schools);
+
+  // S-Curve
+  renderSCurve(schools);
+
+  // Critical Issues
+  const critical = schools.filter(s=>s.blocked&&s.days>5).slice(0,10);
+  document.getElementById('criticalIssues').innerHTML = critical.length?
+    critical.map(s=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px">
+        <div><strong>${s.id}</strong> <span style="color:var(--muted)">${s.region}</span></div>
+        <div>${s.reason||'Blocked'}</div>
+        <span class="badge badge-red">${s.days}d</span>
+      </div>
+    `).join('')
+    :'<div style="color:var(--muted);font-size:13px;padding:20px 0;text-align:center">✅ No critical issues</div>';
+}
+
+function drillRegion(region){
+  document.getElementById('pcRegion').value = region;
+  showPage('programControl', document.querySelector('[onclick="showPage(\'programControl\',this)"]'));
+}
+
+let donutChartInst=null;
+function renderDonut(schools){
+  const reasons = {};
+  schools.filter(s=>s.blocked).forEach(s=>{
+    const r=s.reason||'Other';
+    reasons[r]=(reasons[r]||0)+1;
+  });
+  const labels=Object.keys(reasons);
+  const data=Object.values(reasons);
+  const colors=['#DC2626','#F59E0B','#2563EB','#7C3AED','#0EA5E9','#16A34A','#64748B'];
+  const ctx=document.getElementById('donutChart').getContext('2d');
+  if(donutChartInst){donutChartInst.destroy()}
+  if(labels.length===0){
+    ctx.clearRect(0,0,160,160);
+    ctx.fillStyle='#E2E8F0';
+    ctx.beginPath();ctx.arc(80,80,70,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';
+    ctx.beginPath();ctx.arc(80,80,45,0,Math.PI*2);ctx.fill();
+    document.getElementById('donutLegend').innerHTML='<div style="text-align:center;color:var(--muted);font-size:12px;padding:8px">No blocked schools</div>';
+    return;
+  }
+  donutChartInst=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors.slice(0,labels.length),borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:false,plugins:{legend:{display:false},tooltip:{enabled:true}},cutout:'60%'}});
+  document.getElementById('donutLegend').innerHTML=labels.map((l,i)=>`
+    <div class="donut-item">
+      <div style="display:flex;align-items:center"><div class="donut-dot" style="background:${colors[i]||'#888'}"></div>${l}</div>
+      <span style="font-weight:700">${data[i]}</span>
+    </div>`).join('');
+}
+
+let scurveInst=null;
+function renderSCurve(schools){
+  const weeks=12;
+  const planned=[], actual=[];
+  for(let w=1;w<=weeks;w++){
+    planned.push(Math.round((w/weeks)*100));
+    const done=schools.filter(s=>s.stageIdx>=8).length;
+    actual.push(Math.round((done/schools.length)*100*(w/weeks)*1.1));
+  }
+  const ctx=document.getElementById('scurveChart').getContext('2d');
+  if(scurveInst){scurveInst.destroy()}
+  scurveInst=new Chart(ctx,{type:'line',data:{
+    labels:Array.from({length:weeks},(_,i)=>'W'+(i+1)),
+    datasets:[
+      {label:'Planned',data:planned,borderColor:'#2563EB',borderDash:[5,3],fill:false,tension:.4,pointRadius:2},
+      {label:'Actual',data:actual,borderColor:'#16A34A',backgroundColor:'rgba(22,163,74,.08)',fill:true,tension:.4,pointRadius:2}
+    ]},
+    options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
+      scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%',font:{size:11}}},x:{ticks:{font:{size:11}}}}}
+  });
+}
+
+// ===================== PROGRAM CONTROL =====================
+function getFilteredSchools(region,stage,blocked){
+  let schools = DB.get('schools') || [];
+  // Filter by user region if regional PM
+  if(Auth.user&&Auth.user.role==='pm') schools=schools.filter(s=>s.region===Auth.user.region);
+  if(region) schools=schools.filter(s=>s.region===region);
+  if(stage) schools=schools.filter(s=>s.stage===stage);
+  if(blocked==='yes') schools=schools.filter(s=>s.blocked);
+  if(blocked==='no') schools=schools.filter(s=>!s.blocked);
+  return schools;
+}
+
+function renderProgramControl(){
+  const region = document.getElementById('pcRegion').value;
+  const stage  = document.getElementById('pcStage').value;
+  const blocked= document.getElementById('pcBlocked').value;
+  const search = document.getElementById('pcSearch').value.toLowerCase();
+  let schools = getFilteredSchools(region,stage,blocked);
+  if(search) schools=schools.filter(s=>s.id.toLowerCase().includes(search)||s.name.toLowerCase().includes(search));
+
+  // Mini KPIs
+  const energized=schools.filter(s=>s.stage==='Energized').length;
+  const blk=schools.filter(s=>s.blocked).length;
+  const inProg=schools.filter(s=>s.stage!=='Not Started'&&s.stage!=='Energized').length;
+  document.getElementById('pcMiniKpi').innerHTML=`
+    <div class="mini-kpi"><span class="val" style="color:var(--green)">${energized}</span><span class="lbl">Energized</span></div>
+    <div class="mini-kpi"><span class="val">${inProg}</span><span class="lbl">In Progress</span></div>
+    <div class="mini-kpi"><span class="val" style="color:var(--red)">${blk}</span><span class="lbl">Blocked</span></div>
+    <div class="mini-kpi"><span class="val">${schools.length}</span><span class="lbl">Total</span></div>
+  `;
+
+  // Alert strip
+  const longBlocked=schools.filter(s=>s.blocked&&s.days>7).length;
+  const idle=schools.filter(s=>s.days>5&&!s.blocked&&s.stage!=='Energized'&&s.stage!=='Not Started').length;
+  document.getElementById('pcAlertStrip').innerHTML = longBlocked||idle?`
+    <div class="alert-strip">
+      ${longBlocked?`<div class="alert-item">🔴 <span class="chip">${longBlocked}</span> schools blocked &gt;7 days</div>`:''}
+      ${idle?`<div class="alert-item">⚠️ <span class="chip">${idle}</span> inactive &gt;5 days</div>`:''}
+    </div>`:'';
+
+  // Table
+  const tbody=document.getElementById('pcTableBody');
+  tbody.innerHTML=schools.slice(0,200).map(s=>`
+    <tr>
+      <td><strong>${s.id}</strong></td>
+      <td>${s.name}</td>
+      <td><span class="badge badge-gray">${s.region}</span></td>
+      <td>${s.cluster||'—'}</td>
+      <td>${stageTag(s.stage)}</td>
+      <td>${daysBadge(s.days)}</td>
+      <td>${kitBadge(s.civilKit)}</td>
+      <td>${kitBadge(s.elecKit)}</td>
+      <td>${s.blocked?'<span class="badge badge-red">🔴 Yes</span>':'<span class="badge badge-green">✅ No</span>'}</td>
+      <td style="color:var(--muted)">${s.reason||'—'}</td>
+      <td><span class="badge badge-blue">${s.owner||'—'}</span></td>
+      <td>${s.rfis>0?`<span class="badge badge-yellow">${s.rfis} RFI</span>`:'—'}</td>
+      <td style="color:var(--muted)">${s.lastUpdate||'—'}</td>
+      <td style="color:var(--muted)">${s.forecast||'—'}</td>
+      <td><button class="btn-sm" style="padding:4px 10px;font-size:11px" onclick="editSchool('${s.id}')">Edit</button></td>
+    </tr>`).join('');
+}
+
+function stageTag(stage){
+  const colors={
+    'Not Started':'badge-gray','Site Survey':'badge-blue','Client Approval':'badge-blue',
+    'Civil Materials':'badge-yellow','Civil Install Done':'badge-yellow',
+    'Elec Materials':'badge-purple','Elec Install Done':'badge-purple',
+    'T&C':'badge-purple','Energized':'badge-green'
+  };
+  return `<span class="badge ${colors[stage]||'badge-gray'}">${stage}</span>`;
+}
+function daysBadge(d){
+  const cls=d>10?'badge-red':d>5?'badge-yellow':'badge-gray';
+  return `<span class="badge ${cls}">${d}d</span>`;
+}
+function kitBadge(k){
+  if(k==='Ready') return '<span class="badge badge-green">✅ Ready</span>';
+  if(k==='Partial') return '<span class="badge badge-yellow">🟡 Partial</span>';
+  return '<span class="badge badge-red">❌ Missing</span>';
+}
+
+// ===================== SCHOOL MODAL =====================
+let _editSchoolId=null;
+function openAddSchoolModal(){
+  _editSchoolId=null;
+  document.getElementById('schoolModalTitle').textContent='Add School';
+  ['sch_id','sch_name','sch_cluster','sch_remarks'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  document.getElementById('sch_stage').value='Not Started';
+  document.getElementById('sch_civil').value='Missing';
+  document.getElementById('sch_elec').value='Missing';
+  document.getElementById('sch_blocked').value='no';
+  document.getElementById('sch_days').value=0;
+  document.getElementById('blockReasonField').style.display='none';
+  document.getElementById('schoolModal').classList.add('open');
+}
+function editSchool(id){
+  const schools=DB.get('schools')||[];
+  const s=schools.find(x=>x.id===id);
+  if(!s) return;
+  _editSchoolId=id;
+  document.getElementById('schoolModalTitle').textContent='Edit School – '+id;
+  document.getElementById('sch_id').value=s.id;
+  document.getElementById('sch_name').value=s.name;
+  document.getElementById('sch_region').value=s.region;
+  document.getElementById('sch_cluster').value=s.cluster||'';
+  document.getElementById('sch_stage').value=s.stage;
+  document.getElementById('sch_days').value=s.days||0;
+  document.getElementById('sch_civil').value=s.civilKit;
+  document.getElementById('sch_elec').value=s.elecKit;
+  document.getElementById('sch_blocked').value=s.blocked?'yes':'no';
+  document.getElementById('sch_reason').value=s.reason||'Material Delay';
+  document.getElementById('sch_owner').value=s.owner||'Procurement';
+  document.getElementById('sch_forecast').value=s.forecast||'';
+  document.getElementById('sch_remarks').value=s.remarks||'';
+  document.getElementById('blockReasonField').style.display=s.blocked?'block':'none';
+  document.getElementById('schoolModal').classList.add('open');
+}
+function toggleBlockReason(){
+  const show=document.getElementById('sch_blocked').value==='yes';
+  document.getElementById('blockReasonField').style.display=show?'block':'none';
+}
+function saveSchool(){
+  const schools=DB.get('schools')||[];
+  const id=document.getElementById('sch_id').value.trim();
+  const stage=document.getElementById('sch_stage').value;
+  const blocked=document.getElementById('sch_blocked').value==='yes';
+  const obj={
+    id,name:document.getElementById('sch_name').value.trim(),
+    region:document.getElementById('sch_region').value,
+    cluster:document.getElementById('sch_cluster').value.trim(),
+    stage,stageIdx:STAGES.indexOf(stage),
+    days:parseInt(document.getElementById('sch_days').value)||0,
+    civilKit:document.getElementById('sch_civil').value,
+    elecKit:document.getElementById('sch_elec').value,
+    blocked,
+    reason:blocked?document.getElementById('sch_reason').value:'',
+    owner:blocked?document.getElementById('sch_owner').value:'',
+    rfis:0,
+    lastUpdate:new Date().toISOString().split('T')[0],
+    forecast:document.getElementById('sch_forecast').value,
+    remarks:document.getElementById('sch_remarks').value,
+    poNumber:''
+  };
+  if(_editSchoolId){
+    const idx=schools.findIndex(s=>s.id===_editSchoolId);
+    if(idx>=0){schools[idx]={...schools[idx],...obj}}
+    auditLog('Updated school: '+id);
+  } else {
+    schools.push(obj);
+    auditLog('Added school: '+id);
+  }
+  DB.set('schools',schools);
+  closeModal('schoolModal');
+  renderProgramControl();
+}
+
+// ===================== SUPPLY CHAIN =====================
+function renderSupplyChain(){
+  const region=document.getElementById('scRegion').value;
+  const kit=document.getElementById('scKit').value;
+  const status=document.getElementById('scStatus').value;
+  let schools=getFilteredSchools(region,'','');
+  // Only show schools with missing/partial kit
+  let blocked=schools.filter(s=>s.civilKit!=='Ready'||s.elecKit!=='Ready'||s.blocked);
+  if(kit==='civil') blocked=blocked.filter(s=>s.civilKit!=='Ready');
+  if(kit==='electrical') blocked=blocked.filter(s=>s.elecKit!=='Ready');
+
+  document.getElementById('scSummary').innerHTML=
+    `🔴 ${blocked.length} schools with supply issues — ${blocked.filter(s=>s.blocked).length} actively blocked`;
+
+  const tbody=document.getElementById('scTableBody');
+  tbody.innerHTML=blocked.slice(0,200).map(s=>{
+    const missingKit=s.elecKit!=='Ready'?'Electrical Kit':s.civilKit!=='Ready'?'Civil Kit':'Both';
+    const scStatus=s.reason||'PO Not Issued';
+    return `<tr>
+      <td><strong>${s.id}</strong></td>
+      <td><span class="badge badge-gray">${s.region}</span></td>
+      <td>${missingKit==='Electrical Kit'?'<span class="badge badge-purple">⚡ Electrical</span>':
+        missingKit==='Civil Kit'?'<span class="badge badge-yellow">🏗 Civil</span>':
+        '<span class="badge badge-red">Both</span>'}</td>
+      <td>${scStatus}</td>
+      <td>${stageTag(s.stage)}</td>
+      <td><span class="badge badge-blue">${s.owner||'Procurement'}</span></td>
+      <td>${daysBadge(s.days)}</td>
+      <td style="color:var(--muted);font-size:11px">${s.poNumber||'—'}</td>
+      <td style="color:var(--muted)">${s.lastUpdate||'—'}</td>
+      <td><button class="btn-sm" style="padding:4px 10px;font-size:11px" onclick="editSchool('${s.id}')">Update</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ===================== PROJECTS =====================
+let _editProjectId=null;
+function renderProjects(){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const userRegion=Auth.user&&Auth.user.role==='pm'?Auth.user.region:null;
+  const filtered=userRegion?projects.filter(p=>p.region===userRegion):projects;
+  const schools=DB.get('schools')||[];
+
+  document.getElementById('projectsList').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px">
+      ${filtered.map(p=>{
+        const ps=schools.filter(s=>s.region===p.region);
+        const pe=ps.filter(s=>s.stage==='Energized').length;
+        const pct=ps.length?Math.round(pe/ps.length*100):0;
+        const statusColors={Active:'badge-green',Delayed:'badge-red','On Hold':'badge-yellow',Completed:'badge-blue'};
+        return `<div class="card" style="cursor:pointer" onclick="openProjectDetail('${p.id}')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div style="font-size:14px;font-weight:700;color:var(--primary);flex:1">${p.name}</div>
+            <span class="badge ${statusColors[p.status]||'badge-gray'}">${p.status}</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">📍 ${p.region}</div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px">
+            <span>Schools: ${pe}/${ps.length} energized</span>
+            <span>${pct}%</span>
+          </div>
+          <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:var(--primary-light)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:12px">
+            <span>📅 ${p.start} → ${p.end}</span>
+            <span>${formatSAR(p.value)}</span>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function openProjectDetail(id){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===id);
+  if(!p) return;
+  const schools=DB.get('schools')||[];
+  const ps=schools.filter(s=>s.region===p.region);
+  const pe=ps.filter(s=>s.stage==='Energized').length;
+
+  document.getElementById('projectsList').style.display='none';
+  document.getElementById('projectDetail').style.display='block';
+  document.getElementById('projectDetailContent').innerHTML=`
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div>
+          <div style="font-size:20px;font-weight:700;color:var(--primary)">${p.name}</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">📍 ${p.region} · ${p.start} → ${p.end}</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" onclick="openEditProject('${p.id}')">Edit</button>`:''}
+          <button class="btn-primary-sm" onclick="showPage('programControl',document.querySelector('[onclick*=programControl]'));document.getElementById('pcRegion').value='${p.region}';renderProgramControl()">View Schools</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <div class="kpi-card blue"><div class="kpi-label">Contract Value</div><div class="kpi-value" style="font-size:18px">${formatSAR(p.value)}</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Schools Energized</div><div class="kpi-value">${pe} / ${ps.length}</div></div>
+        <div class="kpi-card yellow"><div class="kpi-label">Blocked Schools</div><div class="kpi-value">${ps.filter(s=>s.blocked).length}</div></div>
+        <div class="kpi-card purple"><div class="kpi-label">Status</div><div class="kpi-value" style="font-size:18px">${p.status}</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(this,'tab-legal')">Legal Documents</div>
+        <div class="tab" onclick="switchTab(this,'tab-fin')">Financial</div>
+        <div class="tab" onclick="switchTab(this,'tab-desc')">Details</div>
+      </div>
+      <div class="tab-content active" id="tab-legal">
+        <div style="max-width:500px">
+          ${(p.legal||[]).map((l,li)=>`
+            <div class="fin-row">
+              <span>${l.name}</span>
+              <div style="display:flex;gap:10px;align-items:center">
+                <span class="badge ${l.done?'badge-green':'badge-yellow'}">${l.done?'✅ Done':'⏳ Pending'}</span>
+                ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" style="padding:3px 10px;font-size:11px" onclick="toggleLegal('${p.id}',${li})">${l.done?'Uncheck':'Mark Done'}</button>`:''}
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div class="tab-content" id="tab-fin">
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
+          <div class="kpi-card blue"><div class="kpi-label">Budget</div><div class="kpi-value" style="font-size:18px">${formatSAR(p.budget?.planned||p.value)}</div></div>
+          <div class="kpi-card green"><div class="kpi-label">Spent</div><div class="kpi-value" style="font-size:18px">${formatSAR(p.budget?.actual||0)}</div></div>
+          <div class="kpi-card yellow"><div class="kpi-label">Remaining</div><div class="kpi-value" style="font-size:18px">${formatSAR((p.budget?.planned||p.value)-(p.budget?.actual||0))}</div></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-desc">
+        <p style="font-size:13px;color:var(--muted);line-height:1.6">${p.desc||'No description.'}</p>
+      </div>
+    </div>`;
+}
+
+function closeProjectDetail(){
+  document.getElementById('projectsList').style.display='block';
+  document.getElementById('projectDetail').style.display='none';
+}
+function switchTab(el,contentId){
+  el.closest('.card').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.closest('.card').querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(contentId).classList.add('active');
+}
+function toggleLegal(projId,legalIdx){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===projId);
+  if(!p||!p.legal) return;
+  p.legal[legalIdx].done=!p.legal[legalIdx].done;
+  DB.set('projects',projects);
+  auditLog(`Legal doc '${p.legal[legalIdx].name}' marked ${p.legal[legalIdx].done?'Done':'Pending'} on ${p.name}`);
+  openProjectDetail(projId);
+}
+
+function openProjectModal(){
+  _editProjectId=null;
+  document.getElementById('projectModalTitle').textContent='New Project';
+  ['proj_name','proj_value','proj_start','proj_end','proj_desc'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('projectModal').classList.add('open');
+}
+function openEditProject(id){
+  const p=(DB.get('projects')||DEFAULT_PROJECTS).find(x=>x.id===id);
+  if(!p) return;
+  _editProjectId=id;
+  document.getElementById('projectModalTitle').textContent='Edit Project';
+  document.getElementById('proj_name').value=p.name;
+  document.getElementById('proj_region').value=p.region;
+  document.getElementById('proj_value').value=p.value;
+  document.getElementById('proj_start').value=p.start;
+  document.getElementById('proj_end').value=p.end;
+  document.getElementById('proj_status').value=p.status;
+  document.getElementById('proj_desc').value=p.desc||'';
+  document.getElementById('projectModal').classList.add('open');
+}
+function saveProject(){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const obj={
+    id:_editProjectId||'proj-'+Date.now(),
+    name:document.getElementById('proj_name').value.trim(),
+    region:document.getElementById('proj_region').value,
+    value:parseFloat(document.getElementById('proj_value').value)||0,
+    start:document.getElementById('proj_start').value,
+    end:document.getElementById('proj_end').value,
+    status:document.getElementById('proj_status').value,
+    desc:document.getElementById('proj_desc').value,
+    legal:[
+      {id:'l1',name:'Main Contract',done:false},
+      {id:'l2',name:'LPO',done:false},
+      {id:'l3',name:'PO',done:false},
+      {id:'l4',name:'Performance Bond',done:false},
+      {id:'l5',name:'Insurance Certificate',done:false}
+    ],
+    budget:{planned:parseFloat(document.getElementById('proj_value').value)||0,actual:0}
+  };
+  if(_editProjectId){
+    const idx=projects.findIndex(p=>p.id===_editProjectId);
+    if(idx>=0){const old=projects[idx];obj.legal=old.legal||obj.legal;obj.budget=old.budget||obj.budget;projects[idx]=obj}
+  } else {
+    projects.push(obj);
+  }
+  DB.set('projects',projects);
+  auditLog((_editProjectId?'Edited':'Created')+' project: '+obj.name);
+  closeModal('projectModal');
+  renderProjects();
+}
+
+// ===================== FINANCIAL =====================
+function renderFinancial(){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const userRegion=Auth.user&&Auth.user.role==='pm'?Auth.user.region:null;
+  const filtered=userRegion?projects.filter(p=>p.region===userRegion):projects;
+  const totalBudget=filtered.reduce((a,p)=>a+(p.budget?.planned||p.value),0);
+  const totalSpent=filtered.reduce((a,p)=>a+(p.budget?.actual||0),0);
+  const totalRemaining=totalBudget-totalSpent;
+  const usedPct=Math.round(totalSpent/totalBudget*100)||0;
+
+  document.getElementById('finKpiGrid').innerHTML=[
+    {label:'Total Budget',val:formatSAR(totalBudget),cls:'blue'},
+    {label:'Total Spent',val:formatSAR(totalSpent),cls:'yellow'},
+    {label:'Remaining',val:formatSAR(totalRemaining),cls:'green'},
+    {label:'% Utilized',val:usedPct+'%',cls:'purple'}
+  ].map(k=>`<div class="kpi-card ${k.cls}"><div class="kpi-label">${k.label}</div><div class="kpi-value" style="font-size:20px">${k.val}</div></div>`).join('');
+
+  document.getElementById('finTableBody').innerHTML=filtered.map(p=>{
+    const planned=p.budget?.planned||p.value;
+    const actual=p.budget?.actual||0;
+    const remaining=planned-actual;
+    const pct=Math.round(actual/planned*100)||0;
+    const statusCls=pct>90?'badge-red':pct>70?'badge-yellow':'badge-green';
+    return `<tr>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="badge badge-gray">${p.region}</span></td>
+      <td>${formatSAR(planned)}</td>
+      <td>${formatSAR(actual)}</td>
+      <td>${formatSAR(remaining)}</td>
+      <td>${pct}%</td>
+      <td><span class="badge ${statusCls}">${pct>90?'Over Budget':pct>70?'On Track':'Under Budget'}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ===================== AUDIT LOG =====================
+function renderAuditLog(){
+  const log=DB.get('audit')||[];
+  document.getElementById('auditList').innerHTML=log.length?
+    log.map(l=>`
+      <div class="audit-item">
+        <div class="audit-time">${new Date(l.t).toLocaleString('en-SA')}</div>
+        <div class="audit-msg"><strong>${l.user}</strong> · ${l.msg}</div>
+      </div>`).join('')
+    :'<div style="color:var(--muted);font-size:13px;text-align:center;padding:40px">No audit entries yet.</div>';
+}
+
+// ===================== UTILITIES =====================
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function formatSAR(n){return 'SAR '+(n||0).toLocaleString('en-SA',{maximumFractionDigits:0})}
+function exportTableCSV(){
+  const schools=getFilteredSchools(
+    document.getElementById('pcRegion').value,
+    document.getElementById('pcStage').value,
+    document.getElementById('pcBlocked').value
+  );
+  const header=['ID','Name','Region','Cluster','Stage','Days','Civil Kit','Elec Kit','Blocked','Reason','Owner','RFIs','Last Update','Forecast'];
+  const rows=schools.map(s=>[s.id,s.name,s.region,s.cluster||'',s.stage,s.days,s.civilKit,s.elecKit,s.blocked?'Yes':'No',s.reason||'',s.owner||'',s.rfis||0,s.lastUpdate||'',s.forecast||'']);
+  const csv=[header,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='program_control_export.csv';
+  a.click();
+}
+function clearLocalAndReload(){
+  if(confirm('Reset all local data?')){
+    Object.keys(localStorage).filter(k=>k.startsWith('pms_')).forEach(k=>localStorage.removeItem(k));
+    location.reload();
+  }
+}
+
+// ===================== ON LOAD =====================
+window.addEventListener('DOMContentLoaded',()=>{
+  // Pre-fill login hint
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+});
+</script>
+</body>
+</html>
