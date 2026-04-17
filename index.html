@@ -339,7 +339,7 @@ a{text-decoration:none;color:inherit}
 .audit-msg{flex:1}
 
 /* ===== SETTINGS ===== */
-.settings-group{margin-bottom:28py}
+.settings-group{margin-bottom:28px}
 .settings-group h3{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 
 /* ===== S-CURVE CANVAS ===== */
@@ -403,8 +403,7 @@ a{text-decoration:none;color:inherit}
     <nav class="sidebar-nav">
       <div class="nav-section">Overview</div>
       <div class="nav-item active" onclick="showPage('dashboard',this)">
-        <span class="nav-icon">ð
-</span> Dashboard
+        <span class="nav-icon">ð</span> Dashboard
       </div>
       <div class="nav-section">Operations</div>
       <div class="nav-item" onclick="showPage('programControl',this)">
@@ -544,7 +543,7 @@ a{text-decoration:none;color:inherit}
                 <th>Reason</th>
                 <th>Owner</th>
                 <th>RFIs</th>
-                <th>Start</th>
+                <th>Last Update</th>
                 <th>Forecast</th>
                 <th>Action</th>
               </tr>
@@ -866,7 +865,7 @@ a{text-decoration:none;color:inherit}
 
 // ===================== CONFIG =====================
 function getFbCfg(){
-  return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2"}}
+  return {"apiKey":"AIzaSyAqoYFHWG2elVmTHZBv388DZTY8qvdoTnw","authDomain":"pm-system-mdqes.firebaseapp.com","databaseURL":"https://pm-system-mdqes-default-rtdb.firebaseio.com","projectId":"pm-system-mdqes","storageBucket":"pm-system-mdqes.firebasestorage.app","messagingSenderId":"74430375735","appId":"1:74430375735:web:2e09ca3d3636afaf6e1cb2"};
 }
 
 // ===================== DB (localStorage + Firebase) =====================
@@ -920,7 +919,7 @@ const DEFAULT_PROJECTS = [
    approvalChain:[
      {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-01-20',waitingOn:'',issuedBy:'GPM Office'},
      {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-02-05',waitingOn:'',issuedBy:'Procurement'},
-     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Finance Dept â pending budget release',issuedBy:''},
+     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',aitingOn:'Finance Dept â pending budget release',issuedBy:''},
      {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor â SABB policy renewal',issuedBy:''},
      {id:'ac5',name:'Performance Bond',done:true,doneDate:'2024-02-12',waitingOn:'',issuedBy:'Al Rajhi Bank'}
    ],
@@ -1196,7 +1195,7 @@ function checkAndShowInvAlert(){
   const alerts=mats.filter(m=>{const {onHand}=getStockSummary(m.code);return onHand<m.perSchool*50&&onHand>=0&&m.perSchool>0;});
   const strip=document.getElementById('pcAlertStrip');
   if(strip&&alerts.length){
-    strip.innerHTML+=`<div class="alert-item">ð­ <span class="chip" onclick="showPage('inventory',document.querySelector('[onclick*=inventory]'))">${alerts.length} low-stock items</span></div>`;
+    strip.innerHTML+=`<div class="alert-item">ð­ <span class="chip" onclick="showPage('inventory',document.querySelector('[onclicjJ=inventory]'))">${alerts.length} low-stock items</span></div>`;
   }
 }
 
@@ -1247,7 +1246,7 @@ function renderSCurve(schools){
       {label:'Actual',data:actual,borderColor:'#16A34A',backgroundColor:'rgba(22,163,74,.08)',fill:true,tension:.4,pointRadius:2}
     ]},
     options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
-      scales:{y:{min:0,max:100,ticks:{callback:v=>v+)%',font:{size:11}}},x:{ticks:{font:{size:11}}}}}
+      scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%',font:{size:11}}},x:{ticks:{font:{size:11}}}}}
   });
 }
 
@@ -1470,212 +1469,6 @@ function renderProjects(){
           </div>
           <div style="font-size:12px;color:var(--muted);margin-bottom:12px">ð ${p.region}</div>
           <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px">
-            <span>Schools: ${pe}/${ps.length} energized</span>
-            <span>${pct}%</span>
-          </div>
-          <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:var(--primary-light)"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:12px">
-            <span>ð ${p.start} â ${p.end}</span>
-            <span>${formatSAR(p.value)}</span>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>`;
-}
-
-function deleteProject(id){
-  const projects=DB.get('projects')||DEFAULT_PROJECTS;
-  const p=projects.find(x=>x.id===id);
-  if(!p) return;
-  // Inline confirm overlay â avoids blocking window.confirm()
-  const overlay=document.createElement('div');
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center';
-  overlay.innerHTML<`<div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:360px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)">
-    <div style="font-size:22px;margin-bottom:12px">ðï¸</div>
-    <div style="font-weight:700;font-size:16px;margin-bottom:8px">Delete Project?</div>
-    <div style="color:#64748b;font-size:13px;margin-bottom:20px">${p.name} â this cannot be undone.</div>
-    <div style="display:flex;gap:10px;justify-content:center">
-      <button id="_delCancel" style="padding:9px 22px;border-radius:8px;border:1.5px solid #e2e8F0;background:#fff;cursor:pointer;font-size:13px">Cancel</button>
-      <button id="_delConfirm" style="padding:9px 22px;border-radius:8px;border:none;background:#dc2626;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Delete</button>
-    </div>
-  </div>`;
-  document.body.appendChild(overlay);
-  document.getElementById('_delCancel').onclick=()=>overlay.remove();
-  document.getElementById('_delConfirm').onclick=()=>{
-    overlay.remove();
-    const updated=(DB.get('projects')||DEFAULT_PROJECTS).filter(x=>x.id!==id);
-    DB.set('projects',updated);
-    auditLog('Project deleted: '+id);
-    renderProjects();
-  };
-}
-function openProjectDetail(id){
-  const projects=DB.get('projects')||DEFAULT_PROJECTS;
-  const p=projects.find(x=>x.id===id);
-  if(!p) return;
-  const schools=DB.get('schools')||[];
-  const ps=schools.filter(s=>s.region===p.region);
-  const pe=ps.filter(s=>s.stage==='Energized').length;
-
-  document.getElementById('projectsList').style.display='none';
-  document.getElementById('projectDetail').style.display='block';
-  document.getElementById('projectDetailContent').innerHTML=`
-    <div class="card" style="margin-bottom:16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div>
-          <div style="font-size:20px;font-weight:700;color:var(--primary)">${p.name}</div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px">ð ${p.region} Â· ${p.start} â ${p.end}</div>
-        </div>
-        <div style="display:flex;gap:10px">
-          ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" onclick="openEditProject('${p.id}')">Edit</button>`:''}
-          <button class="btn-primary-sm" onclick="showPage('programControl',document.querySelector('[onclick*=programControl]'));document.getElementById('pcRegion').value='${p.region}';renderProgramControl()">View Schools</button>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
-        <div class="kpi-card blue"><div class="kpi-label">Contract Value</div><div class="kpi-value" style="font-size:18px">${formatSAR(p.value)}</div></div>
-        <div class="kpi-card green"><div class="kpi-label">Schools Energized</div><div class="kpi-value">${pe} / ${ps.length}</div></div>
-        <div class="kpi-card yellow"><div class="kpi-label">Blocked Schools</div><div class="kpi-value">${ps.filter(s=>s.blocked).length}</div></div>
-        <div class="kpi-card purple"><div class="kpi-label">Status</div><div class="kpi-value" style="font-size:18px">${p.status}</div></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="tabs">
-        <div class="tab active" onclick="switchTab(this,'tab-approval')">Approval Chain</div>
-        <div class="tab" onclick="switchTab(this,'tab-fin')">Financial</div>
-        <div class="tab" onclick="switchTab(this,'tab-notes')">PM Notes</div>
-        <div class="tab" onclick="switchTab(this,'tab-desc')">Details</div>
-      </div>
-      <div class="tab-content active" id="tab-approval">
-        <div style="max-width:700px">
-          ${(p.approvalChain||p.legal||[]).map((ac,i)=>{
-            const isDone=ac.done;
-            return `<div class="approval-row">
-              <div style="display:flex;align-items:center;gap:10px;flex:1">
-                <div style="width:28px;height:28px;border-radius:50%;background:${isDone?'var(--green-bg)':'#FEF3C7'};
-                  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">
-                  ${isDone?'â':'â³'}
-                </div>
-                <div>
-                  <div class="approval-step">${ac.name||ac.id}</div>
-                  ${isDone?`<div class="approval-date">â Issued: ${ac.doneDate||'â'} &nbsp;|&nbsp; By: ${ac.issuedBy||'â'}</div>`
-                    :`<div class="approval-waiting">â  Waiting on: ${ac.waitingOn||'Pending'}</div>`}
-                </div>
-              </div>
-              <span class="badge ${isDone?'badge-green':'badge-yellow'}">${isDone?'Done':'Pending'}</span>
-              ${Auth.user&&Auth.user.role==='gpm'?`
-                <button class="btn-sm" style="padding:3px 10px;font-size:11px"
-                  onclick="toggleApproval('${p.id}',${i})">${isDone?'Revert':'Mark Done'}</button>
-                <button class="btn-sm" style="padding:3px 8px;font-size:11px;background:#FEE2E2;border-color:#FCA5A5;color:#DC2626"
-                  onclick="deleteApprovalStep('${p.id}',${i})" title="Delete step">â</button>`:''}
-            </div>`;
-          }).join('')}
-          ${Auth.user&&Auth.user.role==='gpm'?`
-          <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
-            <input id="newApprovalName_${p.id}" type="text" placeholder="New approval step nameâ¦"
-              style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;outline:none"/>
-            <button class="btn-primary-sm" onclick="addApprovalStep('${p.id}')">+ Add Step</button>
-          </div>`:''}
-        </div>
-      </div>
-      <div class="tab-content" id="tab-notes">
-        <div style="max-width:600px">
-          <div id="notesList" style="margin-bottom:16px">
-            ${(p.notes||[]).length===0?'<div style="color:var(--muted);font-size:13px;padding:12px 0">No notes yet.</div>':
-              (p.notes||[]).slice().reverse().map(n=>`
-                <div class="note-item">
-                  <div class="note-meta">${n.user} &nbsp;Â·&nbsp; ${new Date(n.t).toLocaleString('en-SA')}</div>
-                  <div>${n.msg}</div>
-                </div>`).join('')}
-          </div>
-          <button class="btn-primary-sm" onclick="openNotesModal('${p.id}')">+ Add Note</button>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-fin">
-        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
-          <div class="kpi-card blue"><div class="kpi-label">Budget</div><div class="kpi-value" style="font-size:18px">${formatSAR(p.budget?.planned||p.value)}</div></div>
-          <div class="kpi-card green"><div class="kpi-label">Spent</div><div class="kpi-value" style="font-size:18px">${formatSAR(p.budget?.actual||0)}</div></div>
-          <div class="kpi-card yellow"><div class="kpi-label">Remaining</div><div class="kpi-value" style="font-size:18px">${formatSAR((p.budget?.planned||p.value)-(p.budget?.actual||0))}</div></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-desc">
-        <p style="font-size:13px;color:var(--muted);line-height:1.6">${p.desc||'No description.'}</p>
-      </div>
-    </div>`;
-}
-
-function closeProjectDetail(){
-  document.getElementById('projectsList').style.display='block';
-  document.getElementById('projectDetail').style.display='none';
-}
-function switchTab(el,contentId){
-  el.closest('.card').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.closest('.card').querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById(contentId).classList.add('active');
-}
-function toggleLegal(projId,legalIdx){
-  const projects=DB.get('projects')||DEFAULT_PROJECTS;
-  const p=projects.find(x=>x.id===projId);
-  if(!p||!p.legal) return;
-  p.legal[legalIdx].done=!p.legal[legalIdx].done;
-  DB.set('projects',projects);
-  auditLog(`Legal doc '${p.legal[legalIdx].name}' marked ${p.legal[legalIdx].done?'Done':'Pending'} on ${p.name}`);
-  openProjectDetail(projId);
-}
-
-function openProjectModal(){
-  _editProjectId=null;
-  document.getElementById('projectModalTitle').textContent='New Project';
-  ['proj_name','proj_value','proj_start','proj_end','proj_desc'].forEach(id=>{
-    document.getElementById(id).value='';
-  });
-  const _pm=document.getElementById('projectModal');
-  _pm.style.removeProperty('display');
-  _pm.classList.add('open');
-}
-function openEditProject(id){
-  const p=(DB.get('projects')||DEFAULT_PROJECTS).find(x=>x.id===id);
-  if(!p) return;
-  _editProjectId=id;
-  document.getElementById('projectModalTitle').textContent='Edit Project';
-  document.getElementById('proj_name').value=p.name;
-  document.getElementById('proj_region').value=p.region;
-  document.getElementById('proj_value').value=p.value;
-  document.getElementById('proj_start').value=p.start;
-  document.getElementById('proj_end').value=p.end;
-  document.getElementById('proj_status').value=p.status;
-  document.getElementById('proj_desc').value=p.desc||'';
-  const _pm2=document.getElementById('projectModal');
-  _pm2.style.removeProperty('display');
-  _pm2.classList.add('open');
-}
-function saveProject(){
-  const projects=DB.get('projects')||DEFAULT_PROJECTS;
-  const obj={
-    id:_editProjectId||'proj-'+Date.now(),
-    name:document.getElementById('proj_name').value.trim(),
-    region:document.getElementById('proj_region').value,
-    value:parseFloat(document.getElementById('proj_value').value)||0,
-    start:document.getElementById('proj_start').value,
-    end:document.getElementById('proj_end').value,
-    status:document.getElementById('proj_status').value,
-    desc:document.getElementById('proj_desc').value,
-    legal:[
-      {id:'l1',name:'Main Contract',done:false},
-      {id:'l2',name:'LPO',done:false},
-      {id:'l3',name:'PO',done:false},
-      {id:'l4',name:'Performance Bond',done:false},
-      {id:'l5',name:'Insurance Certificate',done:false}
-    ],
-    budget:{planned:parseFloat(document.getElementById('proj_value').value)||0,actual:0}
-  };
-  if(_editProjectId){
-    const idx=projects.findIndex(p=>p.id===_editProjectId);
-    if(idx>=0){
-      const old=projects[idx];
-      obj.approvalChain=old.approvalChain||old.legal||obj.legal;
-      obj.noed);margin-bottom:8px">
             <span>Schools: ${pe}/${ps.length} energized</span>
             <span>${pct}%</span>
           </div>
