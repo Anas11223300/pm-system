@@ -56,12 +56,12 @@ a{text-decoration:none;color:inherit}
 .form-group{margin-bottom:16px}
 .form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
 .form-group input{
-  width:100%;padding:11px 14px;border:1.5px solid var(--border);
+  width:100%;padding:11px 14px;border-1.5px solid var(--border);
   border-radius:8px;font-size:14px;transition:border .2s;outline:none;
 }
 .form-group input:focus{border-color:var(--primary-light)}
 .btn-login{
-  width:100%;padding:13px;background:var(--primary);color:#fff;
+  width:100%;padding:130x;background:var(--primary);color:#fff;
   border:none;border-radius:8px;font-size:15px;font-weight:600;
   margin-top:8px;transition:background .2s;
 }
@@ -1060,7 +1060,7 @@ let _fbDb=null, _lastSync=0;
 function initFB(){
   try{
     if(!window.firebase) return;
-    const app = firebase.apps.length?firebase.apps[0]:firebase.initializeApp getFbCfg());
+    const app = firebase.apps.length?firebase.apps[0]:firebase.initializeApp(getFbCfg());
     _fbDb = firebase.database(app);
     document.getElementById('syncDot').className='sync-dot online';
     document.getElementById('settingsFb').textContent='Connected';
@@ -1138,7 +1138,13 @@ function renderDashboard(){
     {label:'In Progress',val:inProgress,sub:'Across all regions',cls:'blue',pct:inProgress/total},
     {label:'Blocked',val:blocked,sub:'Need immediate action',cls:'red',pct:blocked/total},
     {label:'At Risk',val:atRisk,sub:'Idle > 7 days',cls:'yellow',pct:atRisk/total},
-    {label:'Avg Cycle Time',val:cycleTime+'d',sub:'Survey → Energized''&6�3�wW'�Rr�7C������&VâuvVV�ǒ&FRr�fçvVV�Ǖ&FR�7V#�u66����2�vVV�r�6�3�wFV�r�7C�Т������� ��F�b6�73�&���6&BG���6�7�#��F�b6�73�&����&V�#�G����&V����F�c��F�b6�73�&���f�VR#�G���f����F�c��F�b6�73�&���7V"#�G���7V'���iv>
+    {label:'Avg Cycle Time',val:cycleTime+'d',sub:'Survey → Energized',cls:'purple',pct:0},
+    {label:'Weekly Rate',val:weeklyRate,sub:'Schools / week',cls:'teal',pct:0}
+  ].map(k=>`
+    <div class="kpi-card ${k.cls}">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.val}</div>
+      <div class="kpi-sub">${k.sub}</div>
       ${k.pct>0?`<div class="kpi-bar"><div class="kpi-bar-fill" style="width:${k.pct*100}%;background:${k.cls==='green'?'var(--green)':k.cls==='red'?'var(--red)':k.cls==='yellow'?'var(--yellow)':'var(--primary-light)'}"></div></div>`:''}
     </div>
   `).join('');
@@ -1762,7 +1768,7 @@ const DEFAULT_MATERIALS = [
   {code:'EF-003',desc:'M-5 Ring terminal (4sqmm earthing cable)',cat:'Electrical – Fixed',unit:'Each',perSchool:260},
   {code:'EF-004',desc:'Earthing cable 4Sqmm (structure to module)',cat:'Electrical – Fixed',unit:'Meter',perSchool:23},
   {code:'EF-005',desc:'Smart Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
-  {code:'EF-006',desc:'SIM card for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-006',desc:'SIM Card for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
   {code:'EF-007',desc:'Enclosure for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
   {code:'EF-008',desc:'MCCB (63A)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
   {code:'EF-009',desc:'Injection Meter (PM2230)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
@@ -1771,8 +1777,8 @@ const DEFAULT_MATERIALS = [
   {code:'EF-012',desc:'CTs (size as per MDB busbar)',cat:'Electrical – Fixed',unit:'Each',perSchool:3},
   {code:'EF-013',desc:'Ferrule Terminal for 1.5Sqmm Cable',cat:'Electrical – Fixed',unit:'Each',perSchool:11},
   {code:'EF-014',desc:'Ring Type Terminal Lug M10',cat:'Electrical – Fixed',unit:'Each',perSchool:4},
-  {code:'EF-015',desc:'Copper Bus Bar for Neutral 25x3x3500 mm',cat:'Electrical – Fixed',unit:'pcs',perSchool:1},
-  {code:'EF-016',desc:'All Cables Tags',cat:'Electrical – Fixed',uni'Set',perSchool:1},
+  {code:'EF-015',desc:'Copper Bus Bar for Neutral 25x3x250mm',cat:'Electrical – Fixed',unit:'pcs',perSchool:1},
+  {code:'EF-016',desc:'All Cables Tags',cat:'Electrical – Fixed',unit:'Set',perSchool:1},
   // Electrical – Variable
   {code:'EV-001',desc:'Stabuli MC4 Connectors Male+Female (set)',cat:'Electrical – Variable',unit:'Each',perSchool:5},
   {code:'EV-002',desc:'Riyadh Cables 4CX25 Sqmm CU,XLPE,PVC',cat:'Electrical – Variable',unit:'Meter',perSchool:25},
@@ -1831,7 +1837,7 @@ const DEFAULT_MATERIALS = [
 function getMaterials(){return DB.get('invMaterials')||DEFAULT_MATERIALS.map(m=>({...m,stock:[],dispatches:[]}))}
 function getTxns(){return DB.get('invTxns')||[]}
 
-function getStcokSummary(code){
+function getStockSummary(code){
   const txns=getTxns().filter(t=>t.code===code);
   const totalIn=txns.filter(t=>t.type==='receipt').reduce((s,t)=>s+t.qty,0);
   const totalOut=txns.filter(t=>t.type==='dispatch').reduce((s,t)=>s+t.qty,0);
