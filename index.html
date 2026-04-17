@@ -1561,10 +1561,19 @@ function openProjectDetail(id){
                 </div>
               </div>
               <span class="badge ${isDone?'badge-green':'badge-yellow'}">${isDone?'Done':'Pending'}</span>
-              ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" style="padding:3px 10px;font-size:11px"
-                onclick="toggleApproval('${p.id}',${i})">${isDone?'Revert':'Mark Done'}</button>`:''}
+              ${Auth.user&&Auth.user.role==='gpm'?`
+                <button class="btn-sm" style="padding:3px 10px;font-size:11px"
+                  onclick="toggleApproval('${p.id}',${i})">${isDone?'Revert':'Mark Done'}</button>
+                <button class="btn-sm" style="padding:3px 8px;font-size:11px;background:#FEE2E2;border-color:#FCA5A5;color:#DC2626"
+                  onclick="deleteApprovalStep('${p.id}',${i})" title="Delete step">✕</button>`:''}
             </div>`;
           }).join('')}
+          ${Auth.user&&Auth.user.role==='gpm'?`
+          <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+            <input id="newApprovalName_${p.id}" type="text" placeholder="New approval step name…"
+              style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;outline:none"/>
+            <button class="btn-primary-sm" onclick="addApprovalStep('${p.id}')">+ Add Step</button>
+          </div>`:''}
         </div>
       </div>
       <div class="tab-content" id="tab-notes">
@@ -1657,7 +1666,13 @@ function saveProject(){
   };
   if(_editProjectId){
     const idx=projects.findIndex(p=>p.id===_editProjectId);
-    if(idx>=0){const old=projects[idx];obj.legal=old.legal||obj.legal;obj.budget=old.budget||obj.budget;projects[idx]=obj}
+    if(idx>=0){
+      const old=projects[idx];
+      obj.approvalChain=old.approvalChain||old.legal||obj.legal;
+      obj.notes=old.notes||[];
+      obj.budget=old.budget||{planned:obj.value,actual:0};
+      projects[idx]=obj;
+    }
   } else {
     projects.push(obj);
   }
@@ -1756,6 +1771,52 @@ function toggleApproval(projId, idx){
   DB.set('projects',projects);
   auditLog('Approval step '+chain[idx].name+(chain[idx].done?' marked Done':' reverted')+' on '+p.name);
   openProjectDetail(projId);
+}
+
+function addApprovalStep(projId){
+  const input=document.getElementById('newApprovalName_'+projId);
+  const name=(input&&input.value.trim())||'';
+  if(!name) return;
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===projId);
+  if(!p) return;
+  if(!p.approvalChain) p.approvalChain=p.legal||[];
+  p.approvalChain.push({id:'ac'+Date.now(),name,done:false,doneDate:'',waitingOn:'',issuedBy:''});
+  DB.set('projects',projects);
+  auditLog('Added approval step "'+name+'" to '+p.name);
+  openProjectDetail(projId);
+}
+function deleteApprovalStep(projId,idx){
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===projId);
+  if(!p) return;
+  const chain=p.approvalChain||p.legal||[];
+  const stepName=chain[idx]?.name||idx;
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center';
+  overlay.innerHTML=`<div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:360px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)">
+    <div style="font-size:22px;margin-bottom:12px">🗑️</div>
+    <div style="font-weight:700;font-size:16px;margin-bottom:8px">Delete Step?</div>
+    <div style="color:#64748b;font-size:13px;margin-bottom:20px">"${stepName}" will be removed.</div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button id="_delCancelAC" style="padding:9px 22px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px">Cancel</button>
+      <button id="_delConfirmAC" style="padding:9px 22px;border-radius:8px;border:none;background:#dc2626;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Delete</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+  document.getElementById('_delCancelAC').onclick=()=>overlay.remove();
+  document.getElementById('_delConfirmAC').onclick=()=>{
+    overlay.remove();
+    const ps=DB.get('projects')||DEFAULT_PROJECTS;
+    const proj=ps.find(x=>x.id===projId);
+    if(!proj) return;
+    const ch=proj.approvalChain||proj.legal||[];
+    ch.splice(idx,1);
+    proj.approvalChain=ch;
+    DB.set('projects',ps);
+    auditLog('Deleted approval step "'+stepName+'" from '+proj.name);
+    openProjectDetail(projId);
+  };
 }
 
 // ===================== PM NOTES =====================
