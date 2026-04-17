@@ -121,7 +121,7 @@ a{text-decoration:none;color:inherit}
 .sync-dot.online{background:var(--green)}
 
 /* ===== PAGE CONTENT ===== */
-.page-content{flex:1;overflow-y:auto;padding:24px}
+.page-content{flex:1;overflow-y:auto;padding:20px 24px;width:100%;box-sizing:border-box}
 .page{display:none}
 .page.active{display:block}
 
@@ -203,8 +203,8 @@ a{text-decoration:none;color:inherit}
 
 
 /* ===== SUPPLY CHAIN FULL WIDTH ===== */
-#page-supplyChain.page.active{display:flex;flex-direction:column;height:100%}
-.sc-full{display:flex;flex-direction:column;flex:1;overflow:hidden}
+#page-supplyChain.page.active{display:flex!important;flex-direction:column;height:100%}
+.sc-full{flex-direction:column;flex:1;overflow:hidden}
 .sc-full .sticky-table-wrap{flex:1;overflow:auto}
 
 /* ===== INVENTORY ===== */
