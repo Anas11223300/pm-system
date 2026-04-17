@@ -1149,12 +1149,13 @@ function renderDashboard(){
     </div>
   `).join('');
 
-  // Region bars
-  document.getElementById('regionBars').innerHTML = REGIONS.map(r=>{
+  // Region bars — for regional PM, only show their region
+  const visibleRegions = (Auth.user&&Auth.user.role==='pm') ? [Auth.user.region] : REGIONS;
+  document.getElementById('regionBars').innerHTML = visibleRegions.map(r=>{
     const rs = schools.filter(s=>s.region===r);
     const re = rs.filter(s=>s.stage==='Energized').length;
     const rb = rs.filter(s=>s.blocked).length;
-    const pct = Math.round(re/rs.length*100);
+    const pct = rs.length>0 ? Math.round(re/rs.length*100) : 0;
     return `<div class="region-row" onclick="drillRegion('${r}')">
       <div class="region-name">${r}</div>
       <div class="region-bar-wrap"><div class="region-bar-fill" style="width:${pct}%"></div></div>
@@ -1482,11 +1483,29 @@ function renderProjects(){
 }
 
 function deleteProject(id){
-  if(!confirm('Delete this project? This cannot be undone.')) return;
-  const projects=(DB.get('projects')||DEFAULT_PROJECTS).filter(p=>p.id!==id);
-  DB.set('projects',projects);
-  auditLog('Project deleted: '+id);
-  renderProjects();
+  const projects=DB.get('projects')||DEFAULT_PROJECTS;
+  const p=projects.find(x=>x.id===id);
+  if(!p) return;
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center';
+  overlay.innerHTML=`<div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:360px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)">
+    <div style="font-size:22px;margin-bottom:12px">🗑️</div>
+    <div style="font-weight:700;font-size:16px;margin-bottom:8px">Delete Project?</div>
+    <div style="color:#64748b;font-size:13px;margin-bottom:20px">${p.name} — this cannot be undone.</div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button id="_delCancel" style="padding:9px 22px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px">Cancel</button>
+      <button id="_delConfirm" style="padding:9px 22px;border-radius:8px;border:none;background:#dc2626;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Delete</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+  document.getElementById('_delCancel').onclick=()=>overlay.remove();
+  document.getElementById('_delConfirm').onclick=()=>{
+    overlay.remove();
+    const updated=(DB.get('projects')||DEFAULT_PROJECTS).filter(x=>x.id!==id);
+    DB.set('projects',updated);
+    auditLog('Project deleted: '+id);
+    renderProjects();
+  };
 }
 function openProjectDetail(id){
   const projects=DB.get('projects')||DEFAULT_PROJECTS;
