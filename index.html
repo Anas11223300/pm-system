@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>SENAAT  Solar EPC Program Control</title>
+<title>SENAAT – Solar EPC Program Control</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
@@ -366,12 +366,12 @@ a{text-decoration:none;color:inherit}
     <div class="login-logo">
       <svg width="160" height="56" viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px">
         <rect width="160" height="56" rx="8" fill="#0a1f5c"/>
-        <text x="80" y="22" text-anchor="middle" fill="#ffffff" font-size="13" font-family="Arial,sans-serif" direction="rtl">5F'9'*</text>
+        <text x="80" y="22" text-anchor="middle" fill="#ffffff" font-size="13" font-family="Arial,sans-serif" direction="rtl">صناعات</text>
         <text x="80" y="44" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="bold" font-family="Arial,sans-serif" letter-spacing="3">SENAAT</text>
       </svg>
     </div>
     <div class="login-title">Solar EPC Program Control</div>
-    <div class="login-sub">National Schools Solar Program  5 Regions</div>
+    <div class="login-sub">National Schools Solar Program – 5 Regions</div>
     <div class="form-group">
       <label>Username</label>
       <input type="text" id="loginUser" placeholder="Enter username" autocomplete="off">
@@ -392,47 +392,47 @@ a{text-decoration:none;color:inherit}
     <div class="sidebar-logo">
       <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="border-radius:6px;flex-shrink:0">
         <rect width="40" height="40" rx="6" fill="#1a3a7c"/>
-        <text x="20" y="15" text-anchor="middle" fill="#fff" font-size="7" font-family="Arial">5F'9'*</text>
+        <text x="20" y="15" text-anchor="middle" fill="#fff" font-size="7" font-family="Arial">صناعات</text>
         <text x="20" y="27" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="Arial" letter-spacing="1">SENAAT</text>
       </svg>
       <div>
         <div class="sidebar-logo-text">Program Control</div>
-        <div class="sidebar-logo-sub">Solar EPC � 5 Regions</div>
+        <div class="sidebar-logo-sub">Solar EPC · 5 Regions</div>
       </div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-section">Overview</div>
       <div class="nav-item active" onclick="showPage('dashboard',this)">
-        <span class="nav-icon">=�</span> Dashboard
+        <span class="nav-icon">📊</span> Dashboard
       </div>
       <div class="nav-section">Operations</div>
       <div class="nav-item" onclick="showPage('programControl',this)">
-        <span class="nav-icon"><�</span> Program Control
+        <span class="nav-icon">🏫</span> Program Control
       </div>
       <div class="nav-item" onclick="showPage('supplyChain',this)">
-        <span class="nav-icon">=�</span> Supply Chain
+        <span class="nav-icon">📦</span> Supply Chain
       </div>
       <div class="nav-item" onclick="showPage('inventory',this)">
-        <span class="nav-icon"><�</span> Inventory
+        <span class="nav-icon">🏭</span> Inventory
       </div>
       <div class="nav-section">Management</div>
       <div class="nav-item" onclick="showPage('projects',this)">
-        <span class="nav-icon">=�</span> Projects
+        <span class="nav-icon">📋</span> Projects
       </div>
       <div class="nav-item" onclick="showPage('financial',this)">
-        <span class="nav-icon">=�</span> Financial
+        <span class="nav-icon">💰</span> Financial
       </div>
       <div class="nav-section">System</div>
       <div class="nav-item" onclick="showPage('auditLog',this)">
-        <span class="nav-icon">=�</span> Audit Log
+        <span class="nav-icon">📜</span> Audit Log
       </div>
       <div class="nav-item" onclick="showPage('settings',this)">
-        <span class="nav-icon">�</span> Settings
+        <span class="nav-icon">⚙️</span> Settings
       </div>
     </nav>
     <div class="sidebar-user">
-      <strong id="sidebarUserName"></strong>
-      <span id="sidebarUserRole"></span>
+      <strong id="sidebarUserName">—</strong>
+      <span id="sidebarUserRole">—</span>
     </div>
   </div>
 
@@ -483,7 +483,7 @@ a{text-decoration:none;color:inherit}
             <canvas id="scurveChart" height="80"></canvas>
           </div>
           <div class="card">
-            <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px">� Critical Issues</div>
+            <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px">⚠️ Critical Issues</div>
             <div id="criticalIssues" style="height:200px;overflow-y:auto"></div>
           </div>
         </div>
@@ -519,9 +519,9 @@ a{text-decoration:none;color:inherit}
               <option value="yes">Blocked Only</option>
               <option value="no">Not Blocked</option>
             </select>
-            <input class="filter-search" id="pcSearch" placeholder="Search school ID or name&" oninput="renderProgramControl()">
+            <input class="filter-search" id="pcSearch" placeholder="Search school ID or name…" oninput="renderProgramControl()">
             <button class="btn-primary-sm" onclick="openAddSchoolModal()">+ Add School</button>
-            <button class="btn-sm" onclick="exportTableCSV()"> Export</button>
+            <button class="btn-sm" onclick="exportTableCSV()">⬇ Export</button>
           </div>
           <div class="mini-kpi-strip" id="pcMiniKpi"></div>
           <div id="pcAlertStrip"></div>
@@ -607,11 +607,11 @@ a{text-decoration:none;color:inherit}
       <!-- ========== INVENTORY ========== -->
       <div id="page-inventory" class="page">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-          <div><div class="section-title"><� Inventory Control</div>
-          <div class="section-sub">Materials stock  receipts, dispatches &amp; balances</div></div>
+          <div><div class="section-title">🏭 Inventory Control</div>
+          <div class="section-sub">Materials stock — receipts, dispatches &amp; balances</div></div>
           <div style="display:flex;gap:8px">
             <button class="btn-primary-sm" onclick="openInvModal('receipt')">+ Add Receipt</button>
-            <button class="btn-sm" onclick="openInvModal('dispatch')">� Dispatch</button>
+            <button class="btn-sm" onclick="openInvModal('dispatch')">↗ Dispatch</button>
           </div>
         </div>
         <div id="invAlertStrip"></div>
@@ -626,10 +626,10 @@ a{text-decoration:none;color:inherit}
             <div style="display:flex;gap:8px;padding:10px 0;flex-wrap:wrap">
               <select class="filter-select" id="invCatFilter" onchange="renderInvTable()">
                 <option value="">All Categories</option>
-                <option>Electrical  Fixed</option>
-                <option>Electrical  Variable</option>
-                <option>Mechanical  Fixed</option>
-                <option>Mechanical  Variable</option>
+                <option>Electrical – Fixed</option>
+                <option>Electrical – Variable</option>
+                <option>Mechanical – Fixed</option>
+                <option>Mechanical – Variable</option>
               </select>
               <input class="filter-search" id="invSearch" placeholder="Search material..." oninput="renderInvTable()" style="width:220px">
             </div>
@@ -656,7 +656,7 @@ a{text-decoration:none;color:inherit}
         <div class="modal-box" style="max-width:480px">
           <div class="modal-header">
             <span id="invModalTitle">Add Receipt</span>
-            <button onclick="closeModal('invModal')" style="background:none;border:none;font-size:20px;cursor:pointer">�</button>
+            <button onclick="closeModal('invModal')" style="background:none;border:none;font-size:20px;cursor:pointer">×</button>
           </div>
           <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
             <div class="form-group">
@@ -703,7 +703,7 @@ a{text-decoration:none;color:inherit}
         </div>
         <div id="projectsList"></div>
         <div id="projectDetail" style="display:none">
-          <button class="btn-sm" onclick="closeProjectDetail()" style="margin-bottom:16px">� Back to Projects</button>
+          <button class="btn-sm" onclick="closeProjectDetail()" style="margin-bottom:16px">← Back to Projects</button>
           <div id="projectDetailContent"></div>
         </div>
       </div>
@@ -738,9 +738,9 @@ a{text-decoration:none;color:inherit}
         <div class="card" style="max-width:500px">
           <div class="settings-group">
             <h3>Account</h3>
-            <div class="fin-row"><span>Logged in as</span><strong id="settingsUser"></strong></div>
-            <div class="fin-row"><span>Role</span><span id="settingsRole"></span></div>
-            <div class="fin-row"><span>Firebase Sync</span><span id="settingsFb"></span></div>
+            <div class="fin-row"><span>Logged in as</span><strong id="settingsUser">—</strong></div>
+            <div class="fin-row"><span>Role</span><span id="settingsRole">—</span></div>
+            <div class="fin-row"><span>Firebase Sync</span><span id="settingsFb">—</span></div>
           </div>
           <div class="settings-group">
             <h3>Data</h3>
@@ -757,7 +757,7 @@ a{text-decoration:none;color:inherit}
 <div class="modal-overlay" id="schoolModal">
   <div class="modal">
     <div class="modal-title">
-      <button class="modal-close" onclick="closeModal('schoolModal')"></button>
+      <button class="modal-close" onclick="closeModal('schoolModal')">✕</button>
       <span id="schoolModalTitle">School Details</span>
     </div>
     <div class="form-row">
@@ -816,7 +816,7 @@ a{text-decoration:none;color:inherit}
       <div class="form-field"><label>Forecast Date</label><input id="sch_forecast" type="date"></div>
     </div>
     <div class="form-field"><label>Remarks</label>
-      <textarea id="sch_remarks" rows="3" placeholder="Notes or remarks&"></textarea>
+      <textarea id="sch_remarks" rows="3" placeholder="Notes or remarks…"></textarea>
     </div>
     <div class="modal-actions">
       <button class="btn-sm" onclick="closeModal('schoolModal')">Cancel</button>
@@ -829,11 +829,11 @@ a{text-decoration:none;color:inherit}
 <div class="modal-overlay" id="projectModal">
   <div class="modal">
     <div class="modal-title">
-      <button class="modal-close" onclick="closeModal('projectModal')"></button>
+      <button class="modal-close" onclick="closeModal('projectModal')">✕</button>
       <span id="projectModalTitle">New Project</span>
     </div>
     <div class="form-row">
-      <div class="form-field"><label>Project Name</label><input id="proj_name" placeholder="Solar Program  Tabuk"></div>
+      <div class="form-field"><label>Project Name</label><input id="proj_name" placeholder="Solar Program – Tabuk"></div>
       <div class="form-field"><label>Region</label>
         <select id="proj_region">
           <option>Northern Borders</option><option>Tabuk</option>
@@ -912,23 +912,23 @@ const OWNERS = ['Procurement','Contractor','Client','Utility / SEC','PM'];
 const KIT_STATUS = ['Ready','Partial','Missing'];
 
 const DEFAULT_PROJECTS = [
-  {id:'proj-NO',name:'Solar Schools  Northern Borders',region:'Northern Borders',
+  {id:'proj-NO',name:'Solar Schools – Northern Borders',region:'Northern Borders',
    value:52000000,start:'2024-03-01',end:'2026-06-30',status:'Active',
    desc:'Installation of 20kW solar PV systems on 200 schools in Northern Borders region. Includes civil foundations, string inverters, SMDB, injection metering, data loggers, and full T&C.',
    notes:[],
    approvalChain:[
      {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-01-20',waitingOn:'',issuedBy:'GPM Office'},
      {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-02-05',waitingOn:'',issuedBy:'Procurement'},
-     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Finance Dept  pending budget release',issuedBy:''},
-     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor  SABB policy renewal',issuedBy:''},
+     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',aitingOn:'Finance Dept – pending budget release',issuedBy:''},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor – SABB policy renewal',issuedBy:''},
      {id:'ac5',name:'Performance Bond',done:true,doneDate:'2024-02-12',waitingOn:'',issuedBy:'Al Rajhi Bank'}
    ],
    budget:{planned:52000000,actual:13000000},lpo:true,po:false,actualPct:25,
    legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:false},{id:'l4',name:'Performance Bond',done:true},{id:'l5',name:'Insurance Certificate',done:false}]
   },
-  {id:'proj-TA',name:'Solar Schools  Tabuk',region:'Tabuk',
+  {id:'proj-TA',name:'Solar Schools – Tabuk',region:'Tabuk',
    value:49000000,start:'2024-04-01',end:'2026-08-31',status:'Active',
-   desc:'Installation of 20kW solar PV systems on 200 schools in Tabuk region. High sand-exposure environment  enhanced IP-rating enclosures required.',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Tabuk region. High sand-exposure environment – enhanced IP-rating enclosures required.',
    notes:[],
    approvalChain:[
      {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-02-10',waitingOn:'',issuedBy:'GPM Office'},
@@ -940,27 +940,27 @@ const DEFAULT_PROJECTS = [
    budget:{planned:49000000,actual:18000000},lpo:true,po:true,actualPct:37,
    legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:true},{id:'l4',name:'Performance Bond',done:true},{id:'l5',name:'Insurance Certificate',done:true}]
   },
-  {id:'proj-NA',name:'Solar Schools  Najran',region:'Najran',
+  {id:'proj-NA',name:'Solar Schools – Najran',region:'Najran',
    value:46000000,start:'2024-05-01',end:'2026-09-30',status:'Active',
    desc:'Installation of 20kW solar PV systems on 200 schools in Najran region. Coordination required with local municipality for grid injection approvals.',
    notes:[],
    approvalChain:[
      {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-03-15',waitingOn:'',issuedBy:'GPM Office'},
      {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-04-01',waitingOn:'',issuedBy:'Procurement'},
-     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Legal Dept  awaiting stamp approval',issuedBy:''},
-     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor  document incomplete',issuedBy:''},
-     {id:'ac5',name:'Performance Bond',done:false,doneDate:'',waitingOn:'Bank  credit line approval pending',issuedBy:''}
+     {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Legal Dept – awaiting stamp approval',issuedBy:''},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor – document incomplete',issuedBy:''},
+     {id:'ac5',name:'Performance Bond',done:false,doneDate:'',waitingOn:'Bank – credit line approval pending',issuedBy:''}
    ],
    budget:{planned:46000000,actual:8000000},lpo:true,po:false,actualPct:17,
    legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:true},{id:'l3',name:'PO',done:false},{id:'l4',name:'Performance Bond',done:false},{id:'l5',name:'Insurance Certificate',done:false}]
   },
-  {id:'proj-JZ',name:'Solar Schools  Jizan',region:'Jizan',
+  {id:'proj-JZ',name:'Solar Schools – Jizan',region:'Jizan',
    value:44000000,start:'2024-06-01',end:'2026-10-31',status:'Delayed',
-   desc:'Installation of 20kW solar PV systems on 200 schools in Jizan region. High humidity coastal environment  marine-grade hardware specified.',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Jizan region. High humidity coastal environment – marine-grade hardware specified.',
    notes:[],
    approvalChain:[
      {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-04-10',waitingOn:'',issuedBy:'GPM Office'},
-     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:false,doneDate:'',waitingOn:'Finance Dept  2nd approval signature required',issuedBy:''},
+     {id:'ac2',name:'LPO (Letter of Purchase Order)',done:false,doneDate:'',waitingOn:'Finance Dept – 2nd approval signature required',issuedBy:''},
      {id:'ac3',name:'PO (Purchase Order)',done:false,doneDate:'',waitingOn:'Pending LPO issuance',issuedBy:''},
      {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Pending PO issuance',issuedBy:''},
      {id:'ac5',name:'Performance Bond',done:false,doneDate:'',waitingOn:'Pending contract activation',issuedBy:''}
@@ -968,15 +968,15 @@ const DEFAULT_PROJECTS = [
    budget:{planned:44000000,actual:3000000},lpo:false,po:false,actualPct:7,
    legal:[{id:'l1',name:'Main Contract',done:true},{id:'l2',name:'LPO',done:false},{id:'l3',name:'PO',done:false},{id:'l4',name:'Performance Bond',done:false},{id:'l5',name:'Insurance Certificate',done:false}]
   },
-  {id:'proj-HA',name:'Solar Schools  Hail',region:'Hail',
+  {id:'proj-HA',name:'Solar Schools – Hail',region:'Hail',
    value:41000000,start:'2024-07-01',end:'2026-12-31',status:'Active',
-   desc:'Installation of 20kW solar PV systems on 200 schools in Hail region. Diverse terrain environment  specialized mounting and logistics plan required.',
+   desc:'Installation of 20kW solar PV systems on 200 schools in Hail region. Diverse terrain environment – specialized mounting and logistics plan required.',
    notes:[],
    approvalChain:[
      {id:'ac1',name:'Main Contract',done:true,doneDate:'2024-05-01',waitingOn:'',issuedBy:'GPM Office'},
      {id:'ac2',name:'LPO (Letter of Purchase Order)',done:true,doneDate:'2024-05-20',waitingOn:'',issuedBy:'Procurement'},
      {id:'ac3',name:'PO (Purchase Order)',done:true,doneDate:'2024-06-05',waitingOn:'',issuedBy:'Finance Dept'},
-     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor  awaiting Tawuniya approval',issuedBy:''},
+     {id:'ac4',name:'Insurance Certificate',done:false,doneDate:'',waitingOn:'Contractor – awaiting Tawuniya approval',issuedBy:''},
      {id:'ac5',name:'Performance Bond',done:true,doneDate:'2024-06-01',waitingOn:'',issuedBy:'Riyad Bank'}
    ],
    budget:{planned:41000000,actual:9500000},lpo:true,po:true,actualPct:23,
@@ -1037,7 +1037,7 @@ function doLogin(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('app').style.display='flex';
   document.getElementById('sidebarUserName').textContent = found.name;
-  document.getElementById('sidebarUserRole').textContent = found.role==='gpm'?'Global PM':'Regional PM � '+found.region;
+  document.getElementById('sidebarUserRole').textContent = found.role==='gpm'?'Global PM':'Regional PM · '+found.region;
   document.getElementById('settingsUser').textContent = found.name;
   document.getElementById('settingsRole').textContent = found.role==='gpm'?'Global Project Manager':'Regional PM';
   // Hide add project for regional PMs
@@ -1077,7 +1077,7 @@ function initFB(){
   }catch(e){console.warn('FB init failed',e)}
 }
 function fbSet(k,v){try{if(_fbDb)_fbDb.ref('pms/'+k).set(v)}catch{}}
-function fbDel(k){try{if(_fbDb)_fbDb.ref('pms/'+k).remove()}catch{}}
+function fbDel(w){try{if(_fbDb)_fbDb.ref('pms/'+w).remove()}catch{}}
 
 // ===================== AUDIT =====================
 function auditLog(msg){
@@ -1138,7 +1138,7 @@ function renderDashboard(){
     {label:'In Progress',val:inProgress,sub:'Across all regions',cls:'blue',pct:inProgress/total},
     {label:'Blocked',val:blocked,sub:'Need immediate action',cls:'red',pct:blocked/total},
     {label:'At Risk',val:atRisk,sub:'Idle > 7 days',cls:'yellow',pct:atRisk/total},
-    {label:'Avg Cycle Time',val:cycleTime+'d',sub:'Survey � Energized',cls:'purple',pct:0},
+    {label:'Avg Cycle Time',val:cycleTime+'d',sub:'Survey → Energized',cls:'purple',pct:0},
     {label:'Weekly Rate',val:weeklyRate,sub:'Schools / week',cls:'teal',pct:0}
   ].map(k=>`
     <div class="kpi-card ${k.cls}">
@@ -1149,7 +1149,7 @@ function renderDashboard(){
     </div>
   `).join('');
 
-  // Region bars  for regional PM, only show their region
+  // Region bars — for regional PM, only show their region
   const visibleRegions = (Auth.user&&Auth.user.role==='pm') ? [Auth.user.region] : REGIONS;
   document.getElementById('regionBars').innerHTML = visibleRegions.map(r=>{
     const rs = schools.filter(s=>s.region===r);
@@ -1161,7 +1161,7 @@ function renderDashboard(){
       <div class="region-bar-wrap"><div class="region-bar-fill" style="width:${pct}%"></div></div>
       <div class="region-pct">${pct}%</div>
       <div class="region-count">${re}/${rs.length}</div>
-      <div class="region-blocked">${rb>0?'=4 '+rb+' blocked':''}</div>
+      <div class="region-blocked">${rb>0?'🔴 '+rb+' blocked':''}</div>
     </div>`;
   }).join('');
 
@@ -1181,7 +1181,7 @@ function renderDashboard(){
         <span class="badge badge-red">${s.days}d</span>
       </div>
     `).join('')
-    :'<div style="color:var(--muted);font-size:13px;padding:20px 0;text-align:center"> No critical issues</div>';
+    :'<div style="color:var(--muted);font-size:13px;padding:20px 0;text-align:center">✅ No critical issues</div>';
 }
 
 function drillRegion(region){
@@ -1195,7 +1195,7 @@ function checkAndShowInvAlert(){
   const alerts=mats.filter(m=>{const {onHand}=getStockSummary(m.code);return onHand<m.perSchool*50&&onHand>=0&&m.perSchool>0;});
   const strip=document.getElementById('pcAlertStrip');
   if(strip&&alerts.length){
-    strip.innerHTML+=`<div class="alert-item"><� <span class="chip" onclick="showPage('inventory',document.querySelector('[onclicjJ=inventory]'))">${alerts.length} low-stock items</span></div>`;
+    strip.innerHTML+=`<div class="alert-item">🏭 <span class="chip" onclick="showPage('inventory',document.querySelector('[onclick*=inventory]'))">${alerts.length} low-stock items</span></div>`;
   }
 }
 
@@ -1286,8 +1286,8 @@ function renderProgramControl(){
   const idle=schools.filter(s=>s.days>5&&!s.blocked&&s.stage!=='Energized'&&s.stage!=='Not Started').length;
   document.getElementById('pcAlertStrip').innerHTML = longBlocked||idle?`
     <div class="alert-strip">
-      ${longBlocked?`<div class="alert-item">=4 <span class="chip">${longBlocked}</span> schools blocked &gt;7 days</div>`:''}
-      ${idle?`<div class="alert-item">� <span class="chip">${idle}</span> inactive &gt;5 days</div>`:''}
+      ${longBlocked?`<div class="alert-item">🔴 <span class="chip">${longBlocked}</span> schools blocked &gt;7 days</div>`:''}
+      ${idle?`<div class="alert-item">⚠️ <span class="chip">${idle}</span> inactive &gt;5 days</div>`:''}
     </div>`:'';
 
   // Table
@@ -1297,17 +1297,17 @@ function renderProgramControl(){
       <td><strong>${s.id}</strong></td>
       <td>${s.name}</td>
       <td><span class="badge badge-gray">${s.region}</span></td>
-      <td>${s.cluster||''}</td>
+      <td>${s.cluster||'—'}</td>
       <td>${stageTag(s.stage)}</td>
       <td>${daysBadge(s.days)}</td>
       <td>${kitBadge(s.mechKit)}</td>
       <td>${kitBadge(s.elecKit)}</td>
-      <td>${s.blocked?'<span class="badge badge-red">=4 Yes</span>':'<span class="badge badge-green"> No</span>'}</td>
-      <td style="color:var(--muted)">${s.reason||''}</td>
-      <td><span class="badge badge-blue">${s.owner||''}</span></td>
-      <td>${s.rfis>0?`<span class="badge badge-yellow">${s.rfis} RFI</span>`:''}</td>
-      <td style="color:var(--muted)">${s.lastUpdate||''}</td>
-      <td style="color:var(--muted)">${s.forecast||''}</td>
+      <td>${s.blocked?'<span class="badge badge-red">🔴 Yes</span>':'<span class="badge badge-green">✅ No</span>'}</td>
+      <td style="color:var(--muted)">${s.reason||'—'}</td>
+      <td><span class="badge badge-blue">${s.owner||'—'}</span></td>
+      <td>${s.rfis>0?`<span class="badge badge-yellow">${s.rfis} RFI</span>`:'—'}</td>
+      <td style="color:var(--muted)">${s.lastUpdate||'—'}</td>
+      <td style="color:var(--muted)">${s.forecast||'—'}</td>
       <td><button class="btn-sm" style="padding:4px 10px;font-size:11px" onclick="editSchool('${s.id}')">Edit</button></td>
     </tr>`).join('');
 }
@@ -1326,9 +1326,9 @@ function daysBadge(d){
   return `<span class="badge ${cls}">${d}d</span>`;
 }
 function kitBadge(k){
-  if(k==='Ready') return '<span class="badge badge-green"> Ready</span>';
-  if(k==='Partial') return '<span class="badge badge-yellow">=� Partial</span>';
-  return '<span class="badge badge-red">L Missing</span>';
+  if(k==='Ready') return '<span class="badge badge-green">✅ Ready</span>';
+  if(k==='Partial') return '<span class="badge badge-yellow">🟡 Partial</span>';
+  return '<span class="badge badge-red">❌ Missing</span>';
 }
 
 // ===================== SCHOOL MODAL =====================
@@ -1353,7 +1353,7 @@ function editSchool(id){
   const s=schools.find(x=>x.id===id);
   if(!s) return;
   _editSchoolId=id;
-  document.getElementById('schoolModalTitle').textContent='Edit School  '+id;
+  document.getElementById('schoolModalTitle').textContent='Edit School – '+id;
   document.getElementById('sch_id').value=s.id;
   document.getElementById('sch_name').value=s.name;
   document.getElementById('sch_region').value=s.region;
@@ -1421,7 +1421,7 @@ function renderSupplyChain(){
   if(kit==='electrical') blocked=blocked.filter(s=>s.elecKit!=='Ready');
 
   document.getElementById('scSummary').innerHTML=
-    `=4 ${blocked.length} schools with supply issues  ${blocked.filter(s=>s.blocked).length} actively blocked`;
+    `🔴 ${blocked.length} schools with supply issues — ${blocked.filter(s=>s.blocked).length} actively blocked`;
 
   const tbody=document.getElementById('scTableBody');
   tbody.innerHTML=blocked.slice(0,200).map(s=>{
@@ -1430,15 +1430,15 @@ function renderSupplyChain(){
     return `<tr>
       <td><strong>${s.id}</strong></td>
       <td><span class="badge badge-gray">${s.region}</span></td>
-      <td>${missingKit==='Electrical Kit'?'<span class="badge badge-purple">� Electrical</span>':
-        missingKit==='Mechanical Kit'?'<span class="badge badge-yellow">=' Mechanical</span>':
+      <td>${missingKit==='Electrical Kit'?'<span class="badge badge-purple">⚡ Electrical</span>':
+        missingKit==='Mechanical Kit'?'<span class="badge badge-yellow">🔧 Mechanical</span>':
         '<span class="badge badge-red">Both</span>'}</td>
       <td>${scStatus}</td>
       <td>${stageTag(s.stage)}</td>
       <td><span class="badge badge-blue">${s.owner||'Procurement'}</span></td>
       <td>${daysBadge(s.days)}</td>
-      <td style="color:var(--muted);font-size:11px">${s.poNumber||''}</td>
-      <td style="color:var(--muted)">${s.lastUpdate||''}</td>
+      <td style="color:var(--muted);font-size:11px">${s.poNumber||'—'}</td>
+      <td style="color:var(--muted)">${s.lastUpdate||'—'}</td>
       <td><button class="btn-sm" style="padding:4px 10px;font-size:11px" onclick="editSchool('${s.id}')">Update</button></td>
     </tr>`;
   }).join('');
@@ -1464,17 +1464,17 @@ function renderProjects(){
             <div style="font-size:14px;font-weight:700;color:var(--primary);flex:1">${p.name}</div>
             <div style="display:flex;gap:6px;align-items:center">
               <span class="badge ${statusColors[p.status]||'badge-gray'}">${p.status}</span>
-              <button class="btn-sm" style="padding:3px 8px;font-size:11px;background:var(--red);color:#fff;border:none;border-radius:6px" onclick="event.stopPropagation();deleteProject('${p.id}')">=�</button>
+              <button class="btn-sm" style="padding:3px 8px;font-size:11px;background:var(--red);color:#fff;border:none;border-radius:6px" onclick="event.stopPropagation();deleteProject('${p.id}')">🗑</button>
             </div>
           </div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">=� ${p.region}</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">📑 ${p.region}</div>
           <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px">
             <span>Schools: ${pe}/${ps.length} energized</span>
             <span>${pct}%</span>
           </div>
           <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:var(--primary-light)"></div></div>
           <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:12px">
-            <span>=� ${p.start} � ${p.end}</span>
+            <span>📅 ${p.start} → ${p.end}</span>
             <span>${formatSAR(p.value)}</span>
           </div>
         </div>`;
@@ -1486,13 +1486,13 @@ function deleteProject(id){
   const projects=DB.get('projects')||DEFAULT_PROJECTS;
   const p=projects.find(x=>x.id===id);
   if(!p) return;
-  // Inline confirm overlay  avoids blocking window.confirm()
+  // Inline confirm overlay — avoids blocking window.confirm()
   const overlay=document.createElement('div');
   overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center';
   overlay.innerHTML<`<div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:360px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)">
-    <div style="font-size:22px;margin-bottom:12px">=�</div>
+    <div style="font-size:22px;margin-bottom:12px">🗑️</div>
     <div style="font-weight:700;font-size:16px;margin-bottom:8px">Delete Project?</div>
-    <div style="color:#64748b;font-size:13px;margin-bottom:20px">${p.name}  this cannot be undone.</div>
+    <div style="color:#64748b;font-size:13px;margin-bottom:20px">${p.name} — this cannot be undone.</div>
     <div style="display:flex;gap:10px;justify-content:center">
       <button id="_delCancel" style="padding:9px 22px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px">Cancel</button>
       <button id="_delConfirm" style="padding:9px 22px;border-radius:8px;border:none;background:#dc2626;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Delete</button>
@@ -1523,7 +1523,7 @@ function openProjectDetail(id){
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
         <div>
           <div style="font-size:20px;font-weight:700;color:var(--primary)">${p.name}</div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px">=� ${p.region} � ${p.start} � ${p.end}</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">📍 ${p.region} · ${p.start} → ${p.end}</div>
         </div>
         <div style="display:flex;gap:10px">
           ${Auth.user&&Auth.user.role==='gpm'?`<button class="btn-sm" onclick="openEditProject('${p.id}')">Edit</button>`:''}
@@ -1553,12 +1553,12 @@ function openProjectDetail(id){
               <div style="display:flex;align-items:center;gap:10px;flex:1">
                 <div style="width:28px;height:28px;border-radius:50%;background:${isDone?'var(--green-bg)':'#FEF3C7'};
                   display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">
-                  ${isDone?'':'�'}
+                  ${isDone?'✅':'⏳'}
                 </div>
                 <div>
                   <div class="approval-step">${ac.name||ac.id}</div>
-                  ${isDone?`<div class="approval-date"> Issued: ${ac.doneDate||''} &nbsp;|&nbsp; By: ${ac.issuedBy||''}</div>`
-                    :`<div class="approval-waiting">� Waiting on: ${ac.waitingOn||'Pending'}</div>`}
+                  ${isDone?`<div class="approval-date">✓ Issued: ${ac.doneDate||'—'} &nbsp;|&nbsp; By: ${ac.issuedBy||'—'}</div>`
+                    :`<div class="approval-waiting">⚠ Waiting on: ${ac.waitingOn||'Pending'}</div>`}
                 </div>
               </div>
               <span class="badge ${isDone?'badge-green':'badge-yellow'}">${isDone?'Done':'Pending'}</span>
@@ -1566,12 +1566,12 @@ function openProjectDetail(id){
                 <button class="btn-sm" style="padding:3px 10px;font-size:11px"
                   onclick="toggleApproval('${p.id}',${i})">${isDone?'Revert':'Mark Done'}</button>
                 <button class="btn-sm" style="padding:3px 8px;font-size:11px;background:#FEE2E2;border-color:#FCA5A5;color:#DC2626"
-                  onclick="deleteApprovalStep('${p.id}',${i})" title="Delete step"></button>`:''}
+                  onclick="deleteApprovalStep('${p.id}',${i})" title="Delete step">✕</button>`:''}
             </div>`;
           }).join('')}
           ${Auth.user&&Auth.user.role==='gpm'?`
           <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
-            <input id="newApprovalName_${p.id}" type="text" placeholder="New approval step name&"
+            <input id="newApprovalName_${p.id}" type="text" placeholder="New approval step name…"
               style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;outline:none"/>
             <button class="btn-primary-sm" onclick="addApprovalStep('${p.id}')">+ Add Step</button>
           </div>`:''}
@@ -1583,7 +1583,7 @@ function openProjectDetail(id){
             ${(p.notes||[]).length===0?'<div style="color:var(--muted);font-size:13px;padding:12px 0">No notes yet.</div>':
               (p.notes||[]).slice().reverse().map(n=>`
                 <div class="note-item">
-                  <div class="note-meta">${n.user} &nbsp;�&nbsp; ${new Date(n.t).toLocaleString('en-SA')}</div>
+                  <div class="note-meta">${n.user} &nbsp;·&nbsp; ${new Date(n.t).toLocaleString('en-SA')}</div>
                   <div>${n.msg}</div>
                 </div>`).join('')}
           </div>
@@ -1729,7 +1729,7 @@ function renderAuditLog(){
     log.map(l=>`
       <div class="audit-item">
         <div class="audit-time">${new Date(l.t).toLocaleString('en-SA')}</div>
-        <div class="audit-msg"><strong>${l.user}</strong> � ${l.msg}</div>
+        <div class="audit-msg"><strong>${l.user}</strong> · ${l.msg}</div>
       </div>`).join('')
     :'<div style="color:var(--muted);font-size:13px;text-align:center;padding:40px">No audit entries yet.</div>';
 }
@@ -1808,7 +1808,7 @@ function deleteApprovalStep(projId, idx){
   const overlay=document.createElement('div');
   overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center';
   overlay.innerHTML<`<div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:360px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)">
-    <div style="font-size:22px;margin-bottom:12px">=�</div>
+    <div style="font-size:22px;margin-bottom:12px">🗑️</div>
     <div style="font-weight:700;font-size:16px;margin-bottom:8px">Delete Step?</div>
     <div style="color:#64748b;font-size:13px;margin-bottom:20px">"${stepName}" will be removed from the approval chain.</div>
     <div style="display:flex;gap:10px;justify-content:center">
@@ -1855,76 +1855,76 @@ function saveNote(){
 
 // ===================== INVENTORY =====================
 const DEFAULT_MATERIALS = [
-  // Electrical  Fixed
-  {code:'EF-001',desc:'Inverter 20 KTL 380/400 V',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-002',desc:'SMDB (63A)',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-003',desc:'M-5 Ring terminal (4sqmm earthing cable)',cat:'Electrical  Fixed',unit:'Each',perSchool:260},
-  {code:'EF-004',desc:'Earthing cable 4Sqmm (structure to module)',cat:'Electrical  Fixed',unit:'Meter',perSchool:23},
-  {code:'EF-005',desc:'Smart Logger',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-006',desc:'SIM Card for Data Logger',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-007',desc:'Enclosure for Data Logger',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-008',desc:'MCCB (63A)',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-009',desc:'Injection Meter (PM2230)',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-010',desc:'Fuse Holder (3 Pole)',cat:'Electrical  Fixed',unit:'Each',perSchool:1},
-  {code:'EF-011',desc:'Fuses 6A',cat:'Electrical  Fixed',unit:'Each',perSchool:3},
-  {code:'EF-012',desc:'CTs (size as per MDB busbar)',cat:'Electrical  Fixed',unit:'Each',perSchool:3},
-  {code:'EF-013',desc:'Ferrule Terminal for 1.5Sqmm Cable',cat:'Electrical  Fixed',unit:'Each',perSchool:11},
-  {code:'EF-014',desc:'Ring Type Terminal Lug M10',cat:'Electrical  Fixed',unit:'Each',perSchool:4},
-  {code:'EF-015',desc:'Copper Bus Bar for Neutral 25x3x250mm',cat:'Electrical  Fixed',unit:'pcs',perSchool:1},
-  {code:'EF-016',desc:'All Cables Tags',cat:'Electrical  Fixed',unit:'Set',perSchool:1},
-  // Electrical  Variable
-  {code:'EV-001',desc:'Stabuli MC4 Connectors Male+Female (set)',cat:'Electrical  Variable',unit:'Each',perSchool:5},
-  {code:'EV-002',desc:'Riyadh Cables 4CX25 Sqmm CU,XLPE,PVC',cat:'Electrical  Variable',unit:'Meter',perSchool:25},
-  {code:'EV-003',desc:'6 Sqmm Earthing Cable (Y/G)',cat:'Electrical  Variable',unit:'Meter',perSchool:25},
-  {code:'EV-004',desc:'DC Cable (Red)',cat:'Electrical  Variable',unit:'Meter',perSchool:100},
-  {code:'EV-005',desc:'DC Cable (Black)',cat:'Electrical  Variable',unit:'Meter',perSchool:100},
-  {code:'EV-006',desc:'Heat Shrinkable Tube 06 Sqmm Yellow Green',cat:'Electrical  Variable',unit:'Meter',perSchool:0.1},
-  {code:'EV-007',desc:'Heat Shrinkable Tube 16 Sqmm R,Y,B,B',cat:'Electrical  Variable',unit:'Meter',perSchool:0.25},
-  {code:'EV-008',desc:'M-8 Ring Terminal Lug (Cable Tray Earthing)',cat:'Electrical  Variable',unit:'Each',perSchool:40},
-  {code:'EV-009',desc:'2C Shielded Cable (Belden)',cat:'Electrical  Variable',unit:'Meter',perSchool:5},
-  {code:'EV-010',desc:'Cable Wrapper 10mm',cat:'Electrical  Variable',unit:'Packet',perSchool:1},
-  {code:'EV-011',desc:'1CX1.5Sqmm Flexible Cable (R,Y,B,B)',cat:'Electrical  Variable',unit:'Meter',perSchool:5},
-  {code:'EV-012',desc:'3CX1.5Sqmm Flexible Cable  Data Logger',cat:'Electrical  Variable',unit:'Meter',perSchool:4},
-  {code:'EV-013',desc:'1/2" EMT Conduit',cat:'Electrical  Variable',unit:'Meter',perSchool:6},
-  {code:'EV-014',desc:'1/2" EMT Bend',cat:'Electrical  Variable',unit:'Each',perSchool:3},
-  {code:'EV-015',desc:'Junction Box (7/7)',cat:'Electrical  Variable',unit:'Each',perSchool:5},
-  {code:'EV-016',desc:'1/2" EMT Connector',cat:'Electrical  Variable',unit:'Each',perSchool:10},
-  {code:'EV-017',desc:'Two Sided Saddle (for 1/2")',cat:'Electrical  Variable',unit:'Each',perSchool:15},
-  {code:'EV-018',desc:'Fisher PVC 6mm  Saddle',cat:'Electrical  Variable',unit:'Each',perSchool:30},
-  {code:'EV-019',desc:'1/2" EMT Coupler',cat:'Electrical  Variable',unit:'Each',perSchool:4},
-  {code:'EV-020',desc:'Din Rail (35x7.5)',cat:'Electrical  Variable',unit:'Each',perSchool:1},
-  // Mechanical  Fixed
-  {code:'MF-001',desc:'End Bracket-1 (Front)',cat:'Mechanical  Fixed',unit:'Each',perSchool:52},
-  {code:'MF-002',desc:'End Bracket-2 (Back)',cat:'Mechanical  Fixed',unit:'Each',perSchool:52},
-  {code:'MF-003',desc:'End Clamps',cat:'Mechanical  Fixed',unit:'Each',perSchool:104},
-  {code:'MF-004',desc:'Rubbers (compatible with End-Clamp)',cat:'Mechanical  Fixed',unit:'Each',perSchool:104},
-  {code:'MF-005',desc:'Self Screw 5/8" X 15mm  For earthing structure',cat:'Mechanical  Fixed',unit:'Each',perSchool:104},
-  {code:'MF-006',desc:'Nut, Bolt (M4x10)',cat:'Mechanical  Fixed',unit:'Each',perSchool:104},
-  {code:'MF-007',desc:'Washer for Screw (M5)',cat:'Mechanical  Fixed',unit:'Each',perSchool:104},
-  {code:'MF-008',desc:'Anchor Bolts SS 316',cat:'Mechanical  Fixed',unit:'Each',perSchool:104},
-  {code:'MF-009',desc:'Flat Washer M12',cat:'Mechanical  Fixed',unit:'Each',perSchool:4},
-  {code:'MF-010',desc:'Nut, Bolt (M10x50)',cat:'Mechanical  Fixed',unit:'Each',perSchool:4},
-  // Mechanical  Variable
-  {code:'MV-001',desc:'Foundations (400x200x250mm L�W�H)',cat:'Mechanical  Variable',unit:'Each',perSchool:70},
-  {code:'MV-002',desc:'1/2" Liquid Tight Conduit UV Rated',cat:'Mechanical  Variable',unit:'Meter',perSchool:30},
-  {code:'MV-003',desc:'1/2" Liquid Tight Connectors',cat:'Mechanical  Variable',unit:'Each',perSchool:10},
-  {code:'MV-004',desc:'Sikaflex / Vetoflex',cat:'Mechanical  Variable',unit:'Packets',perSchool:1},
-  {code:'MV-005',desc:'Wooden Screw (M5)',cat:'Mechanical  Variable',unit:'Each',perSchool:70},
-  {code:'MV-006',desc:'50x50 HDG Perforated Cable Tray (2mm, 3m)',cat:'Mechanical  Variable',unit:'Meter',perSchool:60},
-  {code:'MV-007',desc:'50x50 HDG Cable Tray Cover (1.5mm, 3m)',cat:'Mechanical  Variable',unit:'Meter',perSchool:60},
-  {code:'MV-008',desc:'50x50 HDG Elbow with Cover (2mm)',cat:'Mechanical  Variable',unit:'Each',perSchool:10},
-  {code:'MV-009',desc:'50x50 Cable Tray Connectors (U-Type)',cat:'Mechanical  Variable',unit:'Each',perSchool:20},
-  {code:'MV-010',desc:'C-Channel / Slotted Channel',cat:'Mechanical  Variable',unit:'Meter',perSchool:9},
-  {code:'MV-011',desc:'Fisher PVC 6mm for Cable Tray',cat:'Mechanical  Variable',unit:'Each',perSchool:60},
-  {code:'MV-012',desc:'Screw (M6x25) for Cable Tray',cat:'Mechanical  Variable',unit:'Each',perSchool:40},
-  {code:'MV-013',desc:'100mm Cable Tie PVC UV Rated',cat:'Mechanical  Variable',unit:'PKT',perSchool:1},
-  {code:'MV-014',desc:'200mm Cable Tie PVC UV Rated',cat:'Mechanical  Variable',unit:'Each',perSchool:25},
-  {code:'MV-015',desc:'200mm Steel Cable Tie',cat:'Mechanical  Variable',unit:'Each',perSchool:15},
-  {code:'MV-016',desc:'Block Fisher 8mm',cat:'Mechanical  Variable',unit:'Each',perSchool:25},
-  {code:'MV-017',desc:'Block Fisher 10mm',cat:'Mechanical  Variable',unit:'Each',perSchool:12},
-  {code:'MV-018',desc:'Nut, Bolt (M8x10)',cat:'Mechanical  Variable',unit:'Each',perSchool:10},
-  {code:'MV-019',desc:'Zinc Spray (Silver Alberdo anti-corrosion)',cat:'Mechanical  Variable',unit:'Each',perSchool:1},
-  {code:'MV-020',desc:'Wall Putty',cat:'Mechanical  Variable',unit:'KG',perSchool:1}
+  // Electrical – Fixed
+  {code:'EF-001',desc:'Inverter 20 KTL 380/400 V',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-002',desc:'SMDB (63A)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-003',desc:'M-5 Ring terminal (4sqmm earthing cable)',cat:'Electrical – Fixed',unit:'Each',perSchool:260},
+  {code:'EF-004',desc:'Earthing cable 4Sqmm (structure to module)',cat:'Electrical – Fixed',unit:'Meter',perSchool:23},
+  {code:'EF-005',desc:'Smart Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-006',desc:'SIM Card for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-007',desc:'Enclosure for Data Logger',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-008',desc:'MCCB (63A)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-009',desc:'Injection Meter (PM2230)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-010',desc:'Fuse Holder (3 Pole)',cat:'Electrical – Fixed',unit:'Each',perSchool:1},
+  {code:'EF-011',desc:'Fuses 6A',cat:'Electrical – Fixed',unit:'Each',perSchool:3},
+  {code:'EF-012',desc:'CTs (size as per MDB busbar)',cat:'Electrical – Fixed',unit:'Each',perSchool:3},
+  {code:'EF-013',desc:'Ferrule Terminal for 1.5Sqmm Cable',cat:'Electrical – Fixed',unit:'Each',perSchool:11},
+  {code:'EF-014',desc:'Ring Type Terminal Lug M10',cat:'Electrical – Fixed',unit:'Each',perSchool:4},
+  {code:'EF-015',desc:'Copper Bus Bar for Neutral 25x3x250mm',cat:'Electrical – Fixed',unit:'pcs',perSchool:1},
+  {code:'EF-016',desc:'All Cables Tags',cat:'Electrical – Fixed',unit:'Set',perSchool:1},
+  // Electrical – Variable
+  {code:'EV-001',desc:'Stabuli MC4 Connectors Male+Female (set)',cat:'Electrical – Variable',unit:'Each',perSchool:5},
+  {code:'EV-002',desc:'Riyadh Cables 4CX25 Sqmm CU,XLPE,PVC',cat:'Electrical – Variable',unit:'Meter',perSchool:25},
+  {code:'EV-003',desc:'6 Sqmm Earthing Cable (Y/G)',cat:'Electrical – Variable',unit:'Meter',perSchool:25},
+  {code:'EV-004',desc:'DC Cable (Red)',cat:'Electrical – Variable',unit:'Meter',perSchool:100},
+  {code:'EV-005',desc:'DC Cable (Black)',cat:'Electrical – Variable',unit:'Meter',perSchool:100},
+  {code:'EV-006',desc:'Heat Shrinkable Tube 06 Sqmm Yellow Green',cat:'Electrical – Variable',unit:'Meter',perSchool:0.1},
+  {code:'EV-007',desc:'Heat Shrinkable Tube 16 Sqmm R,Y,B,B',cat:'Electrical – Variable',unit:'Meter',perSchool:0.25},
+  {code:'EV-008',desc:'M-8 Ring Terminal Lug (Cable Tray Earthing)',cat:'Electrical – Variable',unit:'Each',perSchool:40},
+  {code:'EV-009',desc:'2C Shielded Cable (Belden)',cat:'Electrical – Variable',unit:'Meter',perSchool:5},
+  {code:'EV-010',desc:'Cable Wrapper 10mm',cat:'Electrical – Variable',unit:'Packet',perSchool:1},
+  {code:'EV-011',desc:'1CX1.5Sqmm Flexible Cable (R,Y,B,B)',cat:'Electrical – Variable',unit:'Meter',perSchool:5},
+  {code:'EV-012',desc:'3CX1.5Sqmm Flexible Cable – Data Logger',cat:'Electrical – Variable',unit:'Meter',perSchool:4},
+  {code:'EV-013',desc:'1/2" EMT Conduit',cat:'Electrical – Variable',unit:'Meter',perSchool:6},
+  {code:'EV-014',desc:'1/2" EMT Bend',cat:'Electrical – Variable',unit:'Each',perSchool:3},
+  {code:'EV-015',desc:'Junction Box (7/7)',cat:'Electrical – Variable',unit:'Each',perSchool:5},
+  {code:'EV-016',desc:'1/2" EMT Connector',cat:'Electrical – Variable',unit:'Each',perSchool:10},
+  {code:'EV-017',desc:'Two Sided Saddle (for 1/2")',cat:'Electrical – Variable',unit:'Each',perSchool:15},
+  {code:'EV-018',desc:'Fisher PVC 6mm – Saddle',cat:'Electrical – Variable',unit:'Each',perSchool:30},
+  {code:'EV-019',desc:'1/2" EMT Coupler',cat:'Electrical – Variable',unit:'Each',perSchool:4},
+  {code:'EV-020',desc:'Din Rail (35x7.5)',cat:'Electrical – Variable',unit:'Each',perSchool:1},
+  // Mechanical – Fixed
+  {code:'MF-001',desc:'End Bracket-1 (Front)',cat:'Mechanical – Fixed',unit:'Each',perSchool:52},
+  {code:'MF-002',desc:'End Bracket-2 (Back)',cat:'Mechanical – Fixed',unit:'Each',perSchool:52},
+  {code:'MF-003',desc:'End Clamps',cat:'Mechanical – Fixed',unit:'Each',perSchool:104},
+  {code:'MF-004',desc:'Rubbers (compatible with End-Clamp)',cat:'Mechanical – Fixed',unit:'Each',perSchool:104},
+  {code:'MF-005',desc:'Self Screw 5/8" X 15mm – For earthing structure',cat:'Mechanical – Fixed',unit:'Each',perSchool:104},
+  {code:'MF-006',desc:'Nut, Bolt (M4x10)',cat:'Mechanical – Fixed',unit:'Each',perSchool:104},
+  {code:'MF-007',desc:'Washer for Screw (M5)',cat:'Mechanical – Fixed',unit:'Each',perSchool:104},
+  {code:'MF-008',desc:'Anchor Bolts SS 316',cat:'Mechanical – Fixed',unit:'Each',perSchool:104},
+  {code:'MF-009',desc:'Flat Washer M12',cat:'Mechanical – Fixed',unit:'Each',perSchool:4},
+  {code:'MF-010',desc:'Nut, Bolt (M10x50)',cat:'Mechanical – Fixed',unit:'Each',perSchool:4},
+  // Mechanical – Variable
+  {code:'MV-001',desc:'Foundations (400x200x250mm L×W×H)',cat:'Mechanical – Variable',unit:'Each',perSchool:70},
+  {code:'MV-002',desc:'1/2" Liquid Tight Conduit UV Rated',cat:'Mechanical – Variable',unit:'Meter',perSchool:30},
+  {code:'MV-003',desc:'1/2" Liquid Tight Connectors',cat:'Mechanical – Variable',unit:'Each',perSchool:10},
+  {code:'MV-004',desc:'Sikaflex / Vetoflex',cat:'Mechanical – Variable',unit:'Packets',perSchool:1},
+  {code:'MV-005',desc:'Wooden Screw (M5)',cat:'Mechanical – Variable',unit:'Each',perSchool:70},
+  {code:'MV-006',desc:'50x50 HDG Perforated Cable Tray (2mm, 3m)',cat:'Mechanical – Variable',unit:'Meter',perSchool:60},
+  {code:'MV-007',desc:'50x50 HDG Cable Tray Cover (1.5mm, 3m)',cat:'Mechanical – Variable',unit:'Meter',perSchool:60},
+  {code:'MV-008',desc:'50x50 HDG Elbow with Cover (2mm)',cat:'Mechanical – Variable',unit:'Each',perSchool:10},
+  {code:'MV-009',desc:'50x50 Cable Tray Connectors (U-Type)',cat:'Mechanical – Variable',unit:'Each',perSchool:20},
+  {code:'MV-010',desc:'C-Channel / Slotted Channel',cat:'Mechanical – Variable',unit:'Meter',perSchool:9},
+  {code:'MV-011',desc:'Fisher PVC 6mm for Cable Tray',cat:'Mechanical – Variable',unit:'Each',perSchool:60},
+  {code:'MV-012',desc:'Screw (M6x25) for Cable Tray',cat:'Mechanical – Variable',unit:'Each',perSchool:40},
+  {code:'MV-013',desc:'100mm Cable Tie PVC UV Rated',cat:'Mechanical – Variable',unit:'PKT',perSchool:1},
+  {code:'MV-014',desc:'200mm Cable Tie PVC UV Rated',cat:'Mechanical – Variable',unit:'Each',perSchool:25},
+  {code:'MV-015',desc:'200mm Steel Cable Tie',cat:'Mechanical – Variable',unit:'Each',perSchool:15},
+  {code:'MV-016',desc:'Block Fisher 8mm',cat:'Mechanical – Variable',unit:'Each',perSchool:25},
+  {code:'MV-017',desc:'Block Fisher 10mm',cat:'Mechanical – Variable',unit:'Each',perSchool:12},
+  {code:'MV-018',desc:'Nut, Bolt (M8x10)',cat:'Mechanical – Variable',unit:'Each',perSchool:10},
+  {code:'MV-019',desc:'Zinc Spray (Silver Alberdo anti-corrosion)',cat:'Mechanical – Variable',unit:'Each',perSchool:1},
+  {code:'MV-020',desc:'Wall Putty',cat:'Mechanical – Variable',unit:'KG',perSchool:1}
 ];
 
 function getMaterials(){return DB.get('invMaterials')||DEFAULT_MATERIALS.map(m=>({...m,stock:[],dispatches:[]}))}
@@ -1966,9 +1966,9 @@ function renderInventory(){
   });
   document.getElementById('invAlertStrip').innerHTML=alerts.length?
     `<div class="alert-strip" style="margin-bottom:12px;flex-direction:column;align-items:flex-start;gap:4px">
-      <strong>� Low Stock Warning (${alerts.length} items)</strong>
-      ${alerts.slice(0,5).map(a=>`<div class="alert-item">" ${a}</div>`).join('')}
-      ${alerts.length>5?`<div style="font-size:11px;color:var(--muted)">&and ${alerts.length-5} more</div>`:''}
+      <strong>⚠ Low Stock Warning (${alerts.length} items)</strong>
+      ${alerts.slice(0,5).map(a=>`<div class="alert-item">• ${a}</div>`).join('')}
+      ${alerts.length>5?`<div style="font-size:11px;color:var(--muted)">…and ${alerts.length-5} more</div>`:''}
     </div>`:'';
   renderInvTable();
 }
@@ -1984,8 +1984,8 @@ function renderInvTable(){
   tbody.innerHTML=filtered.map(m=>{
     const {totalIn,totalOut,onHand}=getStockSummary(m.code);
     const threshold=m.perSchool*50;
-    const status=onHand===0&&totalIn===0?'No Stock':onHand===0?'<span class="stock-critical">� Out':
-      onHand<threshold?'<span class="stock-low">� Low':'<span class="stock-ok"> OK';
+    const status=onHand===0&&totalIn===0?'No Stock':onHand===0?'<span class="stock-critical">⛔ Out':
+      onHand<threshold?'<span class="stock-low">⚠ Low':'<span class="stock-ok">✓ OK';
     const catRow=m.cat!==lastCat?`<tr><td colspan="10" class="inv-category">${m.cat}</td></tr>`:'' ;
     lastCat=m.cat;
     return catRow+`<tr>
@@ -2000,7 +2000,7 @@ function renderInvTable(){
       <td>${status}</span></td>
       <td>
         <button class="btn-sm" style="padding:3px 8px;font-size:11px" onclick="openInvModal('receipt','${m.code}')">+</button>
-        <button class="btn-sm" style="padding:3px 8px;font-size:11px" onclick="openInvModal('dispatch','${m.code}')">�</button>
+        <button class="btn-sm" style="padding:3px 8px;font-size:11px" onclick="openInvModal('dispatch','${m.code}')">↗</button>
       </td>
     </tr>`;
   }).join('');
@@ -2014,14 +2014,14 @@ function renderTxnLog(){
     return `<div class="txn-row">
       <div class="txn-dot ${t.type==='receipt'?'in':'out'}"></div>
       <div style="flex:1">
-        <div style="font-weight:600">${t.type==='receipt'?'=� Receipt':'=� Dispatch'} &nbsp;�&nbsp;
+        <div style="font-weight:600">${t.type==='receipt'?'📥 Receipt':'📤 Dispatch'} &nbsp;·&nbsp;
           <span style="font-family:monospace;font-size:12px">${t.code}</span></div>
         <div style="color:var(--muted);font-size:12px">${m?m.desc:t.code}</div>
-        ${t.project?`<div style="font-size:12px;color:var(--purple)">� ${t.project}</div>`:''}
+        ${t.project?`<div style="font-size:12px;color:var(--purple)">→ ${t.project}</div>`:''}
         ${t.po?`<div style="font-size:12px;color:var(--muted)">PO: ${t.po}</div>`:''}
       </div>
       <div style="text-align:right">
-        <div style="font-weight:700;color:${t.type==='receipt'?'var(--green)':'var(--red)'}">${t.type==='receipt'?'+':''}${t.qty.toLocaleString()} ${m?m.unit:''}</div>
+        <div style="font-weight:700;color:${t.type==='receipt'?'var(--green)':'var(--red)'}">${t.type==='receipt'?'+':'−'}${t.qty.toLocaleString()} ${m?m.unit:''}</div>
         <div style="font-size:11px;color:var(--muted)">${t.date}</div>
       </div>
     </div>`;
@@ -2041,7 +2041,7 @@ function renderDispatchLog(){
     const rtxns=byProject[r]||[];
     if(!rtxns.length) return `<div style="padding:10px 0;color:var(--muted);font-size:13px"><strong>${r}:</strong> No dispatches yet.</div>`;
     return `<div style="margin-bottom:20px">
-      <div style="font-weight:700;color:var(--primary);margin-bottom:8px;font-size:14px">=� ${r}</div>
+      <div style="font-weight:700;color:var(--primary);margin-bottom:8px;font-size:14px">📍 ${r}</div>
       <div class="table-wrap"><table>
         <thead><tr><th>Code</th><th>Description</th><th>Qty</th><th>Unit</th><th>Date</th><th>PO</th></tr></thead>
         <tbody>${rtxns.map(t=>{
@@ -2051,7 +2051,7 @@ function renderDispatchLog(){
             <td style="font-weight:700">${t.qty.toLocaleString()}</td>
             <td>${m?m.unit:''}</td>
             <td>${t.date}</td>
-            <td style="color:var(--muted)">${t.po||''}</td></tr>`;
+            <td style="color:var(--muted)">${t.po||'—'}</td></tr>`;
         }).join('')}</tbody>
       </table></div>
     </div>`;
@@ -2061,7 +2061,7 @@ function renderDispatchLog(){
 let _invModalType='receipt';
 function openInvModal(type, preCode=''){
   _invModalType=type;
-  document.getElementById('invModalTitle').textContent=type==='receipt'?'=� Add Receipt':'=� Dispatch Materials';
+  document.getElementById('invModalTitle').textContent=type==='receipt'?'📥 Add Receipt':'📤 Dispatch Materials';
   document.getElementById('invProjectRow').style.display=type==='dispatch'?'block':'none';
   document.getElementById('invPoRow').style.display=type==='receipt'?'block':'none';
   // Populate material dropdown
@@ -2093,7 +2093,7 @@ function saveInvTxn(){
   const txns=getTxns();
   txns.push({code,type:_invModalType,qty,po,date,project,notes,user:Auth.user?.username||'system',t:Date.now()});
   DB.set('invTxns',txns);
-  auditLog(`Inventory ${_invModalType}: ${qty} of [${code}]${project?' � '+project:''}`);
+  auditLog(`Inventory ${_invModalType}: ${qty} of [${code}]${project?' → '+project:''}`);
   closeModal('invModal');
   renderInventory();
 }
@@ -2104,7 +2104,7 @@ function saveInvTxn(){
         <div class="modal-box" style="max-width:440px">
           <div class="modal-header">
             <span>Add Note</span>
-            <button onclick="closeModal('notesModal')" style="background:none;border:none;font-size:20px;cursor:pointer">�</button>
+            <button onclick="closeModal('notesModal')" style="background:none;border:none;font-size:20px;cursor:pointer">×</button>
           </div>
           <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
             <textarea id="noteText" rows="4" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;resize:vertical" placeholder="Enter your note..."></textarea>
